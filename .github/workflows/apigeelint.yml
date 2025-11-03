@@ -1,0 +1,61 @@
+name: ApigeeLint Auto Validation
+
+on:
+  push:
+    branches:
+      - main  # Runs when you push/commit to main branch
+    paths:
+      - "apiproxy/**"
+      - "sharedflows/**"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install ApigeeLint
+        run: npm install -g apigeelint
+
+      - name: Detect Bundle Folder
+        id: detect
+        run: |
+          echo "🔍 Detecting Apigee bundles..."
+          bundle_folders=$(find $GITHUB_WORKSPACE -maxdepth 2 -type d \( -name "apiproxy" -o -name "sharedflowbundle" \))
+          if [ -z "$bundle_folders" ]; then
+            echo "❌ No bundles found in apiproxy/ or sharedflows/"
+            exit 1
+          fi
+          echo "✅ Found bundle folders:"
+          echo "$bundle_folders"
+          echo "bundle_folders=$bundle_folders" >> $GITHUB_ENV
+
+      - name: Run ApigeeLint on All Bundles
+        run: |
+          mkdir -p JsonFile
+          for folder in ${{ env.bundle_folders }}
+          do
+            echo "🧩 Running ApigeeLint on $folder"
+            name=$(basename $(dirname $folder))
+            apigeelint -s "$folder" -f json.js -q -w "JsonFile/${name}-lint-results.json"
+          done
+
+      - name: Display JSON Output
+        run: |
+          echo "📄 Displaying lint results..."
+          cat JsonFile/*.json | jq .
+
+      - name: Commit JSON Reports
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add JsonFile/*.json
+          git commit -m "Automated ApigeeLint JSON reports update" || echo "No changes to commit"
+          git push origin main || echo "Push skipped (no changes)"
