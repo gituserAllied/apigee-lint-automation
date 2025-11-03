@@ -1,61 +1,79 @@
-name: ApigeeLint Auto Validation
+name: ApigeeLint Automation
 
 on:
   push:
     branches:
-      - main  # Runs when you push/commit to main branch
+      - main
     paths:
       - "apiproxy/**"
       - "sharedflows/**"
 
 jobs:
-  lint:
+  lint-and-report:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 22
 
       - name: Install ApigeeLint
         run: npm install -g apigeelint
 
-      - name: Detect Bundle Folder
-        id: detect
-        run: |
-          echo "🔍 Detecting Apigee bundles..."
-          bundle_folders=$(find $GITHUB_WORKSPACE -maxdepth 2 -type d \( -name "apiproxy" -o -name "sharedflowbundle" \))
-          if [ -z "$bundle_folders" ]; then
-            echo "❌ No bundles found in apiproxy/ or sharedflows/"
-            exit 1
-          fi
-          echo "✅ Found bundle folders:"
-          echo "$bundle_folders"
-          echo "bundle_folders=$bundle_folders" >> $GITHUB_ENV
+      - name: Prepare Output Folders
+        run: mkdir -p JsonFile ExcelFile
 
-      - name: Run ApigeeLint on All Bundles
+      - name: Find Changed Bundles
+        id: find-bundles
         run: |
-          mkdir -p JsonFile
-          for folder in ${{ env.bundle_folders }}
-          do
-            echo "🧩 Running ApigeeLint on $folder"
-            name=$(basename $(dirname $folder))
-            apigeelint -s "$folder" -f json.js -q -w "JsonFile/${name}-lint-results.json"
+          echo "Detecting changed apiproxy or sharedflowbundle folders..."
+          changed_paths=$(git diff --name-only HEAD^ HEAD | grep -E '^(apiproxy|sharedflows)/' | cut -d/ -f1-2 | sort -u | uniq || true)
+          if [ -z "$changed_paths" ]; then
+            echo "No apiproxy/sharedflow changes found, exiting."
+            echo "run_lint=false" >> $GITHUB_ENV
+          else
+            echo "Changed bundles:"
+            echo "$changed_paths"
+            echo "$changed_paths" > changed.txt
+            echo "run_lint=true" >> $GITHUB_ENV
+          fi
+
+      - name: Run ApigeeLint on all changed bundles
+        if: env.run_lint == 'true'
+        run: |
+          while read bundle; do
+            if [ -d "$bundle/apiproxy" ]; then
+              echo "🔍 Running lint on API Proxy: $bundle"
+              apigeelint -s "$bundle/apiproxy" -f json.js -w "JsonFile/${bundle//\//_}_report.json" || true
+            elif [ -d "$bundle/sharedflowbundle" ]; then
+              echo "🔍 Running lint on Shared Flow: $bundle"
+              apigeelint -s "$bundle/sharedflowbundle" -f json.js -w "JsonFile/${bundle//\//_}_report.json" || true
+            else
+              echo "⚠️ Skipping $bundle (no valid apiproxy/sharedflowbundle found)"
+            fi
+          done < changed.txt
+
+      - name: Display Lint Results
+        if: env.run_lint == 'true'
+        run: |
+          echo "Generated JSON reports:"
+          ls -lh JsonFile || true
+          echo ""
+          for f in JsonFile/*.json; do
+            echo "==== $f ===="
+            cat "$f"
+            echo ""
           done
 
-      - name: Display JSON Output
-        run: |
-          echo "📄 Displaying lint results..."
-          cat JsonFile/*.json | jq .
-
       - name: Commit JSON Reports
+        if: env.run_lint == 'true'
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add JsonFile/*.json
-          git commit -m "Automated ApigeeLint JSON reports update" || echo "No changes to commit"
-          git push origin main || echo "Push skipped (no changes)"
+          git commit -m "Auto: Added ApigeeLint reports for changed bundles" || echo "No changes to commit"
+          git push
