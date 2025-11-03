@@ -44,7 +44,7 @@ jobs:
             echo "run_lint=true" >> $GITHUB_ENV
           fi
 
-               - name: Run ApigeeLint
+      - name: Run ApigeeLint
         if: env.run_lint == 'true'
         run: |
           echo "Running ApigeeLint for changed bundles..."
@@ -67,7 +67,7 @@ jobs:
         if: env.run_lint == 'true'
         run: |
           echo "✅ Lint completed. JSON reports generated:"
-          ls -lh JsonFile
+          ls -lh JsonFile || true
           echo ""
           for f in JsonFile/*.json; do
             echo "===== $f ====="
