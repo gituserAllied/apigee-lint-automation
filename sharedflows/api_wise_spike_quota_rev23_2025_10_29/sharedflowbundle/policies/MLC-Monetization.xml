@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MonetizationLimitsCheck enabled="true" continueOnError="true" async="false" name="MLC-Monetization">
+    <DisplayName>Monetization Limits Check</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <Properties/>
+    <Variables>
+        <ClientId>client_id</ClientId>
+        <Product>apiproduct.name</Product>
+    </Variables>
+    <FaultResponse>
+        <Set>
+            <Payload contentType="text/xml">
+                <error>
+                    <messages>
+                        <message>Exceeded developer limit configuration - {monetizationLimits.limitsMessageList} </message>
+                        <message>Is Developer Suspended - {monetizationLimits.isDeveloperSuspended} </message>
+                    </messages>
+                </error>
+            </Payload>
+            <StatusCode>403</StatusCode>
+            <ReasonPhrase>Forbidden</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+</MonetizationLimitsCheck>

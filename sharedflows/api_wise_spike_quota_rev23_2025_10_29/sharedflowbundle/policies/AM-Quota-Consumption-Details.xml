@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AM-Quota-Consumption-Details">
+    <DisplayName>AM-Quota-Consumption-Details</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="application/json">
+                {
+                    "apiProxy": "{apiproxy.name}",
+                    "developer": "{developer.email}",
+                    "apiProxyRevision": "{apiproxy.revision}",
+                    "QuotaUsedPercentage":"{QuotaUsedPercentage}",
+                    "timestamp": "{system.time}",
+                    "AvailableCount": "{ratelimit.Q-MerchantWiseDaily.available.count}",
+                    "AllowedCount": "{ratelimit.Q-MerchantWiseDaily.allowed.count}",
+                    "developerApp": "{developer.app.name}",
+                    "apiProduct": "{apigee.apiproduct.name}",
+                    "UsedCount": "{ratelimit.Q-MerchantWiseDaily.used.count}",
+                    "Identifier": "{ratelimit.Q-MerchantWiseDaily.identifier}",
+                    "Developer_App_ID":"{Developer_App_ID}",
+					"QuotaPercentageExceed":"{QuotaAlert}"
+                }
+            </Payload>
+    </Set>
+    <AssignVariable>
+        <Name>quotaThreshholdReq</Name>
+        <Value/>
+        <Ref>message.content</Ref>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-icici_api_wise_spike_quota" mapIdentifier="icici_api_wise_spike_quota">
+    <DisplayName>KVM-icici_api_wise_spike_quota</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>1</ExpiryTimeInSecs>
+    <Get assignTo="private.spikequotadata">
+        <Key>
+            <Parameter ref="apiproxy.name"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

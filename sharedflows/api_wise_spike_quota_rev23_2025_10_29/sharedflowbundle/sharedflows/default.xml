@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlow name="default">
+    <Step>
+        <Name>KVM-icici_api_wise_spike_quota</Name>
+    </Step>
+    <Step>
+        <Name>JS-setVariables</Name>
+    </Step>
+    <Step>
+        <Name>SA-apilevel</Name>
+    </Step>
+    <!--<Step>-->
+    <!--    <Name>ML-SpikeArrest</Name>-->
+    <!--    <Condition>(ratelimit.SA-apilevel.failed = true)</Condition>-->
+    <!--</Step>-->
+    <Step>
+        <Name>RF-SpikeArrest</Name>
+        <Condition>(ratelimit.SA-apilevel.failed = true)</Condition>
+    </Step>
+    <Step>
+        <Name>JS-setKey</Name>
+    </Step>
+    <Step>
+        <Name>KVM-icici_merchant_wise_spike_quota</Name>
+    </Step>
+    <Step>
+        <Name>JS-setVariablesMerchantwise</Name>
+    </Step>
+    <Step>
+        <Name>SA-merchantapilevel</Name>
+        <Condition>(valueexists = "y")</Condition>
+    </Step>
+    <Step>
+        <Name>ML-merchantapilevel</Name>
+        <Condition>(ratelimit.SA-merchantapilevel.failed = true)</Condition>
+    </Step>
+    <Step>
+        <Name>RF-SpikeArrestMerchant</Name>
+        <Condition>(ratelimit.SA-merchantapilevel.failed = true)</Condition>
+    </Step>
+    <Step>
+        <Name>Q-MerchantWiseDaily</Name>
+        <Condition>(valueexists = "y")</Condition>
+    </Step>
+    <Step>
+        <Name>JS-QuotaDailycheckConsumption</Name>
+        <Condition>(valueexists = "y")</Condition>
+    </Step>
+    <Step>
+        <Name>ML-MerchantWiseDaily</Name>
+        <Condition>(QuotaAlert = true)</Condition>
+    </Step>
+    <Step>
+        <Name>AM-Quota-Consumption-Details</Name>
+        <Condition>(QuotaAlert = true)</Condition>
+    </Step>
+    <Step>
+        <Name>RF-MerchantWiseDaily</Name>
+        <Condition>(ratelimit.Q-MerchantWiseDaily.failed = true)</Condition>
+    </Step>
+    <Step>
+        <Name>Q-Daily</Name>
+    </Step>
+    <Step>
+        <Name>ML-Daily</Name>
+        <Condition>(ratelimit.Q-Daily.failed = true)</Condition>
+    </Step>
+    <Step>
+        <Name>RF-QuotaDaily</Name>
+        <Condition>(ratelimit.Q-Daily.failed = true)</Condition>
+    </Step>
+    <Step>
+        <Name>JS-MonetizationAttributes</Name>
+    </Step>
+    <Step>
+        <Name>MLC-Monetization</Name>
+    </Step>
+    <!--<Step>-->
+    <!--    <Name>RF-MonetizationFailed</Name>-->
+    <!--    <Condition>(monetizationLimits.isDeveloperSuspended = true) or (monetizationLimits.limitsViolated = true) or (monetizationLimits.limitsPolicyError = true) or (mint.isDeveloperSuspended = true) or (mint.limitsViolated = true) or (mint.limitsPolicyError = true)</Condition>-->
+    <!--</Step>-->
+</SharedFlow>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest name="manifest">
+    <Policies>
+        <VersionInfo resourceName="AM-Quota-Consumption-Details" version="SHA-512:538dffe7c01b60274580df45771d744695b2cdeef5194c68e6629985b0e2dcf649c0928fadcd3c6f98f9b6b9b47665ba9f96c138dfa278ed3f73cc58fadf10ab"/>
+        <VersionInfo resourceName="JS-MonetizationAttributes" version="SHA-512:aa5d45bfdf5bc35a6ab09c66606f43967557ba884965089a3387549b69f9b052dd8e525ec629b24893e24f786fb05a014a16a87287610c3c238487709cff150d"/>
+        <VersionInfo resourceName="JS-QuotaDailycheckConsumption" version="SHA-512:21ded2643814d81f0abbd09d8ec4516c56ef0ba4f80b0ed84575ca6990889bece07feea6e8253d171efdb6991296429a8adfe82bf4377badc210f4cf4454f5a3"/>
+        <VersionInfo resourceName="JS-setKey" version="SHA-512:97b02f08b328b94831cc66ca5a836abb8e086fde4f1a00ef21c7db16b38c2490352a6a80410460ad172069aa09813c9915dd0428c4292b8d6997144500af2916"/>
+        <VersionInfo resourceName="JS-setVariables" version="SHA-512:7cab37792c6ea452209b7abbd2a4f7afd1ff5c79d5d1b1d3429a94c55f83b3f4e858f28385d8d0bd948a3dff53150f01789c2978b808d7a32d6c40b5661e9da3"/>
+        <VersionInfo resourceName="JS-setVariablesMerchantwise" version="SHA-512:68ccee05a08cf103eb11f16b2ecc74a4359ee9849b8e4760622628cc1aa9c0f567f59f53c24026501e87e534ed4ad41cabef8fa0060f9ceb8f5646a87e951515"/>
+        <VersionInfo resourceName="KVM-icici_api_wise_spike_quota" version="SHA-512:014db1e304f0dc7e8224fc6580c343a346f6efe8c4cabcc26839906a7ef2bfd377a342bba4580d4b0c78c1ba8ce025cd35d04f70cbe4461786abef0170eccef4"/>
+        <VersionInfo resourceName="KVM-icici_merchant_wise_spike_quota" version="SHA-512:50b04ca5422c3e89eab6d49b3ec273a267a665c2b29ac4ad4d5c4daa820c2c758b67d9dc54e63c30c1e4f1f3dcc602ab0956a7c8318ef30cfe2e2b52486261b1"/>
+        <VersionInfo resourceName="ML-Daily" version="SHA-512:d9fa972345097780a3f5e40c2bf06d4f2a49ceed284b36a7d49fcb551fc4253e9438ccb884d8566eedca6ba8280944e2b04a677599200d5f53efd904df25fd89"/>
+        <VersionInfo resourceName="ML-MerchantWiseDaily" version="SHA-512:7f80e054438c25be8e5a0a4d2de1b469b77c5885cb799be05a3c06b997c7f3a14dd1de12e9033df1c023724b0b5e0589961ac338c5a52ca85ef465c87c2bb897"/>
+        <VersionInfo resourceName="ML-merchantapilevel" version="SHA-512:d671fda9e48198db25868786e804416ff2919e470faffd1a783b3cc9df81da1e878cd170c1029ab3adf3a91a8b293eb848703d62aa89946af949f54566feb18d"/>
+        <VersionInfo resourceName="MLC-Monetization" version="SHA-512:3c72af41987b5c37ef94b754f342de9dc832dcebb3423da0e2b609018d22adeb510d5679c978503260477dfad63a5695f7d1e50fa23bea04506be675fbeb67fa"/>
+        <VersionInfo resourceName="Q-Daily" version="SHA-512:c5f6488612b45b0f8a01204ddd8fb8d3287600de0b28582ba2aaae783c5021f07ce1c3549d23f41c7d97bde4c3dcccdac16812f105aab076803dfa89bb23a3b8"/>
+        <VersionInfo resourceName="Q-MerchantWiseDaily" version="SHA-512:71ab890ebbfb17a8b0b2572478fd07eca2bf89bcfeffc0ee0b49d8bce609c767f242c6b7a02ccd7ce9529bc79770c83db04af389682c718eedb0ca5842970feb"/>
+        <VersionInfo resourceName="RF-MerchantWiseDaily" version="SHA-512:0ff6cdeee69bde20ed318660f417a1005e55688c6a1a9c62ff2870b7b136bf7acc7bbb6f84390836e3fb22aadeca4cd4b32b97f4decb3e8f6c52d4517d04fee5"/>
+        <VersionInfo resourceName="RF-MonetizationFailed" version="SHA-512:6bf619c52f1f1261208bd6ea18fdb2b3061479189e2405e96f5c643e510d9b5c717af4b30c5b36902728951ef22ebdaa199e5d40475ddf194ec3bcbebe9a1185"/>
+        <VersionInfo resourceName="RF-QuotaDaily" version="SHA-512:6cd2fecc6ef8998e53d231be34b85dcb7e6412a12a5d0dd4a94533014b379fb5dc95a21c8f9855d93893f46c329618ecd021e29083b6d715c0f020311b4e6a88"/>
+        <VersionInfo resourceName="RF-SpikeArrest" version="SHA-512:f0e177f2eb5ae4da441ca32ded7eb46140504017ff603fdb16e77c97593ef34eef292ec53f368b9a39f1519eca71b887b4102000d7eef3a4b097f9265f755fae"/>
+        <VersionInfo resourceName="RF-SpikeArrestMerchant" version="SHA-512:e92d4eebb05d34a57624c6f1fdc418de2480bf21f8452a8800233e63bdf79e926e870ea6b6fff414b0668fe57b067476e2350cac6c6545a466a0dfce758c942f"/>
+        <VersionInfo resourceName="SA-apilevel" version="SHA-512:c7ebd7026615e1329abe4daa5ce8f7d942e2b73cd974a09ed6f98478ec32fdc0cbf37bad900e9782c12b6176cf6d03272ef0b1e1667f6ca84a6497248f21301b"/>
+        <VersionInfo resourceName="SA-merchantapilevel" version="SHA-512:245b452a19d4c93845cec1dfa6cad55572e384ea6ceae36d2c958cca103cee53cad84551be5a8a426c27a364536ca3d6bac0d3f11905160646210e47ea8a8eda"/>
+        <VersionInfo resourceName="SC_CHECK_LOG" version="SHA-512:034cd4f1906fb2375ab7efbb49abefe3510f72bafa4eff145c0b06b695e2391fa130313acb27d74c2ce7d53403687c8f1546dcce1244e22ae695bfd2773773e7"/>
+    </Policies>
+    <ProxyEndpoints/>
+    <Resources>
+        <VersionInfo resourceName="jsc://JS-MonetizationAttributes.js" version="SHA-512:a88bc17611d68814cf0d16c0ba85433068a2e3e60d09030ed1eb53d82093bd81c0be74ea0f33cfd7d654c8d733ab41c59fa484b96d4e8e6c59f22f672710d07d"/>
+        <VersionInfo resourceName="jsc://JS-QuotaDailycheckConsumption.js" version="SHA-512:c4dacaad45a40be721dc89e6ddf964e186ee92b9fc6661d573ae66d15b0bf30623fbb7d939da10e377ad29b8e20b25272296bdcdde2cbbcedffd57aefb043134"/>
+        <VersionInfo resourceName="jsc://JS-setKey.js" version="SHA-512:fa7932a9931ecc4677e6970c11d2d9a5f4c4cbf3a1fef8c4866abf17bf8d89574eeeae30cc029ad5dca9d9a57b4ae74f8c546b69841c0f3a8119ab86f3b9a2d8"/>
+        <VersionInfo resourceName="jsc://JS-setVariables.js" version="SHA-512:aad258b086de63a90a8702a28d857c7b768acc36e8b12c4b6ba5804f555328c142a262605a098f758fc4f50b5484170f70bd93629ca3cb32b6426c1f429f8f3d"/>
+        <VersionInfo resourceName="jsc://JS-setVariablesMerchantwise.js" version="SHA-512:9f924209f5ee2c4ad8248110746ca01fb8c78c6227afbb6469efd77d0de658deef652ec5f293240559ea29342e2a758059b3ad12c3093fcef6250c866b91b10f"/>
+    </Resources>
+    <SharedFlows>
+        <VersionInfo resourceName="default" version="SHA-512:ffb25aa00c42e5025509517620743f8af0ba9749f25b8f3db102c4081131055be928da21bc69b7990f4eeb16b324425719213e88803c67ab12206f41ec545207"/>
+    </SharedFlows>
+    <TargetEndpoints/>
+</Manifest>

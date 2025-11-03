@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MessageLogging async="false" continueOnError="false" enabled="true" name="ML-Daily">
+    <DisplayName>ML-Daily</DisplayName>
+    <Syslog>
+        <Message>
+            {
+                "logName": "ProxyDailyquota",
+                "severity": "error",
+                "insertId": "ProxyDailyquota_{messageid}",
+                "httpRequest": {
+                    "requestMethod": "{incomingRequest.verb}",
+                    "requestUrl": "{incomingRequest.uri}",
+                    "requestSize": "{incomingRequest.header.Content-Length}",
+                    "userAgent": "{incomingRequest.header.User-Agent}",
+                    "remoteIp": "{remoteIp}",
+                    "protocol": "{client.ip}"
+                },
+                "message": {
+                    "timestamp": "{system.time}",
+                    "timezone": "{system.time.zone}",
+                    "messageID": "{messageid}",
+                    "systemUuid": "{system.uuid}",
+                    "apiProxy": "{apiproxy.name}",
+                    "apiProxyRevision": "{apiproxy.revision}",
+                    "httpXForwardedFor": "{incomingRequest.header.X-Forwarded-For}",
+                    "developer": "{developer.email}",
+                    "developerApp": "{developer.app.name}",
+                    "apiProduct": "{apigee.apiproduct.name}",
+                
+                    "ExceedCount":"{ratelimit.Q-Daily.exceed.count}", 	
+                    "TotalExceedCount":"{ratelimit.Q-Daily.class.total.exceed.count}", 	
+                    "ClassExceedCount":"{ratelimit.Q-Daily.class.exceed.count}", 	
+                    "failed":"{ratelimit.Q-Daily.failed}", 	
+                    "ClassUsedCount":"{ratelimit.Q-Daily.class.used.count}", 	
+                    "UsedCount":"{ratelimit.Q-Daily.used.count}", 	
+                    "Identifier":"{ratelimit.Q-Daily.identifier}", 	
+                    "AvailableCount":"{ratelimit.Q-Daily.available.count}", 	
+                    "AllowedCount":"{ratelimit.Q-Daily.allowed.count}",	
+                    "FaultCause":"{ratelimit.Q-Daily.fault.cause}", 	
+                    "ExpiryTime":"{ratelimit.Q-Daily.expiry.time}", 	
+                    "ClassAllowedCount":"{ratelimit.Q-Daily.class.allowed.count}",
+                    "DatastoreFailOpen":"{ratelimit.Q-Daily.datastore.fail.open}", 	
+                    "ClassAvailableCount":"{ratelimit.Q-Daily.class.available.count}", 	
+                    "TotalExceedCount":"{ratelimit.Q-Daily.total.exceed.count}", 	
+                    "FaultName":"{ratelimit.Q-Daily.fault.name}" 
+                }
+            }
+        </Message>
+        <Host>35.244.10.222</Host>
+        <Port>7500</Port>
+        <Protocol>TCP</Protocol>
+        <PayloadOnly>true</PayloadOnly>
+    </Syslog>
+</MessageLogging>

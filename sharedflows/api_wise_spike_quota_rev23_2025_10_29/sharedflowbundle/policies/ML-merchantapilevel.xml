@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MessageLogging async="false" continueOnError="false" enabled="true" name="ML-merchantapilevel">
+    <DisplayName>ML-merchantapilevel</DisplayName>
+    <Syslog>
+        <Message>
+            {
+                "logName": "spikemerchantapilevel",
+                "severity": "error",
+                "insertId": "spikemerchantapilevel_{messageid}",
+                "httpRequest": {
+                    "requestMethod": "{incomingRequest.verb}",
+                    "requestUrl": "{incomingRequest.uri}",
+                    "requestSize": "{incomingRequest.header.Content-Length}",
+                    "userAgent": "{incomingRequest.header.User-Agent}",
+                    "remoteIp": "{remoteIp}",
+                    "protocol": "{client.ip}"
+                },
+                "message": {
+                    "timestamp": "{system.time}",
+                    "timezone": "{system.time.zone}",
+                    "messageID": "{messageid}",
+                    "systemUuid": "{system.uuid}",
+                    "apiProxy": "{apiproxy.name}",
+                    "apiProxyRevision": "{apiproxy.revision}",
+                    "httpXForwardedFor": "{incomingRequest.header.X-Forwarded-For}",
+                    "developer": "{developer.email}",
+                    "developerApp": "{developer.app.name}",
+                    "apiProduct": "{apigee.apiproduct.name}",
+                
+                    "ExceedCount":"{ratelimit.Q-merchantapilevel.exceed.count}", 	
+                    "TotalExceedCount":"{ratelimit.Q-merchantapilevel.class.total.exceed.count}", 	
+                    "ClassExceedCount":"{ratelimit.Q-merchantapilevel.class.exceed.count}", 	
+                    "failed":"{ratelimit.Q-merchantapilevel.failed}", 	
+                    "ClassUsedCount":"{ratelimit.Q-merchantapilevel.class.used.count}", 	
+                    "UsedCount":"{ratelimit.Q-merchantapilevel.used.count}", 	
+                    "Identifier":"{ratelimit.Q-merchantapilevel.identifier}", 	
+                    "AvailableCount":"{ratelimit.Q-merchantapilevel.available.count}", 	
+                    "AllowedCount":"{ratelimit.Q-merchantapilevel.allowed.count}",	
+                    "FaultCause":"{ratelimit.Q-merchantapilevel.fault.cause}", 	
+                    "ExpiryTime":"{ratelimit.Q-merchantapilevel.expiry.time}", 	
+                    "ClassAllowedCount":"{ratelimit.Q-merchantapilevel.class.allowed.count}",
+                    "DatastoreFailOpen":"{ratelimit.Q-merchantapilevel.datastore.fail.open}", 	
+                    "ClassAvailableCount":"{ratelimit.Q-merchantapilevel.class.available.count}", 	
+                    "TotalExceedCount":"{ratelimit.Q-merchantapilevel.total.exceed.count}", 	
+                    "FaultName":"{ratelimit.Q-merchantapilevel.fault.name}" 
+                }
+            }
+        </Message>
+        <Host>35.244.10.222</Host>
+        <Port>7500</Port>
+        <Protocol>TCP</Protocol>
+        <PayloadOnly>true</PayloadOnly>
+    </Syslog>
+</MessageLogging>

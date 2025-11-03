@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MessageLogging async="false" continueOnError="false" enabled="true" name="ML-MerchantWiseDaily">
+    <DisplayName>ML-MerchantWiseDaily</DisplayName>
+    <Syslog>
+        <Message>
+            {
+               "logName": "Merchantwisequota",
+                "severity": "error",
+                "insertId": "Merchantwisequota_{messageid}",
+                "httpRequest": {
+                    "requestMethod": "{incomingRequest.verb}",
+                    "requestUrl": "{incomingRequest.uri}",
+                    "requestSize": "{incomingRequest.header.Content-Length}",
+                    "userAgent": "{incomingRequest.header.User-Agent}",
+                    "remoteIp": "{remoteIp}",
+                    "protocol": "{client.ip}"
+                },
+                "message": {
+                    "timestamp": "{system.time}",
+                    "timezone": "{system.time.zone}",
+                    "messageID": "{messageid}",
+                    "systemUuid": "{system.uuid}",
+                    "apiProxy": "{apiproxy.name}",
+                    "apiProxyRevision": "{apiproxy.revision}",
+                    "httpXForwardedFor": "{incomingRequest.header.X-Forwarded-For}",
+                    "developer": "{developer.email}",
+                    "developerApp": "{developer.app.name}",
+                    "apiProduct": "{apigee.apiproduct.name}",
+                    "organization": "{organization.name}",
+                    "environment": "{environment.name}",
+                    "QuotaUsedPercentage":"{QuotaUsedPercentage}",
+                    "ExceedCount":"{ratelimit.Q-MerchantWiseDaily.exceed.count}", 	
+                    "TotalExceedCount":"{ratelimit.Q-MerchantWiseDaily.class.total.exceed.count}", 	
+                    "ClassExceedCount":"{ratelimit.Q-MerchantWiseDaily.class.exceed.count}", 	
+                    "failed":"{ratelimit.Q-MerchantWiseDaily.failed}", 	
+                    "ClassUsedCount":"{ratelimit.Q-MerchantWiseDaily.class.used.count}", 	
+                    "UsedCount":"{ratelimit.Q-MerchantWiseDaily.used.count}", 	
+                    "Identifier":"{ratelimit.Q-MerchantWiseDaily.identifier}", 	
+                    "AvailableCount":"{ratelimit.Q-MerchantWiseDaily.available.count}", 	
+                    "AllowedCount":"{ratelimit.Q-MerchantWiseDaily.allowed.count}",	
+                    "FaultCause":"{ratelimit.Q-MerchantWiseDaily.fault.cause}", 	
+                    "ExpiryTime":"{ratelimit.Q-MerchantWiseDaily.expiry.time}", 	
+                    "ClassAllowedCount":"{ratelimit.Q-MerchantWiseDaily.class.allowed.count}",
+                    "DatastoreFailOpen":"{ratelimit.Q-MerchantWiseDaily.datastore.fail.open}", 	
+                    "ClassAvailableCount":"{ratelimit.Q-MerchantWiseDaily.class.available.count}", 	
+                    "FaultName":"{ratelimit.Q-MerchantWiseDaily.fault.name}", 
+                    "Developer_App_ID":"{Developer_App_ID}",
+                    "QuotaPercentageExceed":"{QuotaAlert}"
+                }
+            }
+        </Message>
+        <Host>35.244.10.222</Host>
+        <Port>7500</Port>
+        <Protocol>TCP</Protocol>
+        <PayloadOnly>true</PayloadOnly>
+    </Syslog>
+</MessageLogging>

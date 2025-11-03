@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-icici_merchant_wise_spike_quota" mapIdentifier="icici_merchant_wise_spike_quota">
+    <DisplayName>KVM-icici_merchant_wise_spike_quota</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>1</ExpiryTimeInSecs>
+    <Get assignTo="private.quotadata">
+        <Key>
+            <Parameter ref="key_identifier"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>
