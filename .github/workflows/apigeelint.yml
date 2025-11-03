@@ -44,7 +44,7 @@ jobs:
             echo "run_lint=true" >> $GITHUB_ENV
           fi
 
-             - name: Run ApigeeLint
+               - name: Run ApigeeLint
         if: env.run_lint == 'true'
         run: |
           echo "Running ApigeeLint for changed bundles..."
