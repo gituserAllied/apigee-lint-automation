@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="500" name="Js-MapRequestPushNotification">
+    <DisplayName>Js-MapRequestPushNotification</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://Js-MapRequestPushNotification.js</ResourceURL>
+</Javascript>

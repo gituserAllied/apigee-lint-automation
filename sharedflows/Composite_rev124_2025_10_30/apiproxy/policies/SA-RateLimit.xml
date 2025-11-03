@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SpikeArrest async="false" continueOnError="false" enabled="false" name="SA-RateLimit">
+    <DisplayName>SA-RateLimit</DisplayName>
+    <UseEffectiveCount>true</UseEffectiveCount>
+    <Properties/>
+    <Rate ref="spikeArrestRate"/>
+</SpikeArrest>

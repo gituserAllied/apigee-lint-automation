@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--Spike Arrest Implemented-->
+<ProxyEndpoint name="default">
+    <Description/>
+    <FaultRules/>
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step>
+            <Name>FC-ErrorHandling</Name>
+        </Step>
+        <Step>
+            <Name>JS-GatewayErrorPushNotification</Name>
+            <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true)</Condition>
+        </Step>
+        <Step>
+            <Name>Js-MapRequestPushNotification</Name>
+            <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and hitPushNotification == 1)</Condition>
+        </Step>
+        <Step>
+            <Name>JS-SetTime</Name>
+            <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and hitPushNotification == 1)</Condition>
+        </Step>
+        <Step>
+            <Name>Pubshup_ENC</Name>
+            <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and receivederr == 1 and hitPushNotification == 1)</Condition>
+        </Step>
+        <Step>
+            <Name>AM-RequestPushNotification</Name>
+            <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and receivederr == 1 and hitPushNotification == 1)</Condition>
+        </Step>
+        <Step>
+            <Name>SC-CompositeKafka</Name>
+            <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and receivederr == 1 and hitPushNotification == 1)</Condition>
+        </Step>
+        <Step>
+            <Name>AM-AddCORS</Name>
+        </Step>
+        <Step>
+            <Name>escapeXml</Name>
+        </Step>
+        <Step>
+            <Name>JS-LogTimeTaken</Name>
+        </Step>
+        <Step>
+            <Name>JS-ReturnBlankResponse</Name>
+            <Condition>(request.verb == "OPTIONS")</Condition>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>RF-ReturnTrueOptions</Name>
+                <Condition>(request.verb == "OPTIONS")</Condition>
+            </Step>
+            <Step>
+                <Name>KVM-DomainWhitelistng</Name>
+            </Step>
+            <Step>
+                <Name>JS-validateOrigin</Name>
+            </Step>
+            <Step>
+                <Name>RF-InvalidDomain</Name>
+                <Condition>(isAllowedDomain == "0")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-RetrictRequestHeaders</Name>
+            </Step>
+            <Step>
+                <Name>RF-InvalidHeader</Name>
+                <Condition>(wrongMethod == true)</Condition>
+            </Step>
+            <Step>
+                <Name>RF-MethodNotAllowed</Name>
+                <Condition>(request.verb != "POST" and request.verb != "OPTIONS")</Condition>
+            </Step>
+            <Step>
+                <Name>SC-CaptureAnalytics</Name>
+                <Condition>(request.verb != "OPTIONS")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-InitalRequestSchemaValidation</Name>
+                <Condition>(request.header.apikey != "bKCtGQxqj7dCbB4r0l4CX9giu77xTIQ4" and request.header.apikey != "yXLKcHuyWzFvvKHbQWbMJuNiNDffxcCE")</Condition>
+            </Step>
+            <Step>
+                <Name>RF-SchemaValidationError</Name>
+                <Condition>(valid == false)</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SetFlowType</Name>
+            </Step>
+            <Step>
+                <Name>FC-AuthenticateRequest</Name>
+                <Condition>(request.verb != "OPTIONS")</Condition>
+            </Step>
+            <Step>
+                <Name>FC-QuotaSpike</Name>
+            </Step>
+            <Step>
+                <Name>QuotaCheck</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.QuotaEnable = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>KVM-SpikeArrestLimit</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.enableRateLimit = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>SA-RateLimit</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.enableRateLimit = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-exchangeBCPG</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.client_id  = "bKCtGQxqj7dCbB4r0l4CX9giu77xTIQ4")</Condition>
+            </Step>
+            <Step>
+                <Name>AM-BCGPReq</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.client_id  = "bKCtGQxqj7dCbB4r0l4CX9giu77xTIQ4")</Condition>
+            </Step>
+            <Step>
+                <Name>FC-Decryption</Name>
+                <Condition>(request.verb != "OPTIONS") and (!(developer.app.name = "Spike_Test_1")) and (!(developer.app.name = "Spike_Test_2")) and (!(developer.app.name = "Spike_Test_3")) and (!(developer.app.name = "Spike_Test_4")) and (!(developer.app.name = "gpay")) and (!(developer.app.name = "Composite_Test")) and (!(developer.app.name = "Composite_Business"))</Condition>
+                <!--<Condition>(request.verb != "OPTIONS") and (!(developer.app.name = "Composite_Test"))</Condition>-->
+            </Step>
+            <Step>
+                <Name>FC-Quota</Name>
+            </Step>
+            <Step>
+                <Name>FC-ThreatProtection</Name>
+                <Condition>(request.verb != "OPTIONS")</Condition>
+            </Step>
+            <Step>
+                <Name>FC-SQLInjection</Name>
+            </Step>
+            <Step>
+                <Name>JS-RequestMapping</Name>
+            </Step>
+            <Step>
+                <Name>JS-AllowedVersions</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.versionsAllowed != null)</Condition>
+            </Step>
+            <Step>
+                <Name>RF-AllowedVersionsError</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.versionsAllowed != null and AllowedVersionErr == "0")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-AmountConfig</Name>
+            </Step>
+            <Step>
+                <Name>RF-AmountConfigError</Name>
+                <Condition>(AmountConfigErr == "1")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-ValiidateCompositePlainRequest</Name>
+                <!--<Condition>(request.header.apikey != "yXLKcHuyWzFvvKHbQWbMJuNiNDffxcCE")</Condition>-->
+            </Step>
+            <Step>
+                <Name>RF-ValiidateCompositePlainRequestError</Name>
+                <Condition>(plainReqError == false)</Condition>
+            </Step>
+            <Step>
+                <Name>AM_setDecryptedClientRequestLog</Name>
+            </Step>
+            <Step>
+                <Name>JS-ValidateMerchant</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.merchantDetails != null)</Condition>
+            </Step>
+            <Step>
+                <Name>JC-SDKValidation</Name>
+                <Condition>(request.header.X-SDK-Originated == "true")</Condition>
+            </Step>
+            <Step>
+                <Name>RF-SignatureValidation</Name>
+                <Condition>(Status == "false")</Condition>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>AM_DefaultClientResponseLog</Name>
+            </Step>
+            <Step>
+                <Name>AM-SetResponse</Name>
+            </Step>
+            <Step>
+                <Name>JS-LogReqResVariables</Name>
+            </Step>
+            <Step>
+                <Name>JS-AnalyticsLoggingDev</Name>
+            </Step>
+            <Step>
+                <Name>JS-SetTxmMode</Name>
+                <Condition>(request.header.apikey == "OqozMyt4PfcCT2hrpsQI8qSFz8oXmBA1" || request.header.apikey  == "FwfGlTRFGTOoAzahfQQ3W0Uz4yXohd3M") and (request.header.x-priority == "0120")</Condition>
+            </Step>
+            <Step>
+                <Name>Js-MapRequestPushNotification</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true )</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SetTime</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true )</Condition>
+            </Step>
+            <Step>
+                <Name>Pubshup_ENC</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and receivederr == 1)</Condition>
+            </Step>
+            <Step>
+                <Name>AM-RequestPushNotification</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and receivederr == 1)</Condition>
+            </Step>
+            <Step>
+                <Name>SC-CompositeKafka</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and receivederr == 1)</Condition>
+            </Step>
+            <Step>
+                <Name>EC-CompositePushNotification</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and receivederr == 1)</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SetBackendResponse</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.pushNotification != null and verifyapikey.VA-VerifyApiKey.pushNotification == true and receivederr == 1)</Condition>
+            </Step>
+            <Step>
+                <Name>FC-Encryption</Name>
+                <Condition>(request.verb != "OPTIONS") and (!(developer.app.name = "Spike_Test_1")) and (!(developer.app.name = "Spike_Test_2")) and (!(developer.app.name = "Spike_Test_3")) and (!(developer.app.name = "Spike_Test_4")) and (!(developer.app.name = "gpay")) and (!(developer.app.name = "Composite_Test")) and (!(developer.app.name = "Composite_Business") and (!(developer.app.name = "Client_A_Composite_Test") and (!(developer.app.name = "Client_B_Composite") and (!(developer.app.name = "Client_C_Composite"))</Condition>
+                <!--<Condition>(request.verb != "OPTIONS") and (!(developer.app.name = "Spike_Test_1")) and (!(developer.app.name = "Spike_Test_2")) and (!(developer.app.name = "Spike_Test_3")) and (!(developer.app.name = "Spike_Test_4")) and (!(developer.app.name = "gpay")) and (!(developer.app.name = "Composite_Test")) and (!(developer.app.name = "Composite_Business"))</Condition>-->
+                <!--<Condition>(request.verb != "OPTIONS") and (!(developer.app.name = "Composite_Test"))</Condition>-->
+            </Step>
+            <Step>
+                <Name>AM-AddCORS</Name>
+            </Step>
+            <Step>
+                <Name>JS-LogTimeTaken</Name>
+            </Step>
+            <Step>
+                <Name>escapeXml</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows>
+        <Flow name="Composite Process">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BNF-ID-REQUEST</Name>
+                    <Condition>verifyapikey.VA-VerifyApiKey.BNF_Flow == true</Condition>
+                </Step>
+                <Step>
+                    <Name>KVM-FetchInternalApiKey</Name>
+                </Step>
+                <Step>
+                    <Name>SC-BNF-ID</Name>
+                    <Condition>verifyapikey.VA-VerifyApiKey.BNF_Flow == true</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-BNF-RESPONSE</Name>
+                    <Condition>verifyapikey.VA-VerifyApiKey.BNF_Flow == true</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-MIS-JSON-PCK</Name>
+                </Step>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                </Step>
+                <Step>
+                    <Name>SC-UPIBeneCheck</Name>
+                    <Condition>validateBeneficiary = true and request.header.x-priority = "1000"</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-BeneficiaryCheck</Name>
+                    <Condition>validateBeneficiary = true and request.header.x-priority != "1000"</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                    <Condition>validateBeneficiary = true</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-TransactionPriority</Name>
+                    <Condition>(makeTransaction = true and request.header.x-priority != "ineft" and dmzeebackend != 'true') or (isValidBeneficiary = true and dmzeebackend != 'true')</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-INEFT</Name>
+                    <Condition>(makeTransaction = true) and (request.header.x-priority == "ineft") and (dmzeebackend != 'true')</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-TransactionDMZ</Name>
+                    <Condition>(dmzeebackend = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                    <Condition>(makeTransaction = true) or (isValidBeneficiary = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-BeneficiaryCheck</Name>
+                    <Condition>(validateBeneficiary = true) and (isTransactionSuccessful = false)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                    <Condition>(validateBeneficiary = true) and (isTransactionSuccessful = false)</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-TransactionPriority</Name>
+                    <Condition>(isTransactionSuccessful = false) and (retry = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                    <Condition>(isTransactionSuccessful = false) and (retry = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-TransactionPriority</Name>
+                    <Condition>(isTransactionSuccessful = false) and (retry = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                    <Condition>(isTransactionSuccessful = false) and (retry = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-TransactionPriority</Name>
+                    <Condition>(isTransactionSuccessful = false) and (retry = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                    <Condition>(isTransactionSuccessful = false) and (retry = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>SC_MIS</Name>
+                </Step>
+                <Step>
+                    <Name>FC-internalEncryption</Name>
+                </Step>
+                <Step>
+                    <Name>JS-SetResponse</Name>
+                </Step>
+                <Step>
+                    <Name>EC-CompositeMIS</Name>
+                </Step>
+                <Step>
+                    <Name>JS-CheckECResponse</Name>
+                </Step>
+                <Step>
+                    <Name>SC-InsertToDatabase</Name>
+                    <Condition>insertToDatabase = true</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                    <Condition>insertToDatabase = true</Condition>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Transaction Status IMPS">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                </Step>
+                <Step>
+                    <Name>JS-IMPS_Status_Plain_Request_Validation</Name>
+                </Step>
+                <Step>
+                    <Name>RF-IMPS_Status_Plain_Request</Name>
+                    <Condition>(impsstatusvalid == false)</Condition>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/status/imps") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Transaction Status NEFT RTGS">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-ValidateCompositeRequest</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/status/neft-rtgs") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="OptionalPreFlight">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>request.verb == "OPTIONS"</Condition>
+        </Flow>
+        <Flow name="POST /api/v1/composite-payment">
+            <Condition>(request.verb == "POST") and (proxy.basepath Matches "/api/v1/composite-payment") </Condition>
+            <Request/>
+            <Response/>
+        </Flow>
+        <Flow name="404 - Not Found">
+            <Request>
+                <Step>
+                    <Name>RF-404NotFound</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+        <Flow name="Path Not Found">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>RF-ServiceNotFound</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <Step>
+                <Name>ML-MessageLogging</Name>
+                <Condition>(enableLogging = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>ML-Test</Name>
+                <Condition>(enableLogging = "true")</Condition>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/api/v1/composite-payment</BasePath>
+        <Properties/>
+        <VirtualHost>apibankingone</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="NoRoute">
+        <Condition>(proxy.pathsuffix MatchesPath "/")</Condition>
+    </RouteRule>
+    <!--<RouteRule name="L7-route">
+        <TargetEndpoint>L7-route</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/status/neft-rtgs")</Condition>
+    </RouteRule>-->
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AM_DefaultClientResponseLog">
+    <DisplayName>AM_DefaultClientResponseLog</DisplayName>
+    <AssignVariable>
+        <Name>clientResponseLogPayload</Name>
+        <Ref>finalResponse</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>clientResponseLogPayloadContentType</Name>
+        <Value>application/json</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

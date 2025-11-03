@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AM_setL7TargetRequestLog">
+    <DisplayName>AM_setL7TargetRequestLog</DisplayName>
+    <AssignVariable>
+        <Name>targetRequestLogPayload</Name>
+        <Ref>calloutRequest</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>targetRequestLogPayloadContentType</Name>
+        <Value>application/x-www-form-urlencoded</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

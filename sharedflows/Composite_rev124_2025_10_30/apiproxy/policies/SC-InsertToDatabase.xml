@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="true" enabled="true" name="SC-InsertToDatabase">
+    <DisplayName>SC-InsertToDatabase</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="dbRequest">
+        <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+        <Set>
+            <Verb>POST</Verb>
+            <Payload contentType="application/json">{dbInsertRequest}</Payload>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+                <Header name="apikey">{private.internalApiKey}</Header>
+            </Headers>
+            <Path>{dbInsertURL}</Path>
+        </Set>
+    </Request>
+    <Response>dbResponse</Response>
+    <LocalTargetConnection>
+        <APIProxy>Internal</APIProxy>
+        <ProxyEndpoint>default</ProxyEndpoint>
+        <Properties>
+            <Property name="success.codes">1xx,2xx,3xx,4xx,5xx</Property>
+        </Properties>
+    </LocalTargetConnection>
+</ServiceCallout>

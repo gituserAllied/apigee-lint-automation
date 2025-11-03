@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-IMPS_Status_Plain_Request">
+    <DisplayName>RF-IMPS_Status_Plain_Request</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers/>
+            <StatusCode>403</StatusCode>
+            <Payload contentType="application/json">
+                { "success":"False","response":"997","errormessage":"Bad request"}
+            </Payload>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

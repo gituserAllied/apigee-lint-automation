@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<StatisticsCollector async="false" continueOnError="true" enabled="true" name="SC-CaptureAnalytics">
+    <DisplayName>SC-CaptureAnalytics</DisplayName>
+    <Statistics>
+        <Statistic name="APIPRODUCT" type="string" ref="apiproduct.name">Composite</Statistic>
+        <Statistic name="API_RESOURCE" type="string" ref="proxy.pathsuffix">UNKNOWN</Statistic>
+        <!--<Statistic name="DB_OPERATION" type="string" ref="dbOperation">UNKNOWN</Statistic>-->
+        <Statistic name="X_PRIORITY" type="string" ref="priorityHeader">UNKNOWN</Statistic>
+        <Statistic name="isIPWhitelistEnable" type="string" ref="isIPWhitelistEnable">UNKNOWN</Statistic>
+        <Statistic name="API_FLOW_STATUS" type="string" ref="apiFlowState">UNKNOWN</Statistic>
+        <Statistic name="RESPONSE_CODE_TARGET" type="string" ref="targetResponseStatusCode">(not set)</Statistic>
+        <Statistic name="RESPONSE_CODE_GATEWAY" type="string" ref="gatewayResponseStatusCode">UNKNOWN</Statistic>
+        <Statistic name="FUNCTIONAL_SUCCESS_CODES" type="long" ref="functionalSuccessStatusCode">0</Statistic>
+        <Statistic name="FUNCTIONAL_ERRORS_CODES" type="long" ref="functionalErrorStatusCode">0</Statistic>
+        <Statistic name="FLOW_TYPE" type="string" ref="flowType">UNKNOWN</Statistic>
+        <Statistic name="PRODUCT_ID" type="string" ref="ProductId">UNKNOWN</Statistic>
+        <Statistic name="CHANNEL_ID" type="string" ref="ChannelId">UNKNOWN</Statistic>
+        <Statistic name="QuotaIdentifier" type="string" ref="QuotaIdentifier">UNKNOWN</Statistic>
+        <Statistic name="TOTAL_POLICY_TIME_TAKEN" type="long" ref="total_policy_time">0</Statistic>
+        <Statistic name="SC_TIME_TAKEN" type="long" ref="sc_time">0</Statistic>
+        <Statistic name="TARGET_TIME_TAKEN" type="long" ref="target_time">0</Statistic>
+    </Statistics>
+</StatisticsCollector>

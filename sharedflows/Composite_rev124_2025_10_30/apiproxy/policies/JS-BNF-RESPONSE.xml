@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="JS-BNF-RESPONSE">
+    <DisplayName>JS-BNF-RESPONSE</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://JS-BNF-RESPONSE.js</ResourceURL>
+</Javascript>

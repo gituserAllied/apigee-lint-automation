@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SpikeArrest async="false" continueOnError="false" enabled="true" name="SA-test">
+    <DisplayName>SA-test</DisplayName>
+    <Properties/>
+    <Identifier ref="proxy.basepath"/>
+    <Rate>2ps</Rate>
+    <UseEffectiveCount>true</UseEffectiveCount>
+</SpikeArrest>

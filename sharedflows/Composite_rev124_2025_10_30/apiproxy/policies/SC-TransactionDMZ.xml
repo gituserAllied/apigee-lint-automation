@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="SC-TransactionDMZ">
+    <DisplayName>SC-TransactionDMZ</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="transactionRequest">
+        <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+        <Set>
+            <Verb>POST</Verb>
+            <Payload contentType="application/json">{request.content}</Payload>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+                <Header name="apikey">{private.internalApiKey}</Header>
+                <Header name="bcID">{bcID}</Header>
+                <Header name="xpriority">{header_xpriority}</Header>
+                <Header name="settlementid">{header_settlement_id}</Header>
+            </Headers>
+            <Path>/api/v1/local/composite/dmzee</Path>
+        </Set>
+    </Request>
+    <Response>calloutResponse</Response>
+    <LocalTargetConnection>
+        <APIProxy>Internal</APIProxy>
+        <ProxyEndpoint>default</ProxyEndpoint>
+        <Properties>
+            <Property name="success.codes">1xx,2xx,3xx,4xx,5xx</Property>
+            <Property name="connect.timeout.millis">180000</Property>
+            <Property name="io.timeout.millis">180000</Property>
+        </Properties>
+    </LocalTargetConnection>
+</ServiceCallout>

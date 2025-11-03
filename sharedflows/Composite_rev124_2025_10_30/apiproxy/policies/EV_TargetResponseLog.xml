@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="true" enabled="true" name="EV_TargetResponseLog">
+    <DisplayName>EV_TargetResponseLog</DisplayName>
+    <JSONPayload>
+        <Variable name="targetResponseLogPayload">
+            <JSONPath>$.XML</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">finalResponse</Source>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</ExtractVariables>

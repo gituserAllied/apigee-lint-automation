@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="true" enabled="true" name="SC_MIS">
+    <DisplayName>SC_MIS</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="myRequest">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <Verb>POST</Verb>
+            <Payload contentType="application/vnd.kafka.json.v2+json">{"records": [{"value": {dbInsertRequest}}]} </Payload>
+            <Headers>
+                <Header name="Content-Type">application/vnd.kafka.json.v2+json</Header>
+                <Header name="Authorization">Basic QkFOMjY3ODkxOkphbkAyNjc4OTE=</Header>
+            </Headers>
+        </Set>
+    </Request>
+    <Response>calloutResponse</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <URL>https://uat-onprem-dmz-hybrid.icicibank.com/kafkatest/composite_mis</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>

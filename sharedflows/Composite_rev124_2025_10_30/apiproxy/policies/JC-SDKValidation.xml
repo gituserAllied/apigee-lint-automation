@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JavaCallout async="false" continueOnError="false" enabled="true" name="JC-SDKValidation">
+    <DisplayName>JC-SDKValidation</DisplayName>
+    <ClassName>com.icici.java.crypto.apigee.run.SDKValidation</ClassName>
+    <Properties>
+        <Property name="X-ID-Fingerprint">{request.header.X-ID-Fingerprint}</Property>
+        <Property name="apiKeyFromHeader">{request.header.apikey}</Property>
+        <Property name="privateKey">{private.decPrivateKey}</Property>
+        <Property name="content">{request.content}</Property>
+    </Properties>
+    <ResourceURL>java://icici_utils_ext_sdk.jar</ResourceURL>
+</JavaCallout>

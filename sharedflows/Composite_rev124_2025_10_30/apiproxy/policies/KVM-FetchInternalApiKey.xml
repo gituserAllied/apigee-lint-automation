@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-FetchInternalApiKey" mapIdentifier="ICICI_CONFIG">
+    <DisplayName>KVM-FetchInternalApiKey</DisplayName>
+    <Properties/>
+    <Get assignTo="private.internalApiKey">
+        <Key>
+            <Parameter>ICICI_INTERNAL_APIKEY_WITHOUT_ENCRYPTION</Parameter>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

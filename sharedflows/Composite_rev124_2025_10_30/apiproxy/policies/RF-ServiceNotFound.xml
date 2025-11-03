@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-ServiceNotFound">
+    <DisplayName>RF-ServiceNotFound</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers/>
+            <!--<Payload contentType="text/plain">Requested Service Not Found !!</Payload>-->
+            <Payload contentType="application/json">
+                {"success":"False","errorCode":"500","errormessage": "Requested Service Not Found !!"}
+            </Payload>
+            <StatusCode>500</StatusCode>
+            <ReasonPhrase>Internal Server Error</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

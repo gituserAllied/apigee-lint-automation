@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-DomainWhitelistng" mapIdentifier="Composite_Domains">
+    <DisplayName>KVM-DomainWhitelistng</DisplayName>
+    <Properties/>
+    <Get assignTo="private.whitelisted_domains">
+        <Key>
+            <Parameter>Domains</Parameter>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

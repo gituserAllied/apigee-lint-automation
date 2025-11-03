@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ConnectorCallout async="false" continueOnError="true" enabled="false" name="EC-CompositePushNotification">
+    <DisplayName>EC-CompositePushNotification</DisplayName>
+    <Connector>composite-callback</Connector>
+    <Action>publish</Action>
+    <Input><![CDATA[
+        {
+          "message" : {message.content}
+        }
+     ]]></Input>
+    <Output>topic.message</Output>
+</ConnectorCallout><!-- 
+Input JSON Schema for package=gcp-pubsub version=1.5.2
+{"type":"object","properties":{"message":{"type":["string","object"],"description":"https://cloud.google.com/pubsub/docs/reference/rest/v1/projects.topics/publish"},"customAttributes":{"type":"object","description":"https://cloud.google.com/pubsub/docs/publisher#custom-attributes"}},"required":["message"]}
+-->
+<!-- 
+Output JSON Schema for package=gcp-pubsub version=1.5.2
+{"type":"object","properties":{"messageId":{"type":"string"}},"required":["messageId"]}
+-->

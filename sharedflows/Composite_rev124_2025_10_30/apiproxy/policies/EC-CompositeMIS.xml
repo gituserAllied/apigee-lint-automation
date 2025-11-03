@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ConnectorCallout async="false" continueOnError="true" enabled="true" name="EC-CompositeMIS">
+    <DisplayName>EC-CompositeMIS</DisplayName>
+    <!--<Connector>Composite_MIS</Connector>-->
+    <Connector>Composite-MIS-V1</Connector>
+    <Action>publish</Action>
+    <Input><![CDATA[
+        {"message" : {dbInsertRequest} } 
+     ]]></Input>
+    <Output>context-variable-name</Output>
+</ConnectorCallout><!-- 
+Input JSON Schema for package=gcp-pubsub version=1.5.1
+{"type":"object","properties":{"message":{"type":["string","object"],"description":"https://cloud.google.com/pubsub/docs/reference/rest/v1/projects.topics/publish"},"customAttributes":{"type":"object","description":"https://cloud.google.com/pubsub/docs/publisher#custom-attributes"}},"required":["message"]}
+-->
+<!-- 
+Output JSON Schema for package=gcp-pubsub version=1.5.1
+{"type":"object","properties":{"messageId":{"type":"string"}},"required":["messageId"]}
+-->

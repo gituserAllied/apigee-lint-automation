@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="JS-RequestMapping">
+    <DisplayName>JS-RequestMapping</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://JS-RequestMapping.js</ResourceURL>
+</Javascript>

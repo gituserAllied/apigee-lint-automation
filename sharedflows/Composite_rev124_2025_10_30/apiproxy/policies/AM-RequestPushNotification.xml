@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-RequestPushNotification">
+    <DisplayName>AM-RequestPushNotification</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="application/json">
+            {
+                "requestId": "",
+                "encryptedKey": "{ENCODED_ENCRYPTED_KEY}",
+                "encryptedData": "{ENCODED_ENCRYPTED_CONTENT}",
+                "iv": "",
+                "service": "",
+                "clientInfo": "",
+                "optionalParam": "{uniquetransactionid}~{uniqueDate}",
+                "oaepHashingAlgorithm": "NONE",
+                "send_to":"Merchant",
+                "count_of_retires":"1",
+                "next_retry_time": "{TimeStamp1}",
+                "basepath":"/api/v1/composite-push-notification",
+                "xpriority": "{customxpriority}",
+                "txntype":"{txntype}",
+                "incremental":"{incremental}",
+                "transid":"{uniquetransactionid}",
+                "date":"{uniqueDate}"
+            }
+        </Payload>
+        <Headers>
+            <Header name="x-priority">{request.header.x-priority}</Header>
+        </Headers>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

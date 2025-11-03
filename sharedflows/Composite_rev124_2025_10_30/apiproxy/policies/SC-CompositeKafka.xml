@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="SC-CompositeKafka">
+    <DisplayName>SC-CompositeKafka</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="mykafkaRequest">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <Verb>POST</Verb>
+            <Payload contentType="application/json">{message.content}</Payload>
+            <Headers>
+                <Header name="uniqueid">{messageid}</Header>
+                <Header name="apiproxy_name">{apiproxy.name}</Header>
+            </Headers>
+        </Set>
+    </Request>
+    <Response>kafkaResponse</Response>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+            <Server name="DEFAULT_NGINX_BACKEND"/>
+        </LoadBalancer>
+        <!--<Path>/composite-kafka-Corp/composite-kafka-push</Path>-->
+        <Path>/kafka_composite_mis</Path>
+    </HTTPTargetConnection>
+    <!--<HTTPTargetConnection>-->
+    <!--    <Properties/>-->
+    <!--    <URL>/composite-kafka</URL>-->
+    <!--</HTTPTargetConnection>-->
+</ServiceCallout>

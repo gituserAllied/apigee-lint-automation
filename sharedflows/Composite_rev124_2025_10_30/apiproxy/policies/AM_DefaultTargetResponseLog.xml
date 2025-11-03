@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AM_DefaultTargetResponseLog">
+    <DisplayName>AM_DefaultTargetResponseLog</DisplayName>
+    <AssignVariable>
+        <Name>targetResponseLogPayload</Name>
+        <Ref>finalResponse</Ref>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="SC-BNF-ID">
+    <DisplayName>SC-BNF-ID</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="BeneficiaryIDFetch">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <Verb>GET</Verb>
+            <Path>/api/v1/local/composite/BeneficiaryIDFetch</Path>
+            <Headers>
+                <Header name="apikey">{private.internalApiKey}</Header>
+                <Header name="queryParams">{BeneQuery}</Header>
+            </Headers>
+        </Set>
+    </Request>
+    <Response>bnfIdCheckResponse</Response>
+    <LocalTargetConnection>
+        <APIProxy>Internal</APIProxy>
+        <ProxyEndpoint>default</ProxyEndpoint>
+        <Properties>
+            <Property name="success.codes">1xx,2xx,3xx,4xx,5xx</Property>
+        </Properties>
+    </LocalTargetConnection>
+</ServiceCallout>
