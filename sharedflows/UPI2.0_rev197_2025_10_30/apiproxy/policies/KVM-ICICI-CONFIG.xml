@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-ICICI-CONFIG" mapIdentifier="ICICI_CONFIG">
+    <DisplayName>KVM-ICICI-CONFIG</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>300</ExpiryTimeInSecs>
+    <Get assignTo="private.decPrivateKey" index="1">
+        <Key>
+            <Parameter>ICICI_PRIVATE_KEY</Parameter>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

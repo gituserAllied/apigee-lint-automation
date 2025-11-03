@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-DecodeBase64">
+    <DisplayName>AM-DecodeBase64</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>request.content</Name>
+        <Template>{decodeBase64(request.content)}</Template>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>message.content</Name>
+        <Ref>request.content</Ref>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

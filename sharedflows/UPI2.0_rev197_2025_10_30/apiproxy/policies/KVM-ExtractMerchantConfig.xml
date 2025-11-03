@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-ExtractMerchantConfig" mapIdentifier="UPI_MERCHANT_CONFIG">
+    <DisplayName>KVM-ExtractMerchantConfig</DisplayName>
+    <Properties/>
+    <Get assignTo="private.merchantConfig">
+        <Key>
+            <Parameter ref="proccode"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

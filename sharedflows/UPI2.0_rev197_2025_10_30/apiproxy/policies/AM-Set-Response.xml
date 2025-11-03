@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-Set-Response">
+    <DisplayName>AM-Set Response</DisplayName>
+    <Properties/>
+    <Remove>
+        <Headers>
+            <Header name="response"/>
+            <!--<Header name="X-Forwarded-Port"/>-->
+            <!--<Header name="apikey"/>-->
+            <!--<Header name="X-Forwarded-Proto"/>-->
+            <!--<Header name="User-Agent"/>-->
+        </Headers>
+        <Payload/>
+    </Remove>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

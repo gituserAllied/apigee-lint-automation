@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="callback-google">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request>
+            <!--<Step>-->
+            <!--    <Name>RF-MethodNotAllowed</Name>-->
+            <!--    <Condition>(request.verb != "POST")</Condition>-->
+            <!--</Step>-->
+            <Step>
+                <Name>KVM-FetchCallbackKeys</Name>
+            </Step>
+            <Step>
+                <Name>VA-VerifyApiKey</Name>
+            </Step>
+            <Step>
+                <Name>EV-MetaData</Name>
+                <Condition>(private.privatekey IsNot null) and (private.tokenmetadata IsNot null) and (proccode != "UPI023")</Condition>
+            </Step>
+            <Step>
+                <Name>EV-SMBMetaData</Name>
+                <Condition>(private.privatekey IsNot null) and (private.tokenmetadata IsNot null) and (proccode = "UPI023")</Condition>
+            </Step>
+            <Step>
+                <Name>JWT-GenerateRS256</Name>
+                <Condition>(private.privatekey IsNot null) and (private.tokenmetadata IsNot null) and (proccode != "UPI023")</Condition>
+            </Step>
+            <Step>
+                <Name>JWT-GenerateSMBRS256</Name>
+                <Condition>(private.privatekey IsNot null) and (private.tokenmetadata IsNot null) and (proccode = "UPI023")</Condition>
+            </Step>
+            <Step>
+                <Name>SC-GetOAuthToken</Name>
+            </Step>
+            <Step>
+                <Name>EV-FetchToken</Name>
+                <Condition>resp-SC-GetOAuthToken.content IsNot null</Condition>
+            </Step>
+            <Step>
+                <Name>AM-SetTargetRequest</Name>
+            </Step>
+            <Step>
+                <Name>KVM-FetchCallbackURL</Name>
+            </Step>
+            <Step>
+                <Name>AM_getCallback-googleTargetRequestLog</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>AM-SetSuccessResponse</Name>
+                <Condition>response.status.code == 200</Condition>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows/>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+            <!--<Server name="GOOGLE_CALLBACK"/>-->
+            <Server name="GOOGLE_CALLBACK_STAGING"/>
+            <!--<Server name="GOOGLE_CALLBACK_STAGING"/>-->
+        </LoadBalancer>
+        <Properties>
+            <Property name="connect.timeout.millis">10000</Property>
+            <Property name="io.timeout.millis">10000</Property>
+        </Properties>
+        <Path>{modifiedUrl}</Path>
+        <!--<URL>https://obbahrainuat.icicibank.com/testxyz</URL>-->
+    </HTTPTargetConnection>
+</TargetEndpoint>

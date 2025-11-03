@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AM_getCallback-googleClientRequestLog">
+    <DisplayName>AM_getCallbackClientRequestLog</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>clientRequestLogPayloadContentType</Name>
+        <Value>application/json</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>targetRequestLogPayload</Name>
+        <Ref>clientRequestLogPayload</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>targetRequestLogPayloadContentType</Name>
+        <Value>application/json</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

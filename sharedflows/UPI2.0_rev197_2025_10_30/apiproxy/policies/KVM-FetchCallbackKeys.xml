@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-FetchCallbackKeys" mapIdentifier="CALLBACK_KEYS">
+    <DisplayName>KVM-FetchCallbackKeys</DisplayName>
+    <Properties/>
+    <ExpiryTimeInSecs>600</ExpiryTimeInSecs>
+    <Get assignTo="private.privatekey">
+        <Key>
+            <Parameter>GPAY</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="private.smbprivatekey">
+        <Key>
+            <!--<Parameter>GPAY_SMB</Parameter>-->
+            <Parameter>GPAY_SMB_staging</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="private.tokenmetadata">
+        <Key>
+            <Parameter>GPAY_JWT_OAUTH_METADATA</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="private.smbtokenmetadata">
+        <Key>
+            <!--<Parameter>GOOGLE_SMB_JWT_OAUTH_METADATA</Parameter>-->
+            <Parameter>GOOGLE_SMB_staging_JWT_OAUTH_METADATA</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="private.authToken">
+        <Key>
+            <Parameter>WHATSAPP_AUTH_TOKEN</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="private.whatsappApiKey">
+        <Key>
+            <Parameter>WHATSAPP_PAY_APIKEY</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="private.apikey">
+        <Key>
+            <Parameter>GOOGLE_PAY_APIKEY</Parameter>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

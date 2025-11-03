@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-FetchToken">
+    <DisplayName>EV-FetchToken</DisplayName>
+    <Source>resp-SC-GetOAuthToken</Source>
+    <JSONPayload>
+        <Variable name="accesstoken">
+            <JSONPath>$.access_token</JSONPath>
+        </Variable>
+    </JSONPayload>
+</ExtractVariables>

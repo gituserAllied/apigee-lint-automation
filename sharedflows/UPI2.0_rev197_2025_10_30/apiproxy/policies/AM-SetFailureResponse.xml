@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-SetFailureResponse">
+    <DisplayName>AM-SetFailureResponse</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload content-type="application/xml">
+            <XML>
+                <MessageType>1210</MessageType>
+                <ProcCode>{proccode}</ProcCode>
+                <ActCode>{errcode}</ActCode>
+                <Response>ACK</Response>
+                <NotificationId>{notificationid}</NotificationId>
+            </XML>
+        </Payload>
+        <Headers>
+            <Header name="Content-Type">application/xml</Header>
+        </Headers>
+        <StatusCode>200</StatusCode>
+        <ReasonPhrase>OK</ReasonPhrase>
+    </Set>
+    <AssignVariable>
+        <Name>flowType</Name>
+        <Value>ERROR_HANDLING_FLOW</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

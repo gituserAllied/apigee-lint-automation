@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-SMBMetaData">
+    <DisplayName>EV-SMBMetaData</DisplayName>
+    <Source>private.smbtokenmetadata</Source>
+    <JSONPayload>
+        <Variable name="issuer">
+            <JSONPath>$.jwtmetadata.issuer</JSONPath>
+        </Variable>
+        <Variable name="audience">
+            <JSONPath>$.jwtmetadata.audience</JSONPath>
+        </Variable>
+        <Variable name="expiresin">
+            <JSONPath>$.jwtmetadata.expiresin</JSONPath>
+        </Variable>
+        <Variable name="scope">
+            <JSONPath>$.jwtmetadata.scope</JSONPath>
+        </Variable>
+        <Variable name="granttype">
+            <JSONPath>$.oauthmetadata.granttype</JSONPath>
+        </Variable>
+        <Variable name="tokenapihost">
+            <JSONPath>$.oauthmetadata.tokenapihost</JSONPath>
+        </Variable>
+    </JSONPayload>
+</ExtractVariables>

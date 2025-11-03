@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="callback-whatsapp">
+    <Description/>
+    <FaultRules/>
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step>
+            <Name>AM-SetDefaultFailureResponse</Name>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>FC-IPValidation</Name>
+            </Step>
+            <Step>
+                <Name>FC-Quota</Name>
+            </Step>
+            <Step>
+                <Name>EV-ExtractWhatsAppCallbackFields</Name>
+            </Step>
+            <Step>
+                <Name>XTJ-ConvertRequestXMLCallBackWatsapp</Name>
+            </Step>
+            <Step>
+                <Name>EV_getCallbackWatsappClientRequestLog</Name>
+            </Step>
+            <Step>
+                <Name>AM_getCallback-googleClientRequestLog</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows/>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <Step>
+                <Name>ML-MessageLogging</Name>
+                <Condition>(enableLogging = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>EC-UPI</Name>
+                <Condition>(messagelogging.ML-MessageLogging.failed = true) or (expressionResult != true)</Condition>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/api/v1/callback/whatsapp</BasePath>
+        <Properties/>
+        <VirtualHost>apicallback</VirtualHost>
+        <VirtualHost>apibankingone</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="callback-whatsapp">
+        <TargetEndpoint>callback-whatsapp</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

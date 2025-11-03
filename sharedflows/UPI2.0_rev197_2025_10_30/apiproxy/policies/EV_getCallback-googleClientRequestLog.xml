@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="true" enabled="true" name="EV_getCallback-googleClientRequestLog">
+    <DisplayName>EV_getCallbackClientRequestLog</DisplayName>
+    <Properties/>
+    <JSONPayload>
+        <Variable name="clientRequestLogPayload">
+            <JSONPath>$.XML</JSONPath>
+        </Variable>
+        <Variable name="logOriginalTxnId">
+            <JSONPath>$.XML.OriginalTxnId</JSONPath>
+        </Variable>
+        <Variable name="logRrn">
+            <JSONPath>$.XML.Rrn</JSONPath>
+        </Variable>
+        <Variable name="logRefId">
+            <JSONPath>$.XML.RefId</JSONPath>
+        </Variable>
+        <Variable name="TxnStatus">
+            <JSONPath>$.XML.TxnStatus</JSONPath>
+        </Variable>
+        <Variable name="ResponseCode">
+            <JSONPath>$.XML.ResponseCode</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">request</Source>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</ExtractVariables>

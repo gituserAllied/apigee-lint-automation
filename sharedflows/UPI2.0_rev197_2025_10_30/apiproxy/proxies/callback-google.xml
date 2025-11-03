@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="callback-google">
+    <Description/>
+    <FaultRules/>
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step>
+            <Name>AM-AddCORS</Name>
+        </Step>
+        <Step>
+            <Name>KVM-ICICIMerchantConfig</Name>
+            <Condition>(request.header.counts == "") OR (request.header.counts IS null)</Condition>
+        </Step>
+        <Step>
+            <Name>FC-Encryption-PubSub</Name>
+            <Condition>(request.header.counts == "") OR (request.header.counts IS null)</Condition>
+        </Step>
+        <Step>
+            <Name>JS-Callback</Name>
+            <!--<Condition>request.header.counts &gt; 0</Condition>-->
+        </Step>
+        <Step>
+            <Name>EV-FetchRespParam</Name>
+            <Condition>(fault.name = "ErrorResponseCode") and (response.content IsNot null)</Condition>
+        </Step>
+        <Step>
+            <Name>AM-SetFailureResponse</Name>
+            <Condition>(fault.name = "ErrorResponseCode")</Condition>
+        </Step>
+        <Step>
+            <Condition>(fault.name != "ErrorResponseCode") and (request.verb == "POST") </Condition>
+            <Name>AM-SetDefaultFailureResponse</Name>
+        </Step>
+        <Step>
+            <Condition>(ResponseCode == "00") and (TxnStatus == "FAILURE") and (request.verb == "POST")</Condition>
+            <Name>AM-gpay_failure_txn</Name>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <!--<Step>-->
+            <!--    <Name>SC-CallbackStatsCollector</Name>-->
+            <!--</Step>-->
+            <Step>
+                <Name>RF-MethodNotAllowed</Name>
+                <Condition>(request.verb != "POST")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-CallbackRequest</Name>
+            </Step>
+            <Step>
+                <Name>KVM-ICICI-CONFIG</Name>
+                <Condition>request.header.counts &gt; 0</Condition>
+            </Step>
+            <Step>
+                <Name>FC-Decryption-PubSub</Name>
+                <Condition>request.header.counts &gt; 0</Condition>
+            </Step>
+            <Step>
+                <Name>AM-SetRequest</Name>
+                <Condition>request.header.counts &gt; 0</Condition>
+            </Step>
+            <Step>
+                <Name>FC-IPValidation</Name>
+            </Step>
+            <Step>
+                <Name>FC-Quota</Name>
+            </Step>
+            <Step>
+                <Name>XTJ-ConvertRequestXML</Name>
+            </Step>
+            <Step>
+                <Name>EV_getCallback-googleClientRequestLog</Name>
+            </Step>
+            <Step>
+                <Name>RF-Txn_code_error</Name>
+                <Condition>(ResponseCode == "00") and (TxnStatus == "FAILURE")</Condition>
+            </Step>
+            <Step>
+                <Name>AM_getCallback-googleClientRequestLog</Name>
+            </Step>
+            <Step>
+                <Name>EV-FetchTransactionType</Name>
+                <Condition>request.content IsNot null</Condition>
+            </Step>
+            <Step>
+                <Name>JS-BackendFieldMapping</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows/>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <Step>
+                <Name>EC-CallbackPubSub</Name>
+                <Condition>((request.header.counts == "") OR (request.header.counts IS null)) AND (statusCodeForSkipPubSub != null)</Condition>
+            </Step>
+            <Step>
+                <Name>ML-MessageLogging</Name>
+                <Condition>(enableLogging = "true")</Condition>
+                <Step>
+                    <Name>EC-UPI</Name>
+                    <Condition>(messagelogging.ML-MessageLogging.failed = true) or (expressionResult != true)</Condition>
+                </Step>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/api/v1/callback2/google</BasePath>
+        <Properties/>
+        <VirtualHost>apicallback</VirtualHost>
+        <VirtualHost>apibankingone</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="callback-google">
+        <TargetEndpoint>callback-google</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

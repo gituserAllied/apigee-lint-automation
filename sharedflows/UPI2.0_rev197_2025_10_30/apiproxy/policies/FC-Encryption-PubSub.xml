@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout async="false" continueOnError="false" enabled="true" name="FC-Encryption-PubSub">
+    <DisplayName>FC-Encryption-PubSub</DisplayName>
+    <FaultRules/>
+    <Parameters>
+        <Parameter name="publicKey">{private.encPublicKey}</Parameter>
+        <Parameter name="mode">hybrid_generic</Parameter>
+        <Parameter name="content">{incomingRequest.content}</Parameter>
+    </Parameters>
+    <SharedFlowBundle>Encryption-Flow-Generic-New</SharedFlowBundle>
+</FlowCallout>

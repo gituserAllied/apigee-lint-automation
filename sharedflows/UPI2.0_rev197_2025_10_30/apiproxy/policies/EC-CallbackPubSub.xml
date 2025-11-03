@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ConnectorCallout async="false" continueOnError="true" enabled="true" name="EC-CallbackPubSub">
+    <DisplayName>EC-CallbackPubSub</DisplayName>
+    <Connector>Google-Callback</Connector>
+    <!--<Connector>UPICallbackTest</Connector>-->
+    <Action>publish</Action>
+    <Input><![CDATA[
+         {
+          "message" : {
+                            "requestId": "e180ed70-6d3f-4985-a60e-46b51ee33e78",
+                            "encryptedKey": "{ENCODED_ENCRYPTED_KEY}",
+                            "encryptedData": "{ENCODED_ENCRYPTED_CONTENT}",
+                            "iv": "",
+                            "service": "",
+                            "clientInfo": "",
+                            "optionalParam": "",
+                            "oaepHashingAlgorithm": "NONE",
+                            "getwaystatus":"{getwaystatus}"
+                        }
+      }
+     ]]></Input>
+    <Output>topic.message</Output>
+</ConnectorCallout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-SetBackendHeaders">
+    <DisplayName>AM-SetBackendHeaders</DisplayName>
+    <Properties/>
+    <Set>
+        <Headers>
+            <Header name="Content-Type">application/x-www-form-urlencoded</Header>
+            <header name="apigee-message-id">{messageid}</header>
+        </Headers>
+        <Payload contentType="application/x-www-form-urlencoded">{request.content}</Payload>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="true" transport="http" type="request">request</AssignTo>
+</AssignMessage>

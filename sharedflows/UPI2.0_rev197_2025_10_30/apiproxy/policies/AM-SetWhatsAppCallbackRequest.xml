@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-SetWhatsAppCallbackRequest">
+    <DisplayName>AM-SetWhatsAppCallbackRequest</DisplayName>
+    <Properties/>
+    <Set>
+        <Headers>
+            <Header name="Auth-Token">{private.authToken}</Header>
+            <Header name="apikey">{private.whatsappApiKey}</Header>
+            <Header name="Accept-Encoding">gzip,deflate</Header>
+        </Headers>
+    </Set>
+    <AssignVariable>
+        <Name>target.copy.pathsuffix</Name>
+        <Value>false</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="https" type="request"/>
+</AssignMessage>

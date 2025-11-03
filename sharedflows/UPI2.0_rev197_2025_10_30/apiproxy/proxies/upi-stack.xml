@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="upi-stack">
+    <Description/>
+    <FaultRules/>
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step>
+            <Name>FC-ErrorHandling</Name>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>SC-CaptureAnalytics</Name>
+            </Step>
+            <Step>
+                <Name>FC-AuthenticateRequest</Name>
+                <Condition>(request.verb != "OPTIONS")</Condition>
+            </Step>
+            <Step>
+                <Condition>(verifyapikey.VA-VerifyApiKey.enableRateLimit = "true")</Condition>
+                <Name>KVM-SpikeArrestLimit</Name>
+            </Step>
+            <Step>
+                <Condition>(verifyapikey.VA-VerifyApiKey.enableRateLimit = "true")</Condition>
+                <Name>SA-RateLimit</Name>
+            </Step>
+            <Step>
+                <Name>FC-ThreatProtection</Name>
+            </Step>
+            <Step>
+                <Name>FC-Decryption</Name>
+                <Condition>(request.verb != "OPTIONS") and (verifyapikey.VA-VerifyApiKey.enableEncryption == "true")</Condition>
+            </Step>
+            <Step>
+                <Name>AM_setDecryptedClientRequestLog</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>FC-Encryption</Name>
+                <Condition>(request.verb != "OPTIONS") and (verifyapikey.VA-VerifyApiKey.enableEncryption == "true")</Condition>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows>
+        <Flow name="Pull SMS">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/PullSMSRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+    </Flows>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <!--<Step>-->
+            <!--    <Name>SysLogDestination-Chitti</Name>-->
+            <!--</Step>-->
+            <Step>
+                <Name>ML-MessageLogging</Name>
+                <Condition>(enableLogging = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>EC-UPI</Name>
+                <Condition>(messagelogging.ML-MessageLogging.failed = true) or (expressionResult != true)</Condition>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/api/UPIStack/v1</BasePath>
+        <Properties/>
+        <VirtualHost>apibanking</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

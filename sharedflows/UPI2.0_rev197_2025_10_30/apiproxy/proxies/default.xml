@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <Description/>
+    <FaultRules/>
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step>
+            <Name>FC-ErrorHandling</Name>
+            <!--<Condition>(developer.app.name != "New_Niveus")</Condition>-->
+            <Condition>(verifyapikey.VA-VerifyApiKey.client_id != "wZzpfyZxH90ytS4Xd1SM6Jf2A2iisFpR")</Condition>
+        </Step>
+        <Step>
+            <Name>AM-Add-Security-Headers</Name>
+        </Step>
+        <Step>
+            <Name>FC-Niveus_error_handling</Name>
+            <!--<Condition>(developer.app.name == "New_Niveus")</Condition>-->
+            <Condition>(verifyapikey.VA-VerifyApiKey.client_id = "wZzpfyZxH90ytS4Xd1SM6Jf2A2iisFpR")</Condition>
+        </Step>
+        <Step>
+            <Name>FC-Encryption</Name>
+            <!--<Condition>(request.verb != "OPTIONS") and (developer.app.name == "New_Niveus")</Condition>-->
+            <Condition>(verifyapikey.VA-VerifyApiKey.client_id = "wZzpfyZxH90ytS4Xd1SM6Jf2A2iisFpR")</Condition>
+        </Step>
+        <Step>
+            <Name>JS-EscapeXml</Name>
+        </Step>
+        <Step>
+            <Name>JS-LogTimeTakenjs</Name>
+        </Step>
+        <!--<Step>-->
+        <!--    <Name>js-Niveus_Error-handling</Name>-->
+        <!--    <Condition>(verifyapikey.VA-VerifyApiKey.client_id = "FIfG3fApAIj4TpGO9Qq82zAMJbnYZ5wa")</Condition>-->
+        <!--</Step>-->
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>SC-CaptureAnalytics</Name>
+            </Step>
+            <Step>
+                <Name>JS-SetFlowType</Name>
+            </Step>
+            <Step>
+                <Name>FC-AuthenticateRequest</Name>
+            </Step>
+            <Step>
+                <Name>FC-Quota</Name>
+            </Step>
+            <Step>
+                <Name>Validate_Encrypted_Schema</Name>
+                <Condition>(request.verb != "OPTIONS") and (verifyapikey.VA-VerifyApiKey.mode == "hybrid_generic") and (developer.app.name != "freshgravity")</Condition>
+            </Step>
+            <Step>
+                <Name>RF-Encrypted-Schema</Name>
+                <Condition>(valid == false)</Condition>
+            </Step>
+            <Step>
+                <Condition>(verifyapikey.VA-VerifyApiKey.enableRateLimit = "true")</Condition>
+                <Name>KVM-SpikeArrestLimit</Name>
+            </Step>
+            <Step>
+                <Condition>(verifyapikey.VA-VerifyApiKey.enableRateLimit = "true")</Condition>
+                <Name>SA-RateLimit</Name>
+            </Step>
+            <Step>
+                <Name>JS-exchangeBCPG</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.client_id = "bKCtGQxqj7dCbB4r0l4CX9giu77xTIQ4")</Condition>
+                <!--<Condition>(verifyapikey.VA-VerifyApiKey.client_id = "Gw9w0CML56rhO38c6YL4dQthE0BV7Hqd") and (verifyapikey.VA-VerifyApiKey.client_id = "bKCtGQxqj7dCbB4r0l4CX9giu77xTIQ4")</Condition>-->
+            </Step>
+            <Step>
+                <Name>AM-BCGPReq</Name>
+                <Condition>(verifyapikey.VA-VerifyApiKey.client_id = "bKCtGQxqj7dCbB4r0l4CX9giu77xTIQ4")</Condition>
+                <!--<Condition>(verifyapikey.VA-VerifyApiKey.client_id = "Gw9w0CML56rhO38c6YL4dQthE0BV7Hqd") and (verifyapikey.VA-VerifyApiKey.client_id = "bKCtGQxqj7dCbB4r0l4CX9giu77xTIQ4")</Condition>-->
+            </Step>
+            <Step>
+                <Name>JS-RemovePGPVersion</Name>
+                <Condition>(request.verb != "OPTIONS") and (verifyapikey.VA-VerifyApiKey.isInternal != "true")  and (developer.app.name = "gpay-composite")</Condition>
+            </Step>
+            <Step>
+                <Name>KVM-MerchantConfigForPGP</Name>
+                <Condition>(request.verb != "OPTIONS") and  (developer.app.name == "gpay-composite")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SetPGPGpayConfigVairables</Name>
+                <Condition>(request.verb != "OPTIONS") and  (developer.app.name == "gpay-composite")</Condition>
+            </Step>
+            <!--<Step>-->
+            <!--    <Name>Flow-Callout-1</Name>-->
+            <!--<Condition>(request.verb != "OPTIONS") and  (developer.app.name == "gpay-composite")</Condition>-->
+            <!--<Condition>(verifyapikey.VA-VerifyApiKey.client_id = "oMK8ZZUAeym3dDzalBpGIfaydN2MITRq")</Condition>-->
+            <!--</Step>-->
+            <Step>
+                <Name>Java-Callout-1</Name>
+                <Condition>(request.verb != "OPTIONS") and  (developer.app.name == "gpay-composite")</Condition>
+            </Step>
+            <Step>
+                <Name>FC-Decryption</Name>
+                <Condition>(request.verb != "OPTIONS") and (verifyapikey.VA-VerifyApiKey.isTata == null)and (developer.app.name != "gpay-composite")</Condition>
+                <!--<Condition>(request.verb != "OPTIONS") and developer.app.name != "freshgravity"</Condition>-->
+            </Step>
+            <Step>
+                <Name>FC-DecryptionFlowEazypay</Name>
+                <Condition>(request.verb != "OPTIONS") and (verifyapikey.VA-VerifyApiKey.isTata =="yes") </Condition>
+            </Step>
+            <Step>
+                <Name>FC-SQL-Injection</Name>
+                <Condition>(request.verb != "OPTIONS") and  (developer.app.name != "gpay-composite")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SchemaValidation</Name>
+            </Step>
+            <Step>
+                <Name>Js-prepare-payload</Name>
+            </Step>
+            <Step>
+                <Name>RF-validateSchema</Name>
+                <Condition>(Valid == false)</Condition>
+            </Step>
+            <!--<Step>-->
+            <!--    <Name>JS-SchemaValidation</Name>-->
+            <!--</Step>-->
+            <!--<Step>-->
+            <!--    <Name>RF-Encrypted-Schema</Name>-->
+            <!--    <Condition>(Valid == false)</Condition>-->
+            <!--</Step>-->
+            <!--<Step>-->
+            <!--    <Name>Validate_Encrypted_Schema</Name>-->
+            <!--</Step>-->
+            <!--<Step>-->
+            <!--    <Name>JS-SchemaValidation</Name>-->
+            <!--</Step>-->
+            <Step>
+                <Name>FC-ThreatProtection</Name>
+            </Step>
+            <Step>
+                <Name>AM_setDecryptedClientRequestLog</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>JS-AnalyticsLoggingDev</Name>
+            </Step>
+            <Step>
+                <Name>FC-Encryption</Name>
+                <Condition>(request.verb != "OPTIONS") and (developer.app.name != "freshgravity") and  (developer.app.name != "gpay-composite")</Condition>
+            </Step>
+            <Step>
+                <Name>FC-PGP</Name>
+                <Condition>(request.verb != "OPTIONS") and  (developer.app.name == "gpay-composite")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-EscapeXml</Name>
+            </Step>
+            <Step>
+                <Name>JS-LogTimeTakenjs</Name>
+            </Step>
+            <Step>
+                <Name>JS-adbdlogging</Name>
+                <Condition>(proxy.pathsuffix MatchesPath "/CommonPayRequest") AND ( developer.app.id = "0978ce37-98eb-4af6-b96d-aa36485ba5de" OR developer.app.id = "07157fa6-faec-4713-a474-c095f6300717")</Condition>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows>
+        <Flow name="OptionsPreFlight">
+            <Request/>
+            <Response>
+                <Step>
+                    <Name>AM-RemoveHeaders</Name>
+                </Step>
+            </Response>
+            <!--<Condition>request.verb == "OPTIONS"</Condition>-->
+            <Condition>(request.verb = "OPTIONS") and (request.header.content-Type == "application/json; charset=utf-8")</Condition>
+        </Flow>
+        <Flow name="List Keys">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ListKeys") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="List PSP / List PSP Keys">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ListPSP") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="List Account Provider">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ListAccountProvider") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Token">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetToken") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Profile Details">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetProfileDetails") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Profile ID">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetProfileID") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Update User Mobile">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/UpdateMobile") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Update User Device">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/UpdateDevice") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Deregister Profile">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/DeregisterProfile") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Virtual Address Availability">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/VirtualAddressAvailability") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Generate OTP">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GenerateOTP") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="List Accounts">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ListAccounts") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Register Mobile Number">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/RegisterMobileNumber") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Store Account Details">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/StoreAccountDetails") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="List Virtual Addresses">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ListVirtualAddresses") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="List Verified Addresses Entries">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ListVerifiedAddressesEntries") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="List Customer Accounts">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ListCustomerAccounts") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Change Primary Account">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ChangePrimaryAccount") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Validate Virtual Address">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ValidateAddress") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Pay Request Global Address">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>EV-FetchTransactionAmount</Name>
+                    <Condition>request.content IsNot null</Condition>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/PayRequestGlobal") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Common Pay Request">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/CommonPayRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Collect Request">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/CollectRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Pending Request">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetPendingRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Transaction Status">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>EV-Getmobilenumber</Name>
+                </Step>
+                <Step>
+                    <Name>QT-Payment</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/TransactionStatus") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Balance Enquiry">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/BalanceEnquiry") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Mini Statement">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/MiniStatement") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Change MPIN">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ChangeMPIN") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Merchant Store Account Details">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/MerchantStoreAccountDetails") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Pay Request">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/PayRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Pay to Merchant VPA">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/PayMerchantRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Approve/Reject Pending Collect Request">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/CollectAuth") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Merchant Collect Request">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/MerchantCollectRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Merchant Refund Request">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/MerchantRefundRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Manage Verified Addresses">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ManageVerifiedAddresses") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Device Binding">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/DeviceBinding") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Reclaim VPA">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ReclaimVPA") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Manage Mandate">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ManageMandate") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Pending Mandates">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetPendingMandates") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Active Mandates">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetActiveMandates") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Approve Pending Mandates">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/Approve/Rejectpendingmandates") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get All Mandates">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetAllMandates") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Mandate History">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/MandateHistory") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Initiate Mandate Collect">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/InitiatemandateCollect") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Blocked VPA List">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/BlockedVpaList") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Block Unblock Customer">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/BlockUnblockCustomer") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Block Unblock VPA">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/BlockUnblockVPA") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Transaction Details">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetTransactionDetails") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Transaction History">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetTransactionHistory") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get VPA Details">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetVPADetails") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Complaint Reason Code">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetComplaintReasonCode") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Raise Transaction Complaint">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/RaiseTransactionComplaint") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Complaint List">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetComplaintList") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Check Transaction Dispute Status">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/CheckTransactionDisputeStatus") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Request Dispute">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/RequestDispute") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Pull SMS Request">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/PullSMSRequest") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Auto Created VPA">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetAutoCreatedVPA") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Mandate History">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetMandateHistory") and (request.verb = "POST")</Condition>
+        </Flow>
+        <!--<Flow name="Transactions Pull">-->
+        <!--    <Description/>-->
+        <!--    <Request/>-->
+        <!--    <Response/>-->
+        <!--    <Condition>(proxy.pathsuffix MatchesPath "/TransactionsPull") and (request.verb = "POST")</Condition>-->
+        <!--</Flow>-->
+        <Flow name="Pay To Contact">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/PayToContact") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Upi Number Status">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetUpiNumberStatus") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Manage Upi Number">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ManageUpiNumber") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="List Upi Number">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ListUpiNumber") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Deregister Profile Idempotency">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/DeregisterProfileIdempotency") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Reclaim VPA Idempotency">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ReclaimVPAIdempotency") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Raise Dispute Refund">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/RaiseDisputeRefund") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Validate QR">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ValidateQR") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Manage International Transaction">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ManageInternationalTransaction") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Payer PAN Validation">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/PayerPANValidation") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Payer Account">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/PayerAccount") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Txn Status Back Office">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetTxnStatusBackOffice") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Log Ref Id">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/LogRefId") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Upi Lite Details">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetUpiLiteDetails") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Check Status">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/CheckStatus") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Block Unblock Status">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/blockunblockstatus") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Initiate Mandate Pay">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/InitiateMandatePay") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Manage Delegate User">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ManageDelegateUser") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Validate Delegate Auth">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ValidateDelegateAUTH") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Delegate Auth">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/DelegateAuth") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Add Secondary Vpa">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/AddSecondaryVpa") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="APPROVE DELEGATE AUTH">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ApproveDelegateAUTH") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Link Delegate Details">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetLinkDelegateDetails") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Pending Delegate Payments">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetPendingDelegatePayments") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Req CC Bill">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ReqCCBill") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Block Unblock Channels">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/BlockUnblockChannels") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Manage EMI">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ManageEMI") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Request Validate Customer">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/RequestValidateCustomer") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Balance Inquiry CDM">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/BalanceInquiryCDM") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Get Server SSCL Token">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/GetServerSSCLToken") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Set User Sscl Cred">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/SetUserSsclCred") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Fetch activation Status">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/FetchActivationStatus") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Manage Activation">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>JS-BlockHeader</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/ManageActivation") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Path Not Found">
+            <Description/>
+            <Response/>
+            <Request>
+                <Step>
+                    <Name>RF-ServiceNotFound</Name>
+                </Step>
+            </Request>
+        </Flow>
+    </Flows>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <Step>
+                <Name>ML-MessageLogging</Name>
+                <Condition>(enableLogging = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>EC-UPI</Name>
+                <Condition>(messagelogging.ML-MessageLogging.failed = true) or (expressionResult != true)</Condition>
+            </Step>
+            <Step>
+                <Name>ML-MessageLoggingabcd</Name>
+                <Condition>(proxy.pathsuffix MatchesPath "/CommonPayRequest") AND ( developer.app.id = "0978ce37-98eb-4af6-b96d-aa36485ba5de" OR developer.app.id = "07157fa6-faec-4713-a474-c095f6300717")</Condition>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/api/v1/upi2</BasePath>
+        <Properties/>
+        <VirtualHost>apibankingone</VirtualHost>
+        <VirtualHost>apibanking</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="NoRoute">
+        <Condition>(request.verb = "OPTIONS")</Condition>
+    </RouteRule>
+    <RouteRule name="default">
+        <Condition>(verifyapikey.VA-VerifyApiKey.isTata = "yes")</Condition>
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="Service_Vertualization">
+        <TargetEndpoint>Service_Vertualization</TargetEndpoint>
+        <Condition>(verifyapikey.VA-VerifyApiKey.APPID == "61576")</Condition>
+    </RouteRule>
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

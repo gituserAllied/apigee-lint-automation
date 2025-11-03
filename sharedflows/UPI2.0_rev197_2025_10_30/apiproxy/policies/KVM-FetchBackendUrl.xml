@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-FetchBackendUrl" mapIdentifier="UPI_TARGET_CONFIG">
+    <DisplayName>KVM-FetchBackendUrl</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>600</ExpiryTimeInSecs>
+    <Get assignTo="private.apitype" index="1">
+        <Key>
+            <Parameter ref="pathMap"/>
+        </Key>
+    </Get>
+    <Get assignTo="private.backendUrl" index="2">
+        <Key>
+            <Parameter ref="pathMap"/>
+        </Key>
+    </Get>
+    <Get assignTo="private.finantialUrl" index="1">
+        <Key>
+            <Parameter ref="developer.app.name"/>
+        </Key>
+    </Get>
+    <Get assignTo="private.nonFinantialUrl" index="2">
+        <Key>
+            <Parameter ref="developer.app.name"/>
+        </Key>
+    </Get>
+    <Get assignTo="private.udirUrl" index="3">
+        <Key>
+            <Parameter ref="developer.app.name"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

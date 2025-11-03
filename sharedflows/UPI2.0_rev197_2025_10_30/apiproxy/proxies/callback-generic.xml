@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="callback-generic">
+    <Description/>
+    <FaultRules/>
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step>
+            <Name>JS-ErrorHandling</Name>
+        </Step>
+        <Step>
+            <Name>EV-FetchRespParam</Name>
+            <Condition>(fault.name = "ErrorResponseCode") and (response.content IsNot null)</Condition>
+        </Step>
+        <!--        <Step>
+            <Name>AM-SetFailureResponse</Name>
+            <Condition>(fault.name = "ErrorResponseCode")</Condition>
+        </Step>-->
+        <Step>
+            <Condition>(CATCH_EXCEPTION == "InvalidTransactionType")</Condition>
+            <Name>AM-SetInvalidTransactionTypeError</Name>
+        </Step>
+        <Step>
+            <Condition>(CATCH_EXCEPTION == "FailedToExtractConfig") or (CATCH_EXCEPTION == "Backend Field Mapping Failed") </Condition>
+            <!-- <Condition>(fault.name != "ErrorResponseCode")</Condition> -->
+            <Name>AM-SetDefaultFailureResponse</Name>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>JS-SetFlowType</Name>
+            </Step>
+            <Step>
+                <Name>SC-CallbackStatsCollector</Name>
+            </Step>
+            <Step>
+                <Name>JS-BlockHeader</Name>
+            </Step>
+            <Step>
+                <Name>VA-VerifyApikey</Name>
+            </Step>
+            <Step>
+                <Name>FC-IPValidation</Name>
+            </Step>
+            <Step>
+                <Name>FC-Quota</Name>
+            </Step>
+            <Step>
+                <Name>AM-setNewPayloadTataAutoUpdate</Name>
+            </Step>
+            <Step>
+                <Name>EV-AdityaBirla</Name>
+                <!--<Condition>(TXNTYPE == "DELEGATE-ADD" || TXNTYPE == "RESP-DELEGATE-ADD" || TXNTYPE == "DELEGATE-AUTH" || TXNTYPE == "RESP-DELEGATE-AUTH" || TXNTYPE == "FINAL-VALIDATE-DELEGATE-AUTH")</Condition>-->
+            </Step>
+            <Step>
+                <Name>XTJ-ADITYABIRLA</Name>
+                <Condition>(TXNTYPE == "DELEGATE-ADD" || TXNTYPE == "RESP-DELEGATE-ADD" || TXNTYPE == "DELEGATE-AUTH" || TXNTYPE == "RESP-DELEGATE-AUTH" || TXNTYPE == "FINAL-VALIDATE-DELEGATE-AUTH")</Condition>
+            </Step>
+            <Step>
+                <Name>XTJ-ConvertRequestXML</Name>
+                <Condition>(TXNTYPE != "DELEGATE-ADD") AND (TXNTYPE != "RESP-DELEGATE-ADD") AND (TXNTYPE != "DELEGATE-AUTH") AND (TXNTYPE != "RESP-DELEGATE-AUTH") AND (TXNTYPE != "FINAL-VALIDATE-DELEGATE-AUTH")</Condition>
+            </Step>
+            <Step>
+                <Name>EV-FetchTransactionType</Name>
+            </Step>
+            <Step>
+                <Name>EV_getCallback-genericClientRequestLog</Name>
+            </Step>
+            <Step>
+                <Name>JS-SchemaValidationCallback</Name>
+                <Condition>(TXNTYPE != "RESP-DELEGATE-ADD") AND (TXNTYPE != "RESP-DELEGATE-AUTH") AND (TXNTYPE != "FINAL-VALIDATE-DELEGATE-AUTH")</Condition>
+            </Step>
+            <Step>
+                <Name>RF-ValidateSchema</Name>
+                <Condition>(valid == false)</Condition>
+            </Step>
+            <Step>
+                <Name>AM_getCallback-genericClientRequestLog</Name>
+            </Step>
+            <Step>
+                <Name>KVM-ExtractMerchantConfig</Name>
+            </Step>
+            <Step>
+                <!--<Condition>(proccode == "UPI013") or (proccode == "UPI042")</Condition>-->
+                <Condition>(proccode == "UPI013")</Condition>
+                <Name>JS-HandlingAutoUpdateTata</Name>
+            </Step>
+            <Step>
+                <Name>JS-CallBackRequestHandling</Name>
+                <!--<Condition>(proccode == "UPI042") AND (transactiontype !="MANDATENOTIFICATION") AND (transactiontype !="REQMAPPERCONFIRMATION") AND (tataAutoUpdate = null or tataAutoUpdate = false)</Condition>-->
+                <Condition>(transactiontype !="MANDATENOTIFICATION") AND (transactiontype !="REQMAPPERCONFIRMATION") AND (tataAutoUpdate = null or tataAutoUpdate = false)</Condition>
+            </Step>
+            <Step>
+                <Name>JS-CallbackRequestHandlingConditional</Name>
+                <Condition>(transactiontype =="MANDATENOTIFICATION") AND (transactiontype !="REQMAPPERCONFIRMATION") AND (tataAutoUpdate = null or tataAutoUpdate = false)</Condition>
+            </Step>
+            <Step>
+                <Name>JS-MapperFunction</Name>
+                <Condition>(transactiontype == "REQMAPPERCONFIRMATION")</Condition>
+            </Step>
+            <Step>
+                <Name>VA-VerifyApiKey</Name>
+            </Step>
+            <!--<Step>-->
+            <!--    <Name>AM_getCallback-genericTargetRequestLog</Name>-->
+            <!--    <Condition>(transactiontype != "DELEGATE-ADD")</Condition>-->
+            <!--</Step>-->
+            <!--<Step>-->
+            <!--    <Name>AM-Set_Request</Name>-->
+            <!--    <Condition>(transactiontype == "DELEGATE-ADD")</Condition>-->
+            <!--</Step>-->
+            <Step>
+                <Name>FC-Encryption</Name>
+                <Condition>(proccode != "UPI014") AND (proccode != "UPI002") AND (proccode != "UPI005") AND (proccode != "UPI003") AND (proccode != "UPI007") AND (proccode != "UPI016")</Condition>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows>
+        <Flow name="Restrict Access">
+            <Description>Restrict Access if none of the above conditional flow matches</Description>
+            <Request>
+                <Step>
+                    <Name>RF-PathNotAllowed</Name>
+                    <Condition>request.verb != "POST"</Condition>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+        <!--<Flow name="Path Not Found">-->
+        <!--    <Description/>-->
+        <!--    <Request>-->
+        <!--        <Step>-->
+        <!--            <Name>RF-ServiceNotFound</Name>-->
+        <!--            <Condition>request.verb != "POST"</Condition>-->
+        <!--        </Step>-->
+        <!--    </Request>-->
+        <!--    <Response/>-->
+        <!--</Flow>-->
+    </Flows>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <Step>
+                <Name>ML-MessageLogging</Name>
+                <Condition>(enableLogging = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>EC-UPI</Name>
+                <Condition>(messagelogging.ML-MessageLogging.failed = true) or (expressionResult != true)</Condition>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/api/v1/callback/generic</BasePath>
+        <Properties/>
+        <VirtualHost>apibankingone</VirtualHost>
+        <VirtualHost>apicallback</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="callback-generic">
+        <TargetEndpoint>callback-generic</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

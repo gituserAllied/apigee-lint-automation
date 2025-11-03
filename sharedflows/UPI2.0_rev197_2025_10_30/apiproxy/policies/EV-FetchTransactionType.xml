@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="true" enabled="true" name="EV-FetchTransactionType">
+    <DisplayName>EV-FetchTransactionType</DisplayName>
+    <Source>request</Source>
+    <JSONPayload>
+        <Variable name="transactiontype">
+            <JSONPath>$.XML.TxnType</JSONPath>
+        </Variable>
+        <Variable name="proccode">
+            <JSONPath>$.XML.ProcCode</JSONPath>
+        </Variable>
+        <Variable name="notificationid">
+            <JSONPath>$.XML.NotificationId</JSONPath>
+        </Variable>
+        <Variable name="note">
+            <JSONPath>$.XML.Note</JSONPath>
+        </Variable>
+    </JSONPayload>
+</ExtractVariables>

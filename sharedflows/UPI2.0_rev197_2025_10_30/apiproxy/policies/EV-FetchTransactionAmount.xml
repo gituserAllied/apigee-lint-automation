@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-FetchTransactionAmount">
+    <DisplayName>EV-FetchTransactionAmount</DisplayName>
+    <Source>request</Source>
+    <JSONPayload>
+        <Variable name="transactionAmount" type="float">
+            <JSONPath>$.amount</JSONPath>
+        </Variable>
+    </JSONPayload>
+</ExtractVariables>

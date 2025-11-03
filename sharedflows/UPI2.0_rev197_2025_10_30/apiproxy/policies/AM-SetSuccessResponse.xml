@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-SetSuccessResponse">
+    <DisplayName>AM-SetSuccessResponse</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload content-type="application/xml">
+            <XML>
+                <MessageType>1200</MessageType>
+                <ProcCode>{proccode}</ProcCode>
+                <ActCode>0</ActCode>
+                <Response>ACK</Response>
+                <NotificationId>{notificationid}</NotificationId>
+            </XML>
+        </Payload>
+        <Headers>
+            <Header name="Content-Type">application/xml</Header>
+        </Headers>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-SetXmlContentTypeHeader">
+    <DisplayName>AM-SetXmlContentTypeHeader</DisplayName>
+    <Properties/>
+    <Copy source="response">
+        <Payload>true</Payload>
+    </Copy>
+    <Set>
+        <Headers>
+            <Header name="Content-Type">application/xml</Header>
+        </Headers>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="true" transport="http" type="response">response</AssignTo>
+</AssignMessage>

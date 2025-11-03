@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-BaseEncode">
+    <DisplayName>AM-BaseEncode</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>pubsubreq</Name>
+        <Template>{encodeBase64(incomingRequest.content)}</Template>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>message.content</Name>
+        <Ref>pubsubreq</Ref>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

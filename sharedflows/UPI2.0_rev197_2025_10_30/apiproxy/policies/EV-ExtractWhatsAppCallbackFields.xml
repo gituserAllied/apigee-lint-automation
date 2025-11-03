@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-ExtractWhatsAppCallbackFields">
+    <DisplayName>EV-ExtractWhatsAppCallbackFields</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <Source clearPayload="false">request</Source>
+    <XMLPayload stopPayloadProcessing="false">
+        <Variable name="proccode" type="string">
+            <XPath>//XML/ProcCode</XPath>
+        </Variable>
+        <Variable name="notificationid" type="string">
+            <XPath>//XML/NotificationId</XPath>
+        </Variable>
+    </XMLPayload>
+</ExtractVariables>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV_getCallbackWatsappClientRequestLog">
+    <DisplayName>EV_getCallbackWatsappClientRequestLog</DisplayName>
+    <Properties/>
+    <JSONPayload>
+        <Variable name="clientRequestLogPayload">
+            <JSONPath>$.XML</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">callbackWatsappRequest</Source>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</ExtractVariables>

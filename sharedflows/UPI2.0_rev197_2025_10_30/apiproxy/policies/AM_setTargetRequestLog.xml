@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AM_setTargetRequestLog">
+    <DisplayName>AM_setTargetRequestLog</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>targetRequestLogPayload</Name>
+        <Ref>request.content</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>targetRequestLogPayloadContentType</Name>
+        <Ref>request.header.Content-Type</Ref>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

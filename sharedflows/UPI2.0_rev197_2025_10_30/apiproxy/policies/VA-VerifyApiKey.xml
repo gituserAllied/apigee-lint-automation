@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<VerifyAPIKey async="false" continueOnError="true" enabled="true" name="VA-VerifyApiKey">
+    <DisplayName>VA-VerifyApiKey</DisplayName>
+    <Properties/>
+    <APIKey ref="private.apikey"/>
+</VerifyAPIKey>

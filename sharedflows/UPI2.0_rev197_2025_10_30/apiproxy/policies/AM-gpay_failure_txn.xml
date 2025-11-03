@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-gpay_failure_txn">
+    <DisplayName>AM-gpay_failure_txn</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload content-type="application/xml">
+            <XML>
+                <Response>TXNFail</Response>
+                <MessageType>TxnStatus_Failure</MessageType>
+                <ActCode>EOOO1</ActCode>
+            </XML>
+        </Payload>
+        <Headers>
+            <Header name="Content-Type">application/xml</Header>
+        </Headers>
+        <StatusCode>200</StatusCode>
+        <ReasonPhrase>OK</ReasonPhrase>
+    </Set>
+    <AssignVariable>
+        <Name>flowType</Name>
+        <Value>ERROR_HANDLING_FLOW</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

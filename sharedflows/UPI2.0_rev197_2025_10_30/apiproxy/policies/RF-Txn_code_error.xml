@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-Txn_code_error">
+    <DisplayName>RF-Txn_code_error</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers/>
+            <Payload contentType="text/xml">
+                <XML>
+                    <Response>FAIL</Response>
+                    <MessageType>1210</MessageType>
+                    <NotificationId/>
+                    <ActCode>500</ActCode>
+                    <ProcCode/>
+                </XML>
+            </Payload>
+            <StatusCode>500</StatusCode>
+            <ReasonPhrase/>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

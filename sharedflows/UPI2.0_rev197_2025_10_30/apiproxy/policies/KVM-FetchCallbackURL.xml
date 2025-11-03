@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-FetchCallbackURL" mapIdentifier="GOOGLECALLBACK_URLS">
+    <DisplayName>KVM-FetchCallbackURL</DisplayName>
+    <Properties/>
+    <ExpiryTimeInSecs>600</ExpiryTimeInSecs>
+    <Get assignTo="modifiedUrl">
+        <Key>
+            <Parameter ref="transactiontype"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

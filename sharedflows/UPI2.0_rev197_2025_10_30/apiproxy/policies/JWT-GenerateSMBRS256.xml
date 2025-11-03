@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GenerateJWT async="false" continueOnError="false" enabled="true" name="JWT-GenerateSMBRS256">
+    <DisplayName>JWT-GenerateSMBRS256</DisplayName>
+    <Algorithm>RS256</Algorithm>
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <PrivateKey>
+        <Value ref="private.smbprivatekey"/>
+    </PrivateKey>
+    <Issuer ref="issuer"/>
+    <Audience ref="audience"/>
+    <ExpiresIn ref="expiresin"/>
+    <Id/>
+    <AdditionalClaims>
+        <Claim name="scope" ref="scope"/>
+    </AdditionalClaims>
+    <OutputVariable>jwt-token</OutputVariable>
+</GenerateJWT>

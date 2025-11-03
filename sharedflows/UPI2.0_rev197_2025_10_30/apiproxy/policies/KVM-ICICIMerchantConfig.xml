@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-ICICIMerchantConfig" mapIdentifier="ICICI_MERCHANT_CONFIG">
+    <DisplayName>KVM-ICICIMerchantConfig</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>300</ExpiryTimeInSecs>
+    <Get assignTo="private.encPublicKey">
+        <Key>
+            <!--<Parameter>iMobile_PUBLIC_KEY</Parameter>-->
+            <Parameter>ICICI_PUBLIC_KEY</Parameter>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

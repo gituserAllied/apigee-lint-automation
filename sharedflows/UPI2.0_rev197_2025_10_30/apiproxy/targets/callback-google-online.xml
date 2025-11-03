@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="callback-google-online">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>KVM-FetchCallbackKeys</Name>
+            </Step>
+            <Step>
+                <Name>VA-VerifyApiKey</Name>
+            </Step>
+            <Step>
+                <Name>EV-MetaData</Name>
+                <Condition>(private.privatekey IsNot null) and (private.tokenmetadata IsNot null) and (proccode != "333070")</Condition>
+            </Step>
+            <Step>
+                <Name>EV-SMBMetaData</Name>
+                <Condition>(private.privatekey IsNot null) and (private.tokenmetadata IsNot null) and (proccode = "333070")</Condition>
+            </Step>
+            <Step>
+                <Name>JWT-GenerateRS256</Name>
+                <Condition>(private.privatekey IsNot null) and (private.tokenmetadata IsNot null) and (proccode != "333070")</Condition>
+            </Step>
+            <Step>
+                <Name>JWT-GenerateSMBRS256</Name>
+                <Condition>(private.privatekey IsNot null) and (private.tokenmetadata IsNot null) and (proccode = "333070")</Condition>
+            </Step>
+            <Step>
+                <Name>SC-GetOAuthToken</Name>
+            </Step>
+            <Step>
+                <Name>EV-FetchToken</Name>
+                <Condition>resp-SC-GetOAuthToken.content IsNot null</Condition>
+            </Step>
+            <Step>
+                <Name>AM-SetTargetRequest</Name>
+            </Step>
+            <Step>
+                <Name>KVM-FetchCallbackURL</Name>
+            </Step>
+            <Step>
+                <Name>AM_getCallback-googleTargetRequestLog</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>AM-SetSuccessResponse</Name>
+                <Condition>response.status.code == 200</Condition>
+            </Step>
+            <!--<Step>-->
+            <!--    <Name>AM-AddCORS</Name>-->
+            <!--</Step>-->
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows/>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+            <!--<Server name="GOOGLE_CALLBACK"/>-->
+            <Server name="GOOGLE_CALLBACK_STAGING"/>
+            <!--<Server name="staging-nbupayments.googleapis.com"/>-->
+        </LoadBalancer>
+        <Path>{modifiedUrl}</Path>
+    </HTTPTargetConnection>
+</TargetEndpoint>

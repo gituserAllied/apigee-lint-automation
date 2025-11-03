@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AM_getCallback-genericClientRequestLog">
+    <DisplayName>AM_getCallback-genericClientRequestLog</DisplayName>
+    <AssignVariable>
+        <Name>clientRequestLogPayloadContentType</Name>
+        <Ref>request.header.Content-Type</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>proccode</Name>
+        <Ref>proccode</Ref>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

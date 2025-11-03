@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<StatisticsCollector async="false" continueOnError="false" enabled="true" name="SC-CallbackStatsCollector">
+    <DisplayName>SC-CallbackStatsCollector</DisplayName>
+    <Properties/>
+    <Statistics>
+        <Statistic name="API_RESOURCE" ref="proxy.pathsuffix" type="string">UNKNOWN</Statistic>
+        <Statistic name="PROCCODE" type="string" ref="proccode">UNKNOWN</Statistic>
+        <Statistic name="FLOW_TYPE" type="string" ref="flowType">UNKNOWN</Statistic>
+        <Statistic name="TXNStatus" type="string" ref="TxnStatus">UNKNOWN</Statistic>
+    </Statistics>
+</StatisticsCollector>

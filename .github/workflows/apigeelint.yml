@@ -4,70 +4,76 @@ on:
   push:
     branches:
       - main
+    # Run only when files in these folders change
     paths:
       - "apiproxy/**"
       - "sharedflows/**"
+      - ".github/workflows/apigeelint.yml"
 
 jobs:
   lint-and-report:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # important: fetch full history for git diff
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Install ApigeeLint
         run: npm install -g apigeelint
 
-      - name: Prepare folders
-        run: mkdir -p JsonFile
+      - name: Prepare Output Folders
+        run: mkdir -p JsonFile ExcelFile
 
-      - name: Detect changed bundles
+      - name: Detect Changed Bundles
         id: detect
         run: |
-          echo "🔍 Detecting changed apiproxy/sharedflow folders..."
-          changed_paths=$(git diff --name-only HEAD^ HEAD | grep -E '^(apiproxy|sharedflows)/' | cut -d/ -f1-2 | sort -u || true)
-
-          if [ -z "$changed_paths" ]; then
-            echo "⚠️ No specific diff found, scanning all apiproxy/sharedflows folders..."
-            changed_paths=$(find apiproxy sharedflows -mindepth 1 -maxdepth 1 -type d 2>/dev/null || true)
+          echo "Detecting changed apiproxy or sharedflow bundles..."
+          changed=$(git diff --name-only HEAD^ HEAD | grep -E '^(apiproxy|sharedflows)/' | cut -d/ -f1-2 | sort -u | uniq || true)
+          if [ -z "$changed" ]; then
+            echo "No changed bundles found."
+            echo "run_lint=false" >> $GITHUB_ENV
+          else
+            echo "Bundles changed:"
+            echo "$changed"
+            echo "$changed" > changed.txt
+            echo "run_lint=true" >> $GITHUB_ENV
           fi
 
-          echo "Changed or existing bundles:"
-          echo "$changed_paths"
-          echo "$changed_paths" > changed.txt
-
       - name: Run ApigeeLint
+        if: env.run_lint == 'true'
         run: |
+          echo "Running ApigeeLint for changed bundles..."
           while read bundle; do
             if [ -d "$bundle/apiproxy" ]; then
-              echo "🚀 Linting API Proxy: $bundle"
+              echo "Linting proxy: $bundle"
               apigeelint -s "$bundle/apiproxy" -f json.js -w "JsonFile/${bundle//\//_}_report.json" || true
+            elif [ -d "$bundle/sharedflowbundle" ]; then
+              echo "Linting sharedflow: $bundle"
+              apigeelint -s "$bundle/sharedflowbundle" -f json.js -w "JsonFile/${bundle//\//_}_report.json" || true
             else
-              echo "🚀 Linting Shared Flow: $bundle"
-              apigeelint -s "$bundle" -f json.js -w "JsonFile/${bundle//\//_}_report.json" || true
+              echo "Skipping $bundle — no apiproxy/sharedflowbundle found."
             fi
           done < changed.txt
 
-      - name: Show generated JSON
+      - name: Show JSON Output
+        if: env.run_lint == 'true'
         run: |
-          echo "📁 JSON Reports in JsonFile/:"
-          ls -lh JsonFile || true
+          echo "✅ Lint completed. JSON reports generated:"
+          ls -lh JsonFile
           echo ""
           for f in JsonFile/*.json; do
-            echo "==== $f ===="
-            cat "$f" || true
+            echo "===== $f ====="
+            cat "$f"
             echo ""
           done
 
-      - name: Commit JSON Reports
+      - name: Commit and Push JSON Output
+        if: env.run_lint == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<StatisticsCollector async="false" continueOnError="false" enabled="true" name="SC-CaptureAnalytics">
+    <DisplayName>SC-CaptureAnalytics</DisplayName>
+    <Properties/>
+    <Statistics>
+        <Statistic name="DEVELOPER_EMAIL" ref="developer.email" type="string">UNKNOWN</Statistic>
+        <Statistic name="DEVELOPER_APP" type="string" ref="developer.app.name">UNKNOWN</Statistic>
+        <Statistic name="APIPRODUCT" type="string" ref="apiproduct.name">UNKNOWN</Statistic>
+        <Statistic name="API_RESOURCE" type="string" ref="proxy.pathsuffix">UNKNOWN</Statistic>
+        <Statistic name="TRANSACTION_TYPE" ref="TRANSACTION_TYPE" type="string">UNKNOWN</Statistic>
+        <Statistic name="MESSAGE" type="string" ref="MESSAGE">UNKNOWN</Statistic>
+        <Statistic name="RESPONSE_CODE_TARGET" type="string" ref="targetResponseStatusCode">ServiceError</Statistic>
+        <Statistic name="RESPONSE_CODE_GATEWAY" type="string" ref="gatewayResponseStatusCode">ServiceError</Statistic>
+        <Statistic name="FUNCTIONAL_SUCCESS_CODES" type="long" ref="functionalSuccessStatusCode">0</Statistic>
+        <Statistic name="FUNCTIONAL_ERRORS_CODES" type="long" ref="functionalErrorStatusCode">0</Statistic>
+        <Statistic name="FLOW_TYPE" type="string" ref="flowType">UNKNOWN</Statistic>
+        <Statistic name="MERCHANT_NAME" type="string" ref="MerchantAppName">Test</Statistic>
+        <Statistic name="PROJECT_NAME" type="string" ref="ProjectName">Generic</Statistic>
+        <Statistic name="PRODUCT_ID" type="string" ref="ProductId1">UNKNOWN</Statistic>
+        <Statistic name="CHANNEL_ID" type="string" ref="ChannelId1">UNKNOWN</Statistic>
+        <Statistic name="TOTAL_POLICY_TIME_TAKEN" type="long" ref="total_policy_time">0</Statistic>
+        <Statistic name="SC_TIME_TAKEN" type="long" ref="sc_time">0</Statistic>
+        <Statistic name="TARGET_TIME_TAKEN" type="long" ref="target_time">0</Statistic>
+        <Statistic name="TPS_COUNT" type="string" ref="SPIKE_Value">default</Statistic>
+    </Statistics>
+</StatisticsCollector>

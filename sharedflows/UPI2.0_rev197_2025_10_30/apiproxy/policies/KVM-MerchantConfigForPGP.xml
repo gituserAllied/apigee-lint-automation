@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-MerchantConfigForPGP" mapIdentifier="COMPOSITE_MERCHANT_CONFIG">
+    <DisplayName>KVM-MerchantConfigForPGP</DisplayName>
+    <Properties/>
+    <Get assignTo="private.merchantConfig">
+        <Key>
+            <Parameter ref="verifyapikey.VA-VerifyApiKey.KVM_MERCHANT_CONFIG_KEY"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

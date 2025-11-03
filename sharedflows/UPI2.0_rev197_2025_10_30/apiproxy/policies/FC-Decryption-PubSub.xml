@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout async="false" continueOnError="false" enabled="true" name="FC-Decryption-PubSub">
+    <DisplayName>FC-Decryption-PubSub</DisplayName>
+    <FaultRules/>
+    <Parameters>
+        <Parameter name="publicKey">test</Parameter>
+        <Parameter name="decPrivateKey">{private.decPrivateKey}</Parameter>
+        <Parameter name="mode">hybrid_generic</Parameter>
+        <Parameter name="content">{encodedEncryptedContent}</Parameter>
+        <Parameter name="iv"/>
+        <Parameter name="key">{encodedEncryptedKey}</Parameter>
+    </Parameters>
+    <SharedFlowBundle>Decryption-Flow-Generic</SharedFlowBundle>
+</FlowCallout>

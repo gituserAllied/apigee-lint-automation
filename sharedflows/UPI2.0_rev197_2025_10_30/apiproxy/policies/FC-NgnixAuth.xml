@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout async="false" continueOnError="false" enabled="true" name="FC-NgnixAuth">
+    <DisplayName>FC-NgnixAuth</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <!--<SharedFlowBundle>Apigee-Nginx-Auth-Flow</SharedFlowBundle>-->
+    <SharedFlowBundle>Apigee-Nginx-Auth-Flow-v3</SharedFlowBundle>
+</FlowCallout>

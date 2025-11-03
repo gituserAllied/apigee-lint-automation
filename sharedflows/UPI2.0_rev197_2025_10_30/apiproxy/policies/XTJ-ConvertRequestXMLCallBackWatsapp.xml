@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XMLToJSON async="false" continueOnError="true" enabled="true" name="XTJ-ConvertRequestXMLCallBackWatsapp">
+    <DisplayName>XTJ-ConvertRequestXMLCallBackWatsapp</DisplayName>
+    <Properties/>
+    <Options>
+        <RecognizeNumber>false</RecognizeNumber>
+    </Options>
+    <OutputVariable>callbackWatsappRequest</OutputVariable>
+    <Source>request</Source>
+</XMLToJSON>

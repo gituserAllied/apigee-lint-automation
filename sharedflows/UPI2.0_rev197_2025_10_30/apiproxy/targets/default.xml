@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="default">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request>
+            <!--<Step>-->
+            <!--    <Name>JS-SchemaValidation</Name>-->
+            <!--</Step>-->
+            <!--<Step>-->
+            <!--    <Name>RF-validateSchema</Name>-->
+            <!--    <Condition>(valid == false)</Condition>-->
+            <!--</Step>-->
+            <Step>
+                <Name>JS-SetPathsuffixKVMMapping</Name>
+            </Step>
+            <Step>
+                <Name>KVM-FetchBackendUrl</Name>
+            </Step>
+            <Step>
+                <Name>AM_setWatsappTargetRequestLog</Name>
+                <Condition>(proxy.basepath == "/v1/upi2")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-Combined</Name>
+                <Condition>(proxy.pathsuffix != "/PullSMSRequest")</Condition>
+            </Step>
+            <Step>
+                <Name>AM-SetBackendHeaders</Name>
+                <Condition>(proxy.pathsuffix != "/PullSMSRequest")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-UpiStackTargetRouting</Name>
+                <Condition>(proxy.pathsuffix == "/PullSMSRequest")</Condition>
+            </Step>
+            <Step>
+                <Name>AM_setTargetRequestLog</Name>
+                <Condition>(proxy.basepath != "/v1/upi2")</Condition>
+            </Step>
+            <!--<Step>-->
+            <!--    <Name>JS-setAdityaBirlaRouting</Name>-->
+            <!--    <Condition>(proxy.pathsuffix MatchesPath "/CommonPayRequest") AND (developer.app.id != "e6634061-8d6a-4c8f-bb4a-a2705ed78c5f")</Condition>-->
+            <!--<Condition>(proxy.pathsuffix MatchesPath "/CommonPayRequest") || (developer.app.id != "e6634061-8d6a-4c8f-bb4a-a2705ed78c5f")</Condition>-->
+            <!--<Condition>(proxy.pathsuffix MatchesPath "/CommonPayRequest")</Condition>-->
+            <!--</Step>-->
+            <!--<Step>-->
+            <!--    <Name>JS-setCZRouting</Name>-->
+            <!--    <Condition>(developer.app.id = "e6634061-8d6a-4c8f-bb4a-a2705ed78c5f") AND (proxy.pathsuffix MatchesPath "/CommonPayRequest")</Condition>-->
+            <!--</Step>-->
+            <Step>
+                <Name>JS-setWhatsappRouting</Name>
+                <Condition>(proxy.pathsuffix MatchesPath "/CommonPayRequest") AND (developer.app.id = "7a618dc5-1f06-4d4f-93bb-29b5ed4dae3c" OR developer.app.id = "930aded6-2448-4518-ae87-cda3045b35ed")</Condition>
+                <!--<Condition>(proxy.pathsuffix MatchesPath "/CommonPayRequest") </Condition>-->
+            </Step>
+            <Step>
+                <Name>FC-NgnixAuth</Name>
+                <Condition>(runnginxauth != "n")</Condition>
+            </Step>
+            <!--<Step>-->
+            <!--    <Name>FC-NgnixAuthNew</Name>-->
+            <!--    <Condition>(runnginxauth = "n")</Condition>-->
+            <!--</Step>-->
+        </Request>
+        <Response>
+            <!--<Step>-->
+            <!--    <Name>AM-Set-Response</Name>-->
+            <!--    <Condition>(proxy.pathsuffix == "/GetTxnStatusBackOffice")</Condition>-->
+            <!--</Step>-->
+            <Step>
+                <Name>AM_setTargetResponseLog</Name>
+            </Step>
+            <Step>
+                <Name>JS-CheckResponse</Name>
+            </Step>
+            <Step>
+                <Name>JS-setResForCheckStatus</Name>
+                <Condition>(proxy.pathsuffix == "/CheckStatus")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SetResponseForGetTxnStatusBackOffice</Name>
+                <Condition>(proxy.pathsuffix == "/GetTxnStatusBackOffice")</Condition>
+            </Step>
+            <Step>
+                <Name>AM_setDecryptedClientResponseLog</Name>
+            </Step>
+            <Step>
+                <Name>AM-AddCORS</Name>
+            </Step>
+            <Step>
+                <Name>AM-Add-Security-Headers</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows/>
+    <HTTPTargetConnection>
+        <!--<LoadBalancer>-->
+        <!--    <Server name="ICICI_UAT"/>-->
+        <!--<Server name="UAT-ONPREM-DMZ"/>-->
+        <!--</LoadBalancer>-->
+        <LoadBalancer>
+            <Algorithm>RoundRobin</Algorithm>
+            <Server name="ICICI_UAT"/>
+            <Server name="ICICI_Nginx_UAT"/>
+            <Server name="DEFAULT_NGINX_BACKEND"/>
+            <Server name="VRM_TARGET"/>
+            <Server name="DEH_TARGET"/>
+        </LoadBalancer>
+        <!--<URL>https://obbahrainuat.icicibank.com/enc/{modifiedUrl}</URL>-->
+        <Path>enc/{modifiedUrl}</Path>
+        <Properties>
+            <Property name="connect.timeout.millis">120000</Property>
+            <Property name="io.timeout.millis">120000</Property>
+        </Properties>
+    </HTTPTargetConnection>
+</TargetEndpoint>

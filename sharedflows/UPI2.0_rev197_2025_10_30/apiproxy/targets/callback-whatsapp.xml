@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="callback-whatsapp">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>KVM-FetchCallbackKeys</Name>
+            </Step>
+            <Step>
+                <Name>VA-VerifyWhatsAppApiKey</Name>
+            </Step>
+            <Step>
+                <Name>AM-SetWhatsAppCallbackRequest</Name>
+            </Step>
+            <Step>
+                <Name>FC-AuthenticateRequest</Name>
+            </Step>
+            <Step>
+                <Name>FC-Encryption</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>AM-SetXmlContentTypeHeader</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows/>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+            <Server name="WHATSAPP_CALLBACK"/>
+        </LoadBalancer>
+        <Path>/payments/upi_payment_notification/</Path>
+    </HTTPTargetConnection>
+</TargetEndpoint>
