@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-    # Run only when files in these folders change
     paths:
       - "apiproxy/**"
       - "sharedflows/**"
@@ -29,16 +28,19 @@ jobs:
       - name: Prepare Output Folders
         run: mkdir -p JsonFile ExcelFile
 
-      - name: Detect Changed Bundles
+      - name: Detect Bundles to Lint
         id: detect
         run: |
-          echo "Detecting changed apiproxy or sharedflow bundles..."
+          echo "🔎 Detecting changed or new apiproxy/sharedflow bundles..."
           changed=$(git diff --name-only HEAD^ HEAD | grep -E '^(apiproxy|sharedflows)/' | cut -d/ -f1-2 | sort -u | uniq || true)
+
           if [ -z "$changed" ]; then
-            echo "No changed bundles found."
-            echo "run_lint=false" >> $GITHUB_ENV
+            echo "⚠️ No specific changes found — running ApigeeLint for all bundles."
+            all_paths=$(find apiproxy sharedflows -mindepth 1 -maxdepth 1 -type d 2>/dev/null || true)
+            echo "$all_paths" > changed.txt
+            echo "run_lint=true" >> $GITHUB_ENV
           else
-            echo "Bundles changed:"
+            echo "✅ Found changed bundles:"
             echo "$changed"
             echo "$changed" > changed.txt
             echo "run_lint=true" >> $GITHUB_ENV
@@ -47,19 +49,17 @@ jobs:
       - name: Run ApigeeLint
         if: env.run_lint == 'true'
         run: |
-          echo "Running ApigeeLint for changed bundles..."
+          echo "🚀 Running ApigeeLint..."
           while read bundle; do
+            [ -z "$bundle" ] && continue
             if [ -d "$bundle/apiproxy" ]; then
               echo "🔍 Linting API Proxy: $bundle/apiproxy"
               apigeelint -s "$bundle/apiproxy" -f json.js -w "JsonFile/${bundle//\//_}_proxy_report.json" || true
             elif [ -d "$bundle/sharedflowbundle" ]; then
               echo "🔍 Linting Shared Flow: $bundle/sharedflowbundle"
               apigeelint -s "$bundle/sharedflowbundle" -f json.js -w "JsonFile/${bundle//\//_}_sf_report.json" || true
-            elif [ -d "$bundle" ]; then
-              echo "🔍 Attempting fallback lint for: $bundle"
-              apigeelint -s "$bundle" -f json.js -w "JsonFile/${bundle//\//_}_fallback_report.json" || true
             else
-              echo "⚠️ Skipping $bundle (no valid lintable path)"
+              echo "⚠️ Skipping $bundle (no valid apiproxy/sharedflowbundle found)"
             fi
           done < changed.txt
 
