@@ -33,11 +33,9 @@ jobs:
         run: |
           echo "🔎 Detecting changed or new apiproxy/sharedflow bundles..."
           changed=$(git diff --name-only HEAD^ HEAD | grep -E '^(apiproxy|sharedflows)/' | cut -d/ -f1-2 | sort -u | uniq || true)
-
           if [ -z "$changed" ]; then
             echo "⚠️ No specific changes found — running ApigeeLint for all bundles."
-            all_paths=$(find apiproxy sharedflows -mindepth 1 -maxdepth 1 -type d 2>/dev/null || true)
-            echo "$all_paths" > changed.txt
+            find apiproxy sharedflows -mindepth 1 -maxdepth 1 -type d 2>/dev/null || true > changed.txt
             echo "run_lint=true" >> $GITHUB_ENV
           else
             echo "✅ Found changed bundles:"
@@ -50,6 +48,10 @@ jobs:
         if: env.run_lint == 'true'
         run: |
           echo "🚀 Running ApigeeLint..."
+          # Disable GitHub’s default matchers (avoids regex timeouts)
+          echo "::remove-matcher owner=tsc::" || true
+          echo "::remove-matcher owner=eslint-compact::" || true
+          
           while read bundle; do
             [ -z "$bundle" ] && continue
             if [ -d "$bundle/apiproxy" ]; then
@@ -59,7 +61,7 @@ jobs:
               echo "🔍 Linting Shared Flow: $bundle/sharedflowbundle"
               apigeelint -s "$bundle/sharedflowbundle" -f json.js -w "JsonFile/${bundle//\//_}_sf_report.json" || true
             else
-              echo "⚠️ Skipping $bundle (no valid apiproxy/sharedflowbundle found)"
+              echo "⚠️ Skipping $bundle (no valid lintable path)"
             fi
           done < changed.txt
 
@@ -67,11 +69,11 @@ jobs:
         if: env.run_lint == 'true'
         run: |
           echo "✅ Lint completed. JSON reports generated:"
-          ls -lh JsonFile || true
+          ls -lh JsonFile || echo "No JSON files found."
           echo ""
           for f in JsonFile/*.json; do
             echo "===== $f ====="
-            cat "$f"
+            head -n 50 "$f" || true  # only show first lines to avoid timeout
             echo ""
           done
 
@@ -81,5 +83,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add JsonFile/*.json || true
-          git commit -m "Auto: Added ApigeeLint reports" || echo "No new JSON to commit"
-          git push
+          git diff --cached --quiet || git commit -m "Auto: Added ApigeeLint reports"
+          git push || echo "No new JSON to commit"
