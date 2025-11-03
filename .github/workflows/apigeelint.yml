@@ -44,21 +44,25 @@ jobs:
             echo "run_lint=true" >> $GITHUB_ENV
           fi
 
-      - name: Run ApigeeLint
+       - name: Run ApigeeLint
         if: env.run_lint == 'true'
         run: |
           echo "Running ApigeeLint for changed bundles..."
           while read bundle; do
             if [ -d "$bundle/apiproxy" ]; then
-              echo "Linting proxy: $bundle"
-              apigeelint -s "$bundle/apiproxy" -f json.js -w "JsonFile/${bundle//\//_}_report.json" || true
+              echo "🔍 Linting API Proxy: $bundle/apiproxy"
+              apigeelint -s "$bundle/apiproxy" -f json.js -w "JsonFile/${bundle//\//_}_proxy_report.json" || true
             elif [ -d "$bundle/sharedflowbundle" ]; then
-              echo "Linting sharedflow: $bundle"
-              apigeelint -s "$bundle/sharedflowbundle" -f json.js -w "JsonFile/${bundle//\//_}_report.json" || true
+              echo "🔍 Linting Shared Flow: $bundle/sharedflowbundle"
+              apigeelint -s "$bundle/sharedflowbundle" -f json.js -w "JsonFile/${bundle//\//_}_sf_report.json" || true
+            elif [ -d "$bundle" ]; then
+              echo "🔍 Attempting fallback lint for: $bundle"
+              apigeelint -s "$bundle" -f json.js -w "JsonFile/${bundle//\//_}_fallback_report.json" || true
             else
-              echo "Skipping $bundle — no apiproxy/sharedflowbundle found."
+              echo "⚠️ Skipping $bundle (no valid lintable path)"
             fi
           done < changed.txt
+
 
       - name: Show JSON Output
         if: env.run_lint == 'true'
