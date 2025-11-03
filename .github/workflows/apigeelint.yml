@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - main
-    # Run on any push to main
     paths:
       - ".github/workflows/apigeelint.yml"
       - "sharedflows/**"
       - "apiproxy/**"
+
+permissions:
+  contents: write   # ✅ Allow workflow to push commits to the repo
 
 jobs:
   lint-and-report:
@@ -17,6 +19,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # ✅ ensure correct token used
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -59,7 +63,7 @@ jobs:
           git add JsonFile/*.json || true
           if ! git diff --cached --quiet; then
             git commit -m "Auto: Added ApigeeLint report for api_wise_spike_quota_rev23_2025_10_29"
-            git push
+            git push origin main
           else
             echo "ℹ️ No new JSON to commit."
           fi
