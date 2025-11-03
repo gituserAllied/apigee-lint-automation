@@ -44,7 +44,7 @@ jobs:
             echo "run_lint=true" >> $GITHUB_ENV
           fi
 
-       - name: Run ApigeeLint
+             - name: Run ApigeeLint
         if: env.run_lint == 'true'
         run: |
           echo "Running ApigeeLint for changed bundles..."
@@ -62,7 +62,6 @@ jobs:
               echo "⚠️ Skipping $bundle (no valid lintable path)"
             fi
           done < changed.txt
-
 
       - name: Show JSON Output
         if: env.run_lint == 'true'
