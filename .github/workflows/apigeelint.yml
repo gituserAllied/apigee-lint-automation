@@ -1,13 +1,14 @@
-name: ApigeeLint Automation
+name: ApigeeLint Manual Bundle Scan
 
 on:
   push:
     branches:
       - main
+    # Run on any push to main
     paths:
-      - "apiproxy/**"
-      - "sharedflows/**"
       - ".github/workflows/apigeelint.yml"
+      - "sharedflows/**"
+      - "apiproxy/**"
 
 jobs:
   lint-and-report:
@@ -28,76 +29,36 @@ jobs:
       - name: Prepare Output Folders
         run: mkdir -p JsonFile ExcelFile
 
-      - name: Detect Bundles to Lint
-        id: detect
+      - name: Run ApigeeLint on specific shared flow
         run: |
-          echo "🔎 Detecting changed apiproxy/sharedflow bundles..."
-          git fetch --depth=2 || true
-          changed=$(git diff --name-only HEAD^ HEAD | grep -E '^(apiproxy|sharedflows)/' | cut -d/ -f1-2 | sort -u | uniq || true)
-          if [ -z "$changed" ]; then
-            echo "⚠️ No changed bundles found. Linting all top-level folders instead."
-            find apiproxy sharedflows -mindepth 1 -maxdepth 1 -type d 2>/dev/null || true > changed.txt
-            echo "run_lint=true" >> $GITHUB_ENV
+          echo "🔍 Running ApigeeLint on specific shared flow bundle..."
+          TARGET_PATH="${{ github.workspace }}/sharedflows/api_wise_spike_quota_rev23_2025_10_29/sharedflowbundle"
+          if [ -d "$TARGET_PATH" ]; then
+            echo "✅ Found sharedflowbundle folder at: $TARGET_PATH"
+            apigeelint -s "$TARGET_PATH" -f json.js -w "${{ github.workspace }}/JsonFile/api_wise_spike_quota_rev23_2025_10_29_report.json" || true
           else
-            echo "✅ Found changed bundles:"
-            echo "$changed"
-            echo "$changed" > changed.txt
-            echo "run_lint=true" >> $GITHUB_ENV
+            echo "❌ Shared flow bundle not found at $TARGET_PATH"
+            exit 1
           fi
-          echo ""
-          echo "👉 Contents of changed.txt:"
-          cat changed.txt || echo "(empty)"
-
-      - name: Run ApigeeLint
-        if: env.run_lint == 'true'
-        run: |
-          echo "::remove-matcher owner=tsc::" || true
-          echo "::remove-matcher owner=eslint-compact::" || true
-
-          if [ ! -s changed.txt ]; then
-            echo "⚠️ No bundles found to lint. Skipping..."
-            exit 0
-          fi
-
-          while read bundle; do
-            [ -z "$bundle" ] && continue
-            echo "🧩 Checking bundle: $bundle"
-            if [ -d "$bundle/apiproxy" ]; then
-              echo "🔍 Running lint on API Proxy: $bundle/apiproxy"
-              apigeelint -s "$bundle/apiproxy" -f json.js -w "JsonFile/${bundle//\//_}_proxy.json" || true
-            elif [ -d "$bundle/sharedflowbundle" ]; then
-              echo "🔍 Running lint on Shared Flow: $bundle/sharedflowbundle"
-              apigeelint -s "$bundle/sharedflowbundle" -f json.js -w "JsonFile/${bundle//\//_}_sf.json" || true
-            else
-              echo "⚠️ Skipping $bundle (no apiproxy/sharedflowbundle subdir found)"
-            fi
-          done < changed.txt
 
       - name: Show JSON Output
-        if: env.run_lint == 'true'
         run: |
           echo "📄 Checking generated JSON files..."
-          if [ "$(ls -A JsonFile 2>/dev/null)" ]; then
-            ls -lh JsonFile
+          ls -lh JsonFile || true
+          echo ""
+          for f in JsonFile/*.json; do
+            echo "===== $f ====="
+            cat "$f"
             echo ""
-            echo "First few lines of each JSON file:"
-            for f in JsonFile/*.json; do
-              echo "===== $f ====="
-              head -n 30 "$f" || true
-              echo ""
-            done
-          else
-            echo "⚠️ No JSON files found in JsonFile/"
-          fi
+          done
 
       - name: Commit and Push JSON Output
-        if: env.run_lint == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add JsonFile/*.json || true
           if ! git diff --cached --quiet; then
-            git commit -m "Auto: Added ApigeeLint reports"
+            git commit -m "Auto: Added ApigeeLint report for api_wise_spike_quota_rev23_2025_10_29"
             git push
           else
             echo "ℹ️ No new JSON to commit."
