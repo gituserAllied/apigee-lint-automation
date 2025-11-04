@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-GCVResponse">
+    <DisplayName>EV-GCVResponse</DisplayName>
+    <Properties/>
+    <Source clearPayload="false">response.content</Source>
+    <XMLPayload stopPayloadProcessing="false">
+        <Namespaces/>
+        <Variable name="MobileNo" type="String">
+            <XPath>/XML/CMSServices/Body/SrvResp/CardInquiryResp/CardDetails/MobileNo</XPath>
+        </Variable>
+        <Variable name="ErrorCode" type="String">
+            <XPath>/XML/CMSServices/Body/SrvResp/CardInquiryResp/ErrorCode</XPath>
+        </Variable>
+    </XMLPayload>
+</ExtractVariables>

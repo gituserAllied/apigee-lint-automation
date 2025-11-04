@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-GCVRequest">
+    <DisplayName>EV-GCVRequest</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="tokenRequestorID">
+            <JSONPath>$.tokenRequestorID</JSONPath>
+        </Variable>
+        <Variable name="tokenReferenceID">
+            <JSONPath>$.tokenReferenceID</JSONPath>
+        </Variable>
+        <Variable name="addressVerificationResultCode">
+            <JSONPath>$.addressVerificationResultCode</JSONPath>
+        </Variable>
+        <Variable name="cvv2ResultsCode">
+            <JSONPath>$.cvv2ResultsCode</JSONPath>
+        </Variable>
+        <Variable name="deviceID">
+            <JSONPath>$.deviceInfo.deviceID</JSONPath>
+        </Variable>
+        <Variable name="deviceLanguageCode">
+            <JSONPath>$.deviceInfo.deviceLanguageCode</JSONPath>
+        </Variable>
+        <Variable name="deviceType">
+            <JSONPath>$.deviceInfo.deviceType</JSONPath>
+        </Variable>
+        <Variable name="deviceName">
+            <JSONPath>$.deviceInfo.deviceName</JSONPath>
+        </Variable>
+        <Variable name="deviceNumber">
+            <JSONPath>$.deviceInfo.deviceNumber</JSONPath>
+        </Variable>
+        <Variable name="osType">
+            <JSONPath>$.deviceInfo.osType</JSONPath>
+        </Variable>
+        <Variable name="osVersion">
+            <JSONPath>$.deviceInfo.osVersion</JSONPath>
+        </Variable>
+        <Variable name="osBuildID">
+            <JSONPath>$.deviceInfo.osBuildID</JSONPath>
+        </Variable>
+        <Variable name="deviceIDType">
+            <JSONPath>$.deviceInfo.deviceIDType</JSONPath>
+        </Variable>
+        <Variable name="deviceManufacturer">
+            <JSONPath>$.deviceInfo.deviceManufacturer</JSONPath>
+        </Variable>
+        <Variable name="deviceBrand">
+            <JSONPath>$.deviceInfo.deviceBrand</JSONPath>
+        </Variable>
+        <Variable name="deviceModel">
+            <JSONPath>$.deviceInfo.deviceModel</JSONPath>
+        </Variable>
+        <Variable name="deviceLocation">
+            <JSONPath>$.deviceInfo.deviceLocation</JSONPath>
+        </Variable>
+        <Variable name="deviceIPAddressV4">
+            <JSONPath>$.deviceInfo.deviceIPAddressV4</JSONPath>
+        </Variable>
+        <Variable name="locationSource">
+            <JSONPath>$.deviceInfo.locationSource</JSONPath>
+        </Variable>
+        <Variable name="tokenProtectionMethod">
+            <JSONPath>$.deviceInfo.tokenProtectionMethod</JSONPath>
+        </Variable>
+        <Variable name="deviceIndex">
+            <JSONPath>$.deviceInfo.deviceIndex</JSONPath>
+        </Variable>
+        <Variable name="panReferenceID">
+            <JSONPath>$.panReferenceID</JSONPath>
+        </Variable>
+        <Variable name="clientWalletAccountID">
+            <JSONPath>$.clientWalletAccountID</JSONPath>
+        </Variable>
+        <Variable name="panSource">
+            <JSONPath>$.panSource</JSONPath>
+        </Variable>
+        <Variable name="otpReason">
+            <JSONPath>$.otpReason</JSONPath>
+        </Variable>
+        <Variable name="otpMaxReached">
+            <JSONPath>$.otpMaxReached</JSONPath>
+        </Variable>
+        <Variable name="encryptedData">
+            <JSONPath>$.encryptedData</JSONPath>
+        </Variable>
+        <Variable name="deviceID">
+            <JSONPath>$.deviceInfo.deviceID</JSONPath>
+        </Variable>
+        <Variable name="deviceType">
+            <JSONPath>$.deviceInfo.deviceType</JSONPath>
+        </Variable>
+        <Variable name="deviceName">
+            <JSONPath>$.deviceInfo.deviceName</JSONPath>
+        </Variable>
+        <Variable name="deviceNumber">
+            <JSONPath>$.deviceInfo.deviceNumber</JSONPath>
+        </Variable>
+        <Variable name="deviceIndex">
+            <JSONPath>$.deviceInfo.deviceIndex</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">request</Source>
+    <VariablePrefix>GCV</VariablePrefix>
+</ExtractVariables>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-CheckEligibility">
+    <DisplayName>AM-CheckEligibility</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="text/xml">
+            <XML>
+                <MessageType>0200</MessageType>
+                <ProcCode>Z50000</ProcCode>
+                <getCardHolderVerificationMethodsReq xmlns="http://api.icicibank.com/api/vnts/cardholderverificationmethods/v1">
+                    <walletProviderMsgTracing>
+                        <tokenRequestorID>{CE.tokenRequestorID}</tokenRequestorID>
+                        <wpRequestId/>
+                        <wpConversationId/>
+                    </walletProviderMsgTracing>
+                    <walletAccountID/>
+                    <lifeCycleTraceID>{CE.lifeCycleTraceID}</lifeCycleTraceID>
+                    <tokenReferenceID>{CE.tokenReferenceID}</tokenReferenceID>
+                    <panReferenceID>{CE.panReferenceID}</panReferenceID>
+                    <token/>
+                    <deviceInfo>
+                        <secureElementID/>
+                        <deviceType/>
+                        <deviceNumber/>
+                        <deviceName/>
+                    </deviceInfo>
+                    <otpReason>01</otpReason>
+                    <otpMaxReached>false</otpMaxReached>
+                    <cardholderInfo>{cardholderInfo}</cardholderInfo>
+                    <riskInformation>
+                        <wpReasonCodes>2</wpReasonCodes>
+                        <panSource>{CE.panSource}</panSource>
+                        <wpDeviceScore>2</wpDeviceScore>
+                        <wpAccountScore>2</wpAccountScore>
+                        <riskAssessmentScore>2</riskAssessmentScore>
+                        <tokenProvisioningScore>2</tokenProvisioningScore>
+                    </riskInformation>
+                </getCardHolderVerificationMethodsReq>
+            </XML>
+        </Payload>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="CEuest"/>
+</AssignMessage>

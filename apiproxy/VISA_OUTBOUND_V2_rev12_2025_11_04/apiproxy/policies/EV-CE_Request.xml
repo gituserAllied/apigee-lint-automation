@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-CE_Request">
+    <DisplayName>EV-CE_Request</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="tokenRequestorID">
+            <JSONPath>$.tokenRequestorID</JSONPath>
+        </Variable>
+        <Variable name="lifeCycleTraceID">
+            <JSONPath>$.lifeCycleTraceID</JSONPath>
+        </Variable>
+        <Variable name="tokenReferenceID">
+            <JSONPath>$.tokenReferenceID</JSONPath>
+        </Variable>
+        <Variable name="panReferenceID">
+            <JSONPath>$.panReferenceID</JSONPath>
+        </Variable>
+        <Variable name="deviceLanguageCode">
+            <JSONPath>$.deviceInfo.deviceLanguageCode</JSONPath>
+        </Variable>
+        <Variable name="deviceID">
+            <JSONPath>$.deviceInfo.deviceID</JSONPath>
+        </Variable>
+        <Variable name="panSource">
+            <JSONPath>$.panSource</JSONPath>
+        </Variable>
+        <Variable name="encryptedData">
+            <JSONPath>$.encryptedData</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <VariablePrefix>CE</VariablePrefix>
+    <Source clearPayload="false">request</Source>
+</ExtractVariables>

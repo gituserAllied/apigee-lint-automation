@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-SendPassCodeRes">
+    <DisplayName>EV-SendPassCodeRes</DisplayName>
+    <Properties/>
+    <Source clearPayload="false">response</Source>
+    <XMLPayload stopPayloadProcessing="false">
+        <Namespaces/>
+        <Variable name="actionCode" type="string">
+            <XPath>/XML/sendPasscodeRes/actionCode</XPath>
+        </Variable>
+        <Variable name="errorCode" type="string">
+            <XPath>/XML/sendPasscodeRes/errorCode</XPath>
+        </Variable>
+    </XMLPayload>
+</ExtractVariables>

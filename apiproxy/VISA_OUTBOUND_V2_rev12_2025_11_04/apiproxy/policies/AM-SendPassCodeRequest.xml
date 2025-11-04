@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-SendPassCodeRequest">
+    <DisplayName>AM-SendPassCodeRequest</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="text/xml">
+            <XML>
+                <MessageType>0200</MessageType>
+                <ProcCode>Z40000</ProcCode>
+                <sendPasscodeReq>
+                    <walletProviderMsgTracing>
+                        <tokenRequestorID>{req.tokenRequestorID}</tokenRequestorID>
+                        <wpRequestId/>
+                        <wpConversationId/>
+                    </walletProviderMsgTracing>
+                    <walletAccountID/>
+                    <lifeCycleTraceID/>
+                    <tokenReferenceID>{req.tokenReferenceID}</tokenReferenceID>
+                    <panReferenceID>{req.panReferenceID}</panReferenceID>
+                    <token/>
+                    <deviceInfo>
+                        <secureElementID>{req.secureElementID}</secureElementID>
+                        <deviceType>{req.deviceType}</deviceType>
+                        <deviceNumber>{req.deviceNumber}</deviceNumber>
+                        <deviceName>{req.deviceName}</deviceName>
+                    </deviceInfo>
+                    <otpMethodIdentifier>{req.otpMethodIdentifier}</otpMethodIdentifier>
+                    <OTPCode>{req.OTPCode}</OTPCode>
+                    <OTPCodeExp>{req.OTPCodeExp}</OTPCodeExp>
+                    <cardholderInfo>{cardholderInfo}</cardholderInfo>
+                </sendPasscodeReq>
+            </XML>
+        </Payload>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

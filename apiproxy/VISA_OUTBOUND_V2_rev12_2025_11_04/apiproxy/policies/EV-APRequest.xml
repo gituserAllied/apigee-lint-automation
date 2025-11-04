@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-APRequest">
+    <DisplayName>EV-APRequest</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="panReferenceID">
+            <JSONPath>$.panReferenceID</JSONPath>
+        </Variable>
+        <Variable name="walletAccountEmailAddressHash">
+            <JSONPath>$.walletAccountEmailAddressHash</JSONPath>
+        </Variable>
+        <Variable name="clientWalletAccountID">
+            <JSONPath>$.clientWalletAccountID</JSONPath>
+        </Variable>
+        <Variable name="visaTokenScore">
+            <JSONPath>$.visaTokenScore</JSONPath>
+        </Variable>
+        <Variable name="visaTokenDecisioning">
+            <JSONPath>$.visaTokenDecisioning</JSONPath>
+        </Variable>
+        <Variable name="panSource">
+            <JSONPath>$.panSource</JSONPath>
+        </Variable>
+        <Variable name="addressVerificationResultCode">
+            <JSONPath>$.addressVerificationResultCode</JSONPath>
+        </Variable>
+        <Variable name="cvv2ResultsCode">
+            <JSONPath>$.cvv2ResultsCode</JSONPath>
+        </Variable>
+        <Variable name="consumerEntryMode">
+            <JSONPath>$.consumerEntryMode</JSONPath>
+        </Variable>
+        <Variable name="locale">
+            <JSONPath>$.locale</JSONPath>
+        </Variable>
+        <Variable name="encryptedData">
+            <JSONPath>$.encryptedData</JSONPath>
+        </Variable>
+        <Variable name="deviceID">
+            <JSONPath>$.deviceInfo.deviceID</JSONPath>
+        </Variable>
+        <Variable name="deviceLanguageCode">
+            <JSONPath>$.deviceInfo.deviceLanguageCode</JSONPath>
+        </Variable>
+        <Variable name="deviceType">
+            <JSONPath>$.deviceInfo.deviceType</JSONPath>
+        </Variable>
+        <Variable name="deviceName">
+            <JSONPath>$.deviceInfo.deviceName</JSONPath>
+        </Variable>
+        <Variable name="deviceNumber">
+            <JSONPath>$.deviceInfo.deviceNumber</JSONPath>
+        </Variable>
+        <Variable name="osType">
+            <JSONPath>$.deviceInfo.osType</JSONPath>
+        </Variable>
+        <Variable name="osVersion">
+            <JSONPath>$.deviceInfo.osVersion</JSONPath>
+        </Variable>
+        <Variable name="osBuildID">
+            <JSONPath>$.deviceInfo.osBuildID</JSONPath>
+        </Variable>
+        <Variable name="deviceIDType">
+            <JSONPath>$.deviceInfo.deviceIDType</JSONPath>
+        </Variable>
+        <Variable name="deviceManufacturer">
+            <JSONPath>$.deviceInfo.deviceManufacturer</JSONPath>
+        </Variable>
+        <Variable name="deviceBrand">
+            <JSONPath>$.deviceInfo.deviceBrand</JSONPath>
+        </Variable>
+        <Variable name="deviceModel">
+            <JSONPath>$.deviceInfo.deviceModel</JSONPath>
+        </Variable>
+        <Variable name="deviceLocation">
+            <JSONPath>$.deviceInfo.deviceLocation</JSONPath>
+        </Variable>
+        <Variable name="deviceIPAddressV4">
+            <JSONPath>$.deviceInfo.deviceIPAddressV4</JSONPath>
+        </Variable>
+        <Variable name="locationSource">
+            <JSONPath>$.deviceInfo.locationSource</JSONPath>
+        </Variable>
+        <Variable name="tokenProtectionMethod">
+            <JSONPath>$.deviceInfo.tokenProtectionMethod</JSONPath>
+        </Variable>
+        <Variable name="deviceIndex">
+            <JSONPath>$.deviceInfo.deviceIndex</JSONPath>
+        </Variable>
+        <Variable name="originalDeviceType">
+            <JSONPath>$.deviceInfo.originalDeviceType</JSONPath>
+        </Variable>
+        <Variable name="originalDeviceID">
+            <JSONPath>$.deviceInfo.originalDeviceID</JSONPath>
+        </Variable>
+        <Variable name="lifeCycleTraceID">
+            <JSONPath>$.lifeCycleTraceID</JSONPath>
+        </Variable>
+        <Variable name="tokenRequestorTspID">
+            <JSONPath>$.tokenRequestorTspID</JSONPath>
+        </Variable>
+        <Variable name="token">
+            <JSONPath>$.tokenInfo.token</JSONPath>
+        </Variable>
+        <Variable name="tokenType">
+            <JSONPath>$.tokenInfo.tokenType</JSONPath>
+        </Variable>
+        <Variable name="tokenStatus">
+            <JSONPath>$.tokenInfo.tokenStatus</JSONPath>
+        </Variable>
+        <Variable name="tokenExpirationDate">
+            <JSONPath>$.tokenInfo.tokenExpirationDate</JSONPath>
+        </Variable>
+        <Variable name="tokenAssuranceMethod">
+            <JSONPath>$.tokenInfo.tokenAssuranceMethod</JSONPath>
+        </Variable>
+        <Variable name="numberOfActiveTokensForPAN">
+            <JSONPath>$.tokenInfo.numberOfActiveTokensForPAN</JSONPath>
+        </Variable>
+        <Variable name="numberOfInactiveTokensForPAN">
+            <JSONPath>$.tokenInfo.numberOfInactiveTokensForPAN</JSONPath>
+        </Variable>
+        <Variable name="numberOfSuspendedTokensForPAN">
+            <JSONPath>$.tokenInfo.numberOfSuspendedTokensForPAN</JSONPath>
+        </Variable>
+        <Variable name="tokenActivationDate">
+            <JSONPath>$.tokenInfo.tokenActivationDate</JSONPath>
+        </Variable>
+        <Variable name="originalToken">
+            <JSONPath>$.tokenInfo.originalToken</JSONPath>
+        </Variable>
+        <Variable name="originalTokenType">
+            <JSONPath>$.tokenInfo.originalTokenType</JSONPath>
+        </Variable>
+        <Variable name="lastTokenStatusUpdatedTime">
+            <JSONPath>$.tokenInfo.lastTokenStatusUpdatedTime</JSONPath>
+        </Variable>
+        <Variable name="originaltokenAssuranceMethod">
+            <JSONPath>$.tokenInfo.originaltokenAssuranceMethod</JSONPath>
+        </Variable>
+        <Variable name="originalTokenRequestorID">
+            <JSONPath>$.tokenInfo.originalTokenRequestorID</JSONPath>
+        </Variable>
+        <Variable name="originalTokenReferenceID">
+            <JSONPath>$.tokenInfo.originalTokenReferenceID</JSONPath>
+        </Variable>
+        <Variable name="tokenRequestorName">
+            <JSONPath>$.tokenInfo.tokenRequestorName</JSONPath>
+        </Variable>
+        <Variable name="autoFillIndicator">
+            <JSONPath>$.tokenInfo.autoFillIndicator</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">request</Source>
+    <VariablePrefix>AP</VariablePrefix>
+</ExtractVariables>

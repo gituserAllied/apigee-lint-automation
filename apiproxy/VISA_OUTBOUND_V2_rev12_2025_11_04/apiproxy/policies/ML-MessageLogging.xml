@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MessageLogging async="false" continueOnError="false" enabled="true" name="ML-MessageLogging">
+    <DisplayName>ML-MessageLogging</DisplayName>
+    <Syslog>
+        <Message>
+					{
+						"logName": "{apiproxy.name}",
+						"label": "apigee-saas",
+						"severity": "{logLevel}",
+						"insertId": "{messageid}",
+						"httpRequest": {
+							"requestMethod": "{requestMethod}",
+							"requestUrl": "{requestUrl}",
+							"requestSize": "{requestSize}",
+							"userAgent": "priority:{request.header.x-priority}",
+							"remoteIp": "{remoteIp}",
+							"protocol": "{protocol}",
+							"status": "{status}",
+							"responseSize": "{clientResponseSize}",
+							"latency": "{totalResponseTime}s",
+							"labels":"PaymentAPI"
+						},
+						"message": {
+							"clientRequestFields":{clientRequestFields},
+							"clientResponseFields":{clientResponseFields},
+							"targetRequestFields":{targetRequestFields},
+							"targetResponseFields":{targetResponseFields},
+							"decryptedClientResponse": {finalResponse},
+							"flowType": "{flowType}",
+							"targetResponseStatusCode": "{targetResponseStatusCode}",
+							"gatewayResponseStatusCode": "{gatewayResponseStatusCode}",
+							"apiFlowState": "{apiFlowState}",
+							"functionalSuccessStatusCode": "{functionalSuccessStatusCode}",
+							"functionalErrorStatusCode": "{functionalErrorStatusCode}",
+							"timestamp": "{system.time}", 
+							"timezone": "{system.time.zone}", 
+							"messageID": "{messageid}",
+							"systemUuid" : "{system.uuid}",
+							"organization": "{organization.name}",
+							"environment": "{environment.name}",
+							"apiProxy": "{apiproxy.name}",
+							"apiProxyRevision": "{apiproxy.revision}",
+							"httpXForwardedFor": "{httpXForwardedFor}",
+							"developer": "{developer.email}",
+							"developerApp": "{developer.app.name}",
+							"apiProduct": "{apigee.apiproduct.name}",
+							"clientReceivedStartTime": "{clientReceivedStartTime}",
+							"clientReceivedEndTime": "{clientReceivedEndTime}",
+							"clientRequestContentType": "{clientRequestContentType}",
+							"clientRequest": {clientRequest},
+							"clientSentStartTime" : "{client.sent.start.timestamp}",
+							"clientSentEndTime" : "{client.sent.end.timestamp}",
+							"clientResponseSize": "{clientResponseSize}",
+							"clientResponseContentType": "{clientResponseContentType}",
+							"clientResponse": {clientResponse},
+							"latencyInMilliseconds": "{totalResponseTime}",
+							"virtualHost": "{virtualHost}",
+					 "targetUrl": "{targetUrl}",
+					"targetIP": "{targetIP}",
+					"targetHost": "{targetHost}",
+					"targetName": "{targetName}",
+					"targetRequestVerb": "{targetRequestVerb}",
+					"targetRequestContentType": "{targetRequestContentType}",
+					"targetPlaintextRequest": {plaintextCallbackRequest},
+					"targetSentStartTime": "{targetSentStartTime}",
+					"targetSentEndTime": "{targetSentEndTime}",
+					"targetReceivedStartTime": "{targetReceivedStartTime}",
+					"targetReceivedEndTime": "{targetReceivedEndTime}",
+					"targetResponseSize": "{targetResponseSize}",
+					"targetResponseContentType": "{targetResponseContentType}",
+					"targetStatusCode" : "{targetStatusCode}"
+						}
+					}
+				</Message>
+        <Host>35.244.10.222</Host>
+        <Port>7500</Port>
+        <Protocol>TCP</Protocol>
+        <PayloadOnly>true</PayloadOnly>
+    </Syslog>
+</MessageLogging>

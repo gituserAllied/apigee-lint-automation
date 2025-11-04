@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="false" timeLimit="200" name="JS-SchemaValidationApproveProvisioning">
+    <DisplayName>JS-SchemaValidationApproveProvisioning</DisplayName>
+    <Properties/>
+    <IncludeURL>jsc://tv4.js</IncludeURL>
+    <ResourceURL>jsc://SchemaValidationApproveProvisioning.js</ResourceURL>
+</Javascript>

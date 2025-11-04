@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step>
+            <Name>AM-AddSecurityHeaders</Name>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>RF-InvalidHTTPMethod</Name>
+                <Condition>(request.verb != "POST")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SchemaValidation</Name>
+            </Step>
+            <Step>
+                <Name>RF-SchemaValidationError</Name>
+                <Condition>{isSchemaValid == 'false'}</Condition>
+            </Step>
+            <Step>
+                <Name>JS-DateTime</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <Flows>
+        <Flow name="Get Cardholder Verification Methods">
+            <Description>Get Cardholder Verification Methods</Description>
+            <Request>
+                <Step>
+                    <Name>EV-GCVRequest</Name>
+                </Step>
+                <Step>
+                    <Name>JS-SetEncryptedData</Name>
+                </Step>
+                <Step>
+                    <Name>JC-JWSVerification</Name>
+                </Step>
+                <Step>
+                    <Name>JS-FetchDecryptedpayload</Name>
+                </Step>
+                <Step>
+                    <Name>AM-UKDCMSBIN</Name>
+                    <Condition>(BIN == "UK")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-GERMDCMSBIN</Name>
+                    <Condition>(BIN == "Germany")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-UATDCMSBIN</Name>
+                    <Condition>(BIN == "UAT")</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-GCVResponse</Name>
+                </Step>
+                <Step>
+                    <Name>JS-SetGCVResponse</Name>
+                </Step>
+                <Step>
+                    <Name>AM-AddSecurityHeaders</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/retrieveStepUpMethods") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Send Passcode">
+            <Description>Send Passcode</Description>
+            <Request>
+                <Step>
+                    <Name>EV-Request</Name>
+                </Step>
+                <Step>
+                    <Name>JS-SetEncryptedData</Name>
+                </Step>
+                <Step>
+                    <Name>JC-JWSVerification</Name>
+                </Step>
+                <Step>
+                    <Name>JS-FetchDecryptedpayload</Name>
+                </Step>
+                <Step>
+                    <Name>AM-UKDCMSBIN</Name>
+                    <Condition>(BIN == "UK")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-GERMDCMSBIN</Name>
+                    <Condition>(BIN == "Germany")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-UATDCMSBIN</Name>
+                    <Condition>(BIN == "UAT")</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-DCMSRequest</Name>
+                </Step>
+                <Step>
+                    <Name>EV-DCMS</Name>
+                </Step>
+                <Step>
+                    <Name>JS-OTPRequest</Name>
+                </Step>
+                <Step>
+                    <Name>AM-SMSRequest</Name>
+                    <Condition>(otpRequest = "ApplePay")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-SMSRequestGooglePay</Name>
+                    <Condition>(otpRequest = "GooglePay")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-SMSOTP</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-SendPassCodeRes</Name>
+                </Step>
+                <Step>
+                    <Name>JS-SendPasscodeResponse</Name>
+                </Step>
+                <Step>
+                    <Name>AM-SPSucessRes</Name>
+                    <Condition>(actionCode != "0")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-SPFailRes</Name>
+                    <Condition>(actionCode == "0")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-AddSecurityHeaders</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/sendPasscode") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Check Eligibility">
+            <Description>Check Eligibility</Description>
+            <Request>
+                <Step>
+                    <Name>EV-CE_Request</Name>
+                </Step>
+                <Step>
+                    <Name>JS-SetEncryptedData</Name>
+                </Step>
+                <Step>
+                    <Name>JC-JWSVerification</Name>
+                </Step>
+                <Step>
+                    <Name>JS-FetchDecryptedpayload</Name>
+                </Step>
+                <Step>
+                    <Name>AM-CheckEligibility</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-CheckEligibility</Name>
+                </Step>
+                <Step>
+                    <Name>JS-SetCheckEligibilityResponse</Name>
+                </Step>
+                <Step>
+                    <Name>AM-AddSecurityHeaders</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/checkEligibility") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="PanNotification">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>RF-NotificationAPI</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/pan/notification?") and (request.verb = "POST")</Condition>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <Step>
+                <Name>ML-MessageLogging</Name>
+                <Condition>(enableLogging = "true")</Condition>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/outbound/vtis/v1</BasePath>
+        <VirtualHost>apibankingone</VirtualHost>
+        <VirtualHost>apibanking</VirtualHost>
+        <VirtualHost>SecureAPI</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute">
+        <Condition>(proxy.pathsuffix MatchesPath "/checkEligibility")</Condition>
+    </RouteRule>
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/sendPasscode") || (proxy.pathsuffix MatchesPath "/retrieveStepUpMethods")</Condition>
+    </RouteRule>
+</ProxyEndpoint>

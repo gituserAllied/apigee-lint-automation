@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="SC-DCMSRequest">
+    <DisplayName>SC-DCMSRequest</DisplayName>
+    <Properties/>
+    <Request clearPayload="false" variable="DCMSRequest">
+        <Set>
+            <Payload contentType="text/xml">
+                {request.content}
+            </Payload>
+        </Set>
+    </Request>
+    <Response>DCMSResponse</Response>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+            <Server name="VRM_TARGET"/>
+        </LoadBalancer>
+        <Path>/mwuat/DCMS-NEW</Path>
+    </HTTPTargetConnection>
+</ServiceCallout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-ApproveProvisioning">
+    <DisplayName>AM-ApproveProvisioning</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="text/xml">
+            <XML>
+                <Base24Prefix>
+                    <Header BIND="1" DEFAULT="ISO" DT="alphabetnumeric" LSP="0" MNL="3" MXL="3" PL="" PRE="optional">ISO</Header>
+                    <ProdIndentifier BIND="2" DT="alphabetnumeric" LSP="0" MNL="2" MXL="2" PL="" PRE="optional">02</ProdIndentifier>
+                    <ReleaseInd BIND="3" DEFAULT="60" DT="alphabetnumeric" LSP="0" MNL="2" MXL="2" PL="" PRE="optional">60</ReleaseInd>
+                    <Status BIND="4" DT="alphabetnumeric" LSP="0" MNL="3" MXL="3" PL="" PRE="optional">000</Status>
+                    <OrigCode BIND="5" DT="alphabetnumeric" LSP="0" MNL="1" MXL="1" PL="" PRE="optional">5</OrigCode>
+                    <RespCode BIND="6" DT="alphabetnumeric" LSP="0" MNL="1" MXL="1" PL="" PRE="optional">0</RespCode>
+                </Base24Prefix>
+                <MessageType DEFAULT="0200" DT="numeric" LSP="0" MNL="4" MXL="4" PL="4" PRE="optional">0200</MessageType>
+                <Pan DT="alphabetnumericspecialspaces" IND="2" LSP="2" MNL="1" MXL="19" PL="0" PRE="optional">{cardholderInfo}</Pan>
+                <ProcCode DEFAULT="" DT="alphabetnumeric" IND="3" LSP="0" MNL="6" MXL="6" PL="6" PRE="optional">TA0000</ProcCode>
+                <Amount DT="numeric" IND="4" LSP="0" MNL="12" MXL="12" PL="12" PRE="mandatory">000000000000</Amount>
+                <TransmissionDtTime DT="numeric" IND="7" LSP="0" MNL="10" MXL="10" PL="" PRE="mandatory">{MMDDHHMMSS}</TransmissionDtTime>
+                <TraceNumber DT="numeric" IND="11" LSP="0" MNL="6" MXL="6" PL="6" PRE="optional">{HHMSSTime}</TraceNumber>
+                <LocalTxnDt DT="numeric" IND="12" LSP="0" MNL="6" MXL="6" PL="" PRE="mandatory">{HHMSSTime}</LocalTxnDt>
+                <LocalTxnTime DT="numeric" IND="13" LSP="0" MNL="4" MXL="4" PL="" PRE="mandatory">{MMDD}</LocalTxnTime>
+                <ExpiryDate DT="numeric" IND="14" LSP="0" MNL="04" MXL="04" PL="12" PRE="mandatory">{year}{month}</ExpiryDate>
+                <CaptureDate DT="numeric" IND="17" LSP="0" MNL="4" MXL="4" PL="4" PRE="mandatory">{MMDD}</CaptureDate>
+                <MCC DT="numeric" IND="18" LSP="0" MNL="4" MXL="4" PL="4" PRE="optional">6012</MCC>
+                <CountryCode DT="numeric" IND="19" LSP="0" MNL="3" MXL="3" PL="3" PRE="mandatory">826</CountryCode>
+                <POSEntryMode DEFAULT="010" DT="numeric" IND="22" LSP="0" MNL="3" MXL="3" PL="3" PRE="mandatory">010</POSEntryMode>
+                <FunctionCode DEFAULT="200" DT="numeric" IND="24" LSP="0" MNL="3" MXL="3" PL="3" PRE="mandatory">200</FunctionCode>
+                <PosConditionCode DEFAULT="00" DT="numeric" IND="25" LSP="0" MNL="2" MXL="2" PL="2" PRE="mandatory">00</PosConditionCode>
+                <AcquireInstId DT="alphabetnumericspecialspaces" IND="32" LSP="2" MNL="1" MXL="11" PL="0" PRE="mandatory">12345012345</AcquireInstId>
+                <ForwardingInstId DT="alphabetnumericspecialspaces" IND="33" LSP="2" MNL="1" MXL="11" PL="0" PRE="optional"/>
+                <Track2 DT="alphabetnumericspecialspaces" IND="35" LSP="0" MNL="37" MXL="37" PL="37" PRE="optional"/>
+                <RRN DT="alphabetnumericspecialspaces" IND="37" LSP="0" MNL="12" MXL="12" PL="12" PRE="mandatory">{RRN}</RRN>
+                <TerminalID DT="alphabetnumericspecialspaces" IND="41" LSP="0" MNL="16" MXL="16" PL="16" PRE="mandatory">UKAGPAY01</TerminalID>
+                <CardAcceptorID DT="alphabetnumericspecialspaces" IND="42" LSP="0" MNL="15" MXL="15" PL="15" PRE="optional">UKAGPAY12345678</CardAcceptorID>
+                <CardAcceptorLocation DT="alphabetnumericspecialspaces" IND="43" LSP="2" MNL="1" MXL="40" PL="" PRE="optional">ICICI BANK            LONDON       LONUK</CardAcceptorLocation>
+                <CurrencyCode DT="numeric" IND="49" LSP="0" MNL="3" MXL="3" PL="" PRE="mandatory">826</CurrencyCode>
+                <TermData DT="alphabetnumericspecialspaces" IND="60" LSP="3" MNL="12" MXL="12" PL="" PRE="mandatory">0017REL6+000</TermData>
+                <RecvInstCode DT="alphabetnumericspecialspaces" IND="100" LSP="2" MNL="1" MXL="11" PL="" PRE="mandatory">12345012345</RecvInstCode>
+                <AddDataPvt125 DT="alphabetnumericspecialspaces" IND="125" LSP="3" MNL="1" MXL="680" PL="" PRE="optional" RLI="0">
+                    <deviceType DT="numeric" IND="125" LSP="0" MNL="22" MXL="22" PL="22" PRE="optional">0000000000000000000000</deviceType>
+                    <cvv2ResultsCode DT="numeric" IND="125" LSP="0" MNL="1" MXL="1" PL="1" PRE="optional">{cvv2ResultsCode}</cvv2ResultsCode>
+                    <tokenRequestorID DT="alphabetnumeric" IND="125" LSP="0" MNL="11" MXL="11" PL="11" PRE="mandatory">{URI.tokenRequestorID}</tokenRequestorID>
+                    <tokenReferenceID DT="alphabetnumeric" IND="125" LSP="0" MNL="64" MXL="64" PL="64" PRE="mandatory">{URI.tokenReferenceID}</tokenReferenceID>
+                    <panSource DT="alphabetnumeric" IND="125" LSP="0" MNL="20" MXL="20" PL="20" PRE="mandatory">{AP.panSource}</panSource>
+                    <token DT="alphabetnumeric" IND="125" LSP="0" MNL="19" MXL="19" PL="19" PRE="optional">0000000000000000000</token>
+                    <tokenStatus DT="alphabetnumeric" IND="125" LSP="0" MNL="12" MXL="12" PL="12" PRE="optional">000000000000</tokenStatus>
+                    <tokenExpirationDate DT="alphabetnumeric" IND="125" LSP="0" MNL="06" MXL="06" PL="06" PRE="optional">000000</tokenExpirationDate>
+                    <tokenType DT="alphabetnumeric" IND="125" LSP="0" MNL="16" MXL="16" PL="16" PRE="optional">{AP.tokenType}</tokenType>
+                    <tokenAssuranceLevel DT="alphabetnumeric" IND="125" LSP="0" MNL="19" MXL="19" PL="19" PRE="optional">0000000000000000000</tokenAssuranceLevel>
+                    <correlationID DT="alphabetnumeric" IND="125" LSP="0" MNL="15" MXL="15" PL="15" PRE="optional">000000000000000</correlationID>
+                    <tspIdentifier DT="alphabetnumeric" IND="125" LSP="0" MNL="12" MXL="12" PL="12" PRE="optional">000000000000</tspIdentifier>
+                    <tokenUserAppType DT="alphabetnumeric" IND="125" LSP="0" MNL="14" MXL="14" PL="14" PRE="optional">00000000000000</tokenUserAppType>
+                    <merchantID DT="alphabetnumeric" IND="125" LSP="0" MNL="11" MXL="11" PL="11" PRE="optional">00000000000</merchantID>
+                    <pan DT="alphabetnumeric" IND="125" LSP="0" MNL="19" MXL="19" PL="19" PRE="mandatory">{cardholderInfo}</pan>
+                    <cvv2 DT="alphabetnumeric" IND="125" LSP="0" MNL="4" MXL="4" PL="4" PRE="mandatory">{cvv2}</cvv2>
+                    <name DT="alphabetnumeric" IND="125" LSP="0" MNL="46" MXL="46" PL="46" PRE="optional">{nameCard}</name>
+                    <expirationDate DT="alphabetnumeric" IND="125" LSP="0" MNL="4" MXL="4" PL="4" PRE="mandatory">{year}{month}</expirationDate>
+                    <panReferenceID DT="alphabetnumeric" IND="125" LSP="0" MNL="64" MXL="64" PL="64" PRE="mandatory">{AP.panReferenceID}</panReferenceID>
+                    <OtherFields DT="alphabetnumeric" IND="125" LSP="0" MNL="301" MXL="301" PL="2" PRE="optional">0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</OtherFields>
+                </AddDataPvt125>
+            </XML>
+        </Payload>
+    </Set>
+</AssignMessage>

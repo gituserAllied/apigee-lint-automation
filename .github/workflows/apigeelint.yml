@@ -8,6 +8,9 @@ on:
       - "apiproxy/**"
       - "sharedflows/**"
       - ".github/workflows/apigeelint.yml"
+
+permissions:
+  contents: write   # 👈 THIS GIVES ACTIONS BOT PERMISSION TO PUSH COMMITS
  
 jobs:
   lint-and-report:

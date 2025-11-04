@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-SMSRequest">
+    <DisplayName>AM-SMSRequest</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="text/xml">
+            <DEPT>ACG</DEPT>
+            <APPID>ACGOI</APPID>
+            <MOBILE>{MobileNo}</MOBILE>
+            <DEPTMSGID>102</DEPTMSGID>
+            <MESSAGE>{req.OTPCode} is the OTP to add ICICI Bank Debit Card {MASKCARD} to Apple Pay. To activate, open Apple Wallet app, tap your Card and enter the OTP, which is valid for 5 minutes. OTPs are SECRET. DO NOT disclose.</MESSAGE>
+            <FROMDATETIME/>
+            <TODATETIME/>
+            <NODELIVERYTIMEFROM/>
+            <NODELIVERYTIMETO/>
+            <HTTPMODE/>
+            <REMARKS>7124</REMARKS>
+            <TRN_GENERATE_TIMESTAMP/>
+            <DUPLICATE_CHECK/>
+            <REMARKS1>VISA_INT</REMARKS1>
+            <REMARKS2>VISA_INT</REMARKS2>
+        </Payload>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

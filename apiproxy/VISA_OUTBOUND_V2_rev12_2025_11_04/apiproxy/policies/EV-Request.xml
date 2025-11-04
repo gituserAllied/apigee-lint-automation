@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-Request">
+    <DisplayName>EV-Request</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="tokenRequestorID">
+            <JSONPath>$.tokenRequestorID</JSONPath>
+        </Variable>
+        <!--<Variable name="wpRequestId">-->
+        <!--    <JSONPath>$.wpRequestId</JSONPath>-->
+        <!--</Variable>-->
+        <!--<Variable name="wpConversationId">-->
+        <!--    <JSONPath>$.wpConversationId</JSONPath>-->
+        <!--</Variable>-->
+        <!--<Variable name="lifeCycleTraceID">-->
+        <!--    <JSONPath>$.lifeCycleTraceID</JSONPath>-->
+        <!--</Variable>-->
+        <Variable name="tokenReferenceID">
+            <JSONPath>$.tokenReferenceID</JSONPath>
+        </Variable>
+        <Variable name="panReferenceID">
+            <JSONPath>$.panReferenceID</JSONPath>
+        </Variable>
+        <!--<Variable name="token">-->
+        <!--    <JSONPath>$.token</JSONPath>-->
+        <!--</Variable>-->
+        <Variable name="secureElementID">
+            <JSONPath>$deviceInfo.deviceID</JSONPath>
+        </Variable>
+        <Variable name="deviceType">
+            <JSONPath>$deviceInfo.deviceType</JSONPath>
+        </Variable>
+        <Variable name="deviceNumber">
+            <JSONPath>$deviceInfo.deviceNumber</JSONPath>
+        </Variable>
+        <Variable name="deviceName">
+            <JSONPath>$deviceInfo.deviceName</JSONPath>
+        </Variable>
+        <Variable name="otpMethodIdentifier">
+            <JSONPath>$.otpMethodIdentifier</JSONPath>
+        </Variable>
+        <Variable name="OTPCode">
+            <JSONPath>$.otpValue</JSONPath>
+        </Variable>
+        <Variable name="OTPCodeExp">
+            <JSONPath>$.otpExpirationDate</JSONPath>
+        </Variable>
+        <Variable name="encryptedData">
+            <JSONPath>$.encryptedData</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <VariablePrefix>req</VariablePrefix>
+    <Source clearPayload="false">request</Source>
+</ExtractVariables>

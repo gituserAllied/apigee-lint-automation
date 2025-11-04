@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="false" name="EV-CheckEligibility">
+    <DisplayName>EV-CheckEligibility</DisplayName>
+    <Source clearPayload="false">response</Source>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <XMLPayload stopPayloadProcessing="false">
+        <Namespaces/>
+        <Variable name="actionCode" type="string">
+            <XPath>/XML/getCardHolderVerificationMethodsRes/actionCode</XPath>
+        </Variable>
+        <Variable name="errorCode" type="string">
+            <XPath>/XML/getCardHolderVerificationMethodsRes/errorCode</XPath>
+        </Variable>
+    </XMLPayload>
+</ExtractVariables>

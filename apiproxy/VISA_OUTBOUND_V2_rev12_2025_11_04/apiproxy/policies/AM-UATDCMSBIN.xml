@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-UATDCMSBIN">
+    <DisplayName>AM-UATDCMSBIN</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="text/xml">
+            <XML>
+                <CMSServices>
+                    <Header>
+                        <Version>1.0</Version>
+                        <SrvType>TRANS</SrvType>
+                        <SrcApp>IVIEW</SrcApp>
+                        <TargetApp>CMS</TargetApp>
+                        <Timestamp>{msgDateTimeGCV}</Timestamp>
+                        <SrcMsgId>{requestUUID}</SrcMsgId>
+                        <OrgId>ICICI</OrgId>
+                        <ProcCode>222001</ProcCode>
+                        <MessageType>1200</MessageType>
+                        <ActCode/>
+                    </Header>
+                    <Body>
+                        <SrvReq>
+                            <CardInquiryReq>
+                                <PAN>{cardholderInfo}</PAN>
+                                <RequestQueryKey1/>
+                                <RequestQueryKey2/>
+                                <RequestQueryKey3/>
+                                <RequestQueryKey4/>
+                                <RequestQueryKey5/>
+                            </CardInquiryReq>
+                        </SrvReq>
+                    </Body>
+                </CMSServices>
+            </XML>
+        </Payload>
+    </Set>
+</AssignMessage>

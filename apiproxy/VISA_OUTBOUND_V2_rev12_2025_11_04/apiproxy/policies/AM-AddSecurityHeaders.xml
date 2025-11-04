@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-AddSecurityHeaders">
+    <DisplayName>AM-AddSecurityHeaders</DisplayName>
+    <Properties/>
+    <Remove>
+        <Headers>
+            <Header name="apikey"/>
+            <Header name="x-priority"/>
+            <Header name="Host"/>
+            <Header name="True-Client-IP"/>
+            <Header name="X-Forwarded-For"/>
+            <Header name="X-Forwarded-Port"/>
+            <Header name="X-Forwarded-Porto"/>
+            <Header name="User-Agent"/>
+            <Header name="X-BlueCoat-Via"/>
+            <Header name="Postman-Token"/>
+            <Header name="Accept"/>
+            <Header name="Accept-Encoding"/>
+            <Header name="Postman-Token"/>
+            <Header name="x-request-id"/>
+            <Header name="X-Nginx-Trace-ID"/>
+        </Headers>
+    </Remove>
+    <Set>
+        <Headers>
+            <Header name="Access-Control-Allow-Origin">https://{virtualhost.name}.icicibank.com</Header>
+            <Header name="Access-Control-Allow-Headers">Access-Control-Allow-Origin, Access-Control-Allow-Headers, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, X-Requested-With, Content-Type, Accept, Signature, Authorization, apikey</Header>
+            <Header name="Access-Control-Max-Age">3628800</Header>
+            <Header name="Access-Control-Allow-Methods">POST, GET</Header>
+            <Header name="Access-Control-Request-Headers">Access-Control-Allow-Origin, Access-Control-Allow-Headers, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, X-Requested-With, Content-Type, Accept, Signature, Authorization, apikey</Header>
+            <Header name="Access-Control-Request-Method">POST, GET</Header>
+            <Header name="Cache-Control">no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0</Header>
+            <Header name="Pragma">no-cache</Header>
+            <Header name="Expires">0</Header>
+            <Header name="Strict-Transport-Security">max-age=31536000</Header>
+            <Header name="X-Frame-Options">deny</Header>
+            <Header name="Content-Security-Policy">default-src'self'</Header>
+            <Header name="X-XSS-protection">1; mode=block</Header>
+            <Header name="X-Content-Type-Options">nosniff</Header>
+            <Header name="Referrer-Policy">no-referrer</Header>
+        </Headers>
+    </Set>
+    <Remove>
+        <Headers>
+            <Header name="Server"/>
+            <Header name="Set-Cookie"/>
+            <Header name="X-ORACLE-DMS-ECID"/>
+            <Header name="X-REQUESTED-BY"/>
+            <Header name="X-Forwarded-For"/>
+            <Header name="X-Powered-By"/>
+            <Header name="Etag"/>
+            <Header name="x-request-id"/>
+            <Header name="X-Nginx-Trace-ID"/>
+        </Headers>
+    </Remove>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>
