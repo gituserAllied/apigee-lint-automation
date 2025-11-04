@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlow name="default">
+    <Step>
+        <Name>VA-VerifyApiKey</Name>
+    </Step>
+    <Step>
+        <Name>KVM-STF-CUSTOMER-DETAILS-EXTERNAL-FETCH</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.type == "External")</Condition>
+    </Step>
+    <Step>
+        <Name>KVM-STF-CUSTOMER-DETAILS-INTERNAL-FETCH</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.type == "Internal")</Condition>
+    </Step>
+    <Step>
+        <Name>JS-GET_CUSTOMER_PREF</Name>
+    </Step>
+    <Step>
+        <Name>JS-GET_LIST_OF_IP</Name>
+        <Condition>(security.IP.Enable == "true")</Condition>
+    </Step>
+    <Step>
+        <Name>AC-IPVALIDATION</Name>
+        <Condition>(security.IP.Enable == "true")</Condition>
+    </Step>
+    <Step>
+        <Name>OAUTH-TOKEN-VERIFICATION</Name>
+        <Condition>(security.OAuth.Enable == "true")</Condition>
+    </Step>
+    <Step>
+        <Name>JS-REQUEST_HEADER_VAL</Name>
+    </Step>
+</SharedFlow>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlowBundle revision="3" name="STF_Authentication-Flow">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1761635423910</CreatedAt>
+    <CreatedBy>khushi.nirmal@ext.icicibank.com</CreatedBy>
+    <Description>undefined</Description>
+    <DisplayName>STF_Authentication-Flow</DisplayName>
+    <LastModifiedAt>1761739236531</LastModifiedAt>
+    <LastModifiedBy>khushi.nirmal@ext.icicibank.com</LastModifiedBy>
+    <ManifestVersion>SHA-512:2f55365f657c6d1c5c8f6b92eec3b3180eecb8866f23357185d87606449beac359e79600ac08371c90a8ff6b5c8e11fdba4e9281e6ec04d7b93cda6f7071650e:ap-northeast-1</ManifestVersion>
+    <Policies>
+        <Policy>AC-IPVALIDATION</Policy>
+        <Policy>JS-GET_CUSTOMER_PREF</Policy>
+        <Policy>JS-GET_LIST_OF_IP</Policy>
+        <Policy>JS-REQUEST_HEADER_VAL</Policy>
+        <Policy>KVM-STF-CUSTOMER-DETAILS-EXTERNAL-FETCH</Policy>
+        <Policy>KVM-STF-CUSTOMER-DETAILS-INTERNAL-FETCH</Policy>
+        <Policy>OAUTH-TOKEN-VERIFICATION</Policy>
+        <Policy>VA-VerifyApiKey</Policy>
+    </Policies>
+    <Resources>
+        <Resource>java://ip_utils_utils.jar</Resource>
+        <Resource>jsc://GET_CUSTOMER_PREF.js</Resource>
+        <Resource>jsc://GET_LIST_OF_IP.js</Resource>
+        <Resource>jsc://REQUEST_HEADER_VAL.js</Resource>
+    </Resources>
+    <Spec></Spec>
+    <subType>SharedFlow</subType>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+</SharedFlowBundle>

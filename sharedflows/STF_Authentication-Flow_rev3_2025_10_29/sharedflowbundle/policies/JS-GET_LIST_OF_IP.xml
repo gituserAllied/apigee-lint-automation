@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="JS-GET_LIST_OF_IP">
+    <DisplayName>JS-GET_LIST_OF_IP</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://GET_LIST_OF_IP.js</ResourceURL>
+</Javascript>

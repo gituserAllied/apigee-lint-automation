@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest name="manifest">
+    <Policies>
+        <VersionInfo resourceName="AC-IPVALIDATION" version="SHA-512:d7457d2c7c29550556a8acf110095a2efede0ba9cd91f61a48766370948e0904670b8e72f3f8d263e7dda6ad5df47ae17651dc73b35139a32ef61432a64aa68c"/>
+        <VersionInfo resourceName="JS-GET_CUSTOMER_PREF" version="SHA-512:672624db0023e4a2a57646c04bddea033af807a1f2f7b2d4f5ca0644b99ec8dc3f692df8f9e50e7d5a9a4fa92ae33ed59bd4724896d844f2f168b8c3bc8f145d"/>
+        <VersionInfo resourceName="JS-GET_LIST_OF_IP" version="SHA-512:a616f8a061f6ad7b90f23fd9c272587e7c0d77052f83e05c69c6408fe2bcd132f353643bae009a64277241e04c4ae028d609063c4bf609f1fb57bafbd5c88bfa"/>
+        <VersionInfo resourceName="JS-REQUEST_HEADER_VAL" version="SHA-512:a992442a104e5d20f871660e28f1e10a026ac6b16bf57df179d215674afd121e1cd29c6efa6be97e48b2777dfbdb23d27dee6ccf4807ad422cdab80d855015c8"/>
+        <VersionInfo resourceName="KVM-STF-CUSTOMER-DETAILS-EXTERNAL-FETCH" version="SHA-512:af7b654043fe92394daeaecfced9d1a15c859c16d534f34d4295e4a6c27e74899b10a876c6a2b1aed8a3b1fa883ca6a6c1a3287a209f871a8ee1ca7c6bb3f0c5"/>
+        <VersionInfo resourceName="KVM-STF-CUSTOMER-DETAILS-INTERNAL-FETCH" version="SHA-512:3220874e393adae0c13e72643abb89f304b0c59f8bd7cca5a5ada9dbafa29e66b166077ed0a3e1670bf6110b4dfd02ad4c35541b6c8c03e8927c1a5f75a26b17"/>
+        <VersionInfo resourceName="OAUTH-TOKEN-VERIFICATION" version="SHA-512:9809bfd32b3205de3850a830023a25367ebe8ea152e3926114952c7c28ad1931726db388294581eb1e8aad3f3509c998df4f47a186095e6875a569af03096a44"/>
+        <VersionInfo resourceName="VA-VerifyApiKey" version="SHA-512:da9ecf4f71e1c2cad4cb6b8ee39b983175b5b71e85aa3d01fd4f259505926dc9c5789e51911377dd1e372556f06137bf06564c2efcb4d297c0c14381d197a643"/>
+    </Policies>
+    <ProxyEndpoints/>
+    <Resources>
+        <VersionInfo resourceName="java://ip_utils_utils.jar" version="SHA-512:1003ae948e7544107a99b3f70a90894f540f5c8c8d2fc6f9b8d2cf941c5d510c56d9885d496ab68056c6566b1b3d9697eea58baf742f06d926389d171012bf4b"/>
+        <VersionInfo resourceName="jsc://GET_CUSTOMER_PREF.js" version="SHA-512:3693740e00c869c7e66b29607ce07b7f5d1fffc3863b5904560a79b30fc2c41ed1f88de4bdca47a7e2ff3ad7e4d54af6dfb22dfc671a3bf1302db55ffac079e0"/>
+        <VersionInfo resourceName="jsc://GET_LIST_OF_IP.js" version="SHA-512:2e214bb512f567f8898492d8f81ba40662321bb1f57f72dce2274270d6bf811922270ae62fe7103f34c8566efdb9e724241159120870b5068c2fa41fc1a56e62"/>
+        <VersionInfo resourceName="jsc://REQUEST_HEADER_VAL.js" version="SHA-512:835e8959d407e857406987dc4d93aa37e68b5d3feddd6945994625cb7803d447214787f7121a8f297ed8561f380ca011b83efb8cfe8eb9835a4eaa44bbcf47cd"/>
+    </Resources>
+    <SharedFlows>
+        <VersionInfo resourceName="default" version="SHA-512:20773d0278243e93a25fc2af5b4162b4f1da8e2e91b25c05a732833fd9251c0b07025374b29a136be6d2cfdb8d577eab8b3902dad4ee2d3ac3613d644e7a99e4"/>
+    </SharedFlows>
+    <TargetEndpoints/>
+</Manifest>

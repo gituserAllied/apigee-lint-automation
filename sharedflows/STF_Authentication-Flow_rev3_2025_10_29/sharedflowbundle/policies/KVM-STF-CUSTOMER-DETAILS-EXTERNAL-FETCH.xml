@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-STF-CUSTOMER-DETAILS-EXTERNAL-FETCH" mapIdentifier="ICICI_STF_CUSTOMER_EXTERNAL">
+    <DisplayName>KVM-STF-CUSTOMER-DETAILS-EXTERNAL-FETCH</DisplayName>
+    <Properties/>
+    <Get assignTo="private.customer.config">
+        <Key>
+            <Parameter ref="verifyapikey.VA-VerifyApiKey.configName"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>
