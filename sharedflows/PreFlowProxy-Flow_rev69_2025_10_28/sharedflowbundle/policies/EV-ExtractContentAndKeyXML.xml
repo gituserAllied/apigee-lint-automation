@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-ExtractContentAndKeyXML">
+    <DisplayName>EV-ExtractContentAndKeyXML</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <XMLPayload stopPayloadProcessing="false">
+        <Namespaces/>
+        <Variable name="encodedEncryptedContent" type="string">
+            <XPath>/XML/DATA/text()</XPath>
+        </Variable>
+        <Variable name="encodedEncryptedKey" type="string">
+            <XPath>/XML/SESSIONKEY/text()</XPath>
+        </Variable>
+    </XMLPayload>
+    <Source>request</Source>
+</ExtractVariables>

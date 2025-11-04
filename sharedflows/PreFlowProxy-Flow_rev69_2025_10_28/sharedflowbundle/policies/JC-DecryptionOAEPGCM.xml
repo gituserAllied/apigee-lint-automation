@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JavaCallout async="false" continueOnError="false" enabled="true" name="JC-DecryptionOAEPGCM">
+    <DisplayName>JC-DecryptionOAEPGCM</DisplayName>
+    <Properties>
+        <Property name="privateKey">{private.decPrivateKey}</Property>
+        <Property name="content">{encodedEncryptedContent}</Property>
+        <Property name="iv">{encodedIv}</Property>
+        <Property name="key">{encodedEncryptedKey}</Property>
+        <Property name="mode">{verifyapikey.VA-VerifyApiKey.mode}</Property>
+    </Properties>
+    <ClassName>main_package.Decrypt</ClassName>
+    <ResourceURL>java://icici_utils_oaep_gcm.jar</ResourceURL>
+</JavaCallout>

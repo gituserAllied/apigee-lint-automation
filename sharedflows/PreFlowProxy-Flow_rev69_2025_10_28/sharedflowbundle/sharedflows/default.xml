@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlow name="default">
+    <!-- API Key validation -->
+    <Step>
+        <Name>VA-VerifyApiKey</Name>
+        <!--<Condition>apiproxy.name != "CDM" AND request.verb != "OPTIONS"</Condition>-->
+        <Condition>(apiproxy.name != "CDM" and request.verb != "OPTIONS") and (proxy.name != "hunter_notification") and (proxy.name != "hunter_call")</Condition>
+    </Step>
+    <Step>
+        <Name>RF-InvalidDomain</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.mtls = "yes" and virtualhost.name != "apibanking")</Condition>
+    </Step>
+    <Step>
+        <Name>JS-Validate_Encrypted_Schema</Name>
+        <Condition>verifyapikey.VA-VerifyApiKey.schemaValidation = "true"</Condition>
+    </Step>
+    <Step>
+        <Name>RF-SchemaError</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.schemaValidation = "true") and (valid = "false")</Condition>
+    </Step>
+    <Step>
+        <Name>AM-SpikeArrestIdentifier</Name>
+    </Step>
+    <Step>
+        <Name>AM-StripApiKey</Name>
+        <Condition>apiproxy.name != "CDM"</Condition>
+    </Step>
+    <!-- IP whitelisting if enabled -->
+    <Step>
+        <Name>JS-chainingValidator</Name>
+        <Condition>(chainingValidator = "yes")</Condition>
+    </Step>
+    <Step>
+        <Name>KVM-FetchIpLists</Name>
+        <Condition>verifyapikey.VA-VerifyApiKey.ipIdentifier != null</Condition>
+    </Step>
+    <Step>
+        <Name>KVM-FetchIpList</Name>
+        <Condition>verifyapikey.VA-VerifyApiKey.ipIdentifier != null</Condition>
+    </Step>
+    <Step>
+        <Name>JC-Iputils</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.ipIdentifier != null) and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JS-SplitAllowedIPs</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.ipIdentifier != null) and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JS-ScannerIP</Name>
+    </Step>
+    <Step>
+        <Name>AC-WhitelistIPs</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.ipIdentifier != null) and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>FC-Interal-Ip-whitelisting</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.ipIdentifierinternal != null) and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>SA-ProtectBackends</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.spikeArrestThreshold != null) and (verifyapikey.VA-VerifyApiKey.enableRateLimit == "true" ) and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <!-- Threat Protection -->
+    <Step>
+        <Name>QA-Test</Name>
+        <Condition>(developer.app.name == "CIB_DummyTest")</Condition>
+    </Step>
+    <Step>
+        <Name>JS-Combined</Name>
+        <Condition>(apiproxy.name != "CDM") and (apiproxy.name != "Gravty_NO_Orchestration") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <!-- Request payload Decryption if enabled -->
+    <Step>
+        <Name>JS-Combined_New</Name>
+        <Condition>(apiproxy.name == "Gravty_NO_Orchestration") and (apiproxy.name != "CDM") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>AM-CaptureClientRequest</Name>
+        <Condition>environment.name != "prod"</Condition>
+    </Step>
+    <Step>
+        <Name>KVM-ICICIMerchantConfig</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.enableJwtVerification = "true") and (apiproxy.name != "CDM")</Condition>
+    </Step>
+    <Step>
+        <Name>VJ-VerifyJwt</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.enableJwtVerification = "true") and (apiproxy.name != "CDM") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>OAuth-v20-verifyToken</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.verifyJWT = "true") and (apiproxy.name != "CDM") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>KVM-ICICIConfig</Name>
+        <Condition>apiproxy.name != "CDM" or apiproxy.name != "test_enc"</Condition>
+    </Step>
+    <Step>
+        <Name>JS-Validate_Encrypted_Schema</Name>
+        <Condition>verifyapikey.VA-VerifyApiKey.schemaValidation = "true"</Condition>
+    </Step>
+    <Step>
+        <Name>RF-SchemaError</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.schemaValidation = "true") and (valid = "0")</Condition>
+    </Step>
+    <Step>
+        <Name>EV-ExtractContentAndKey</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.mode != null) and (Action != "InternalFieldDecryption") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>EV-ExtractContentAndKeyXML</Name>
+        <Condition>(apiproxy.name = "EOTP-XML") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JS-SetDefaultValues</Name>
+        <Condition>(proxy.pathsuffix != "/BulkPayment") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>RF-Failure-DoubleHifen-In-Req-Id</Name>
+        <Condition>(doubleHiphen = "YES")</Condition>
+    </Step>
+    <Step>
+        <Name>JC-CDMAssymetricDecryption</Name>
+        <Condition>(apiproxy.name == "CDM") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JC-Decryption-AsymmetricGeneric</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.newOAEPAlgo != "true") and (verifyapikey.VA-VerifyApiKey.mode != null) and (verifyapikey.VA-VerifyApiKey.mode = "asymmetric_generic") and (verifyapikey.VA-VerifyApiKey.mode != "hybrid_generic_oaep_gcm") and (Action != "InternalFieldDecryption") and (proxy.pathsuffix != "/bulkPayment") and (developer.app.name != "BusinessTeam") and (request.verb != "GET") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JC-Decryption</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.newOAEPAlgo != "true") and (verifyapikey.VA-VerifyApiKey.mode != null) and (verifyapikey.VA-VerifyApiKey.mode != "asymmetric_generic") and (verifyapikey.VA-VerifyApiKey.mode != "hybrid_generic_oaep_gcm") and (Action != "InternalFieldDecryption") and (proxy.pathsuffix != "/bulkPayment") and (developer.app.name != "BusinessTeam") and (request.verb != "GET") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JC-DecryptionOAEP</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.newOAEPAlgo == "true") and (verifyapikey.VA-VerifyApiKey.mode != null) and (verifyapikey.VA-VerifyApiKey.mode != "asymmetric_generic") and (verifyapikey.VA-VerifyApiKey.mode != "hybrid_generic_oaep_gcm") and (Action != "InternalFieldDecryption") and (proxy.pathsuffix != "/bulkPayment") and (developer.app.name != "BusinessTeam") and (request.verb != "GET") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JC-DecryptionForBulkPaymentAPI</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.newOAEPAlgo != "true") and (verifyapikey.VA-VerifyApiKey.mode != null) and (verifyapikey.VA-VerifyApiKey.mode = "asymmetric_generic") and (verifyapikey.VA-VerifyApiKey.mode != "hybrid_generic_oaep_gcm") and (Action != "InternalFieldDecryption") and (proxy.pathsuffix == "/bulkPayment") and (developer.app.name != "BusinessTeam") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JC-DecryptionForBulkPaymentAPI</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.newOAEPAlgo != "true") and (verifyapikey.VA-VerifyApiKey.mode != null) and (verifyapikey.VA-VerifyApiKey.mode = "hybrid_generic") and (verifyapikey.VA-VerifyApiKey.mode != "hybrid_generic_oaep_gcm") and (Action != "InternalFieldDecryption") and (proxy.pathsuffix == "/bulkPayment") and (developer.app.name != "BusinessTeam") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JC-SymmetricGenericDecryption</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.newOAEPAlgo != "true") and (Action = "InternalFieldDecryption") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>JC-DecryptionOAEPGCM</Name>
+        <Condition>(verifyapikey.VA-VerifyApiKey.newOAEPAlgo != "true") and (verifyapikey.VA-VerifyApiKey.mode != null) and (verifyapikey.VA-VerifyApiKey.mode = "hybrid_generic_oaep_gcm") and (Action != "InternalFieldDecryption") and (proxy.pathsuffix != "/bulkPayment") and (developer.app.name != "BusinessTeam") and (request.verb != "GET") and (apiproxy.name != "CMM-FCPG")</Condition>
+    </Step>
+    <Step>
+        <Name>RF-SQL-Injection</Name>
+        <Condition>(request.verb != "GET") and (apiproxy.name != "EazypayICollect_Callback") and (proxy.pathsuffix != "/generateJwt") and (proxy.pathsuffix != "/clientLinkingPolicy") and (proxy.pathsuffix != "/existingPolicyChange") and (apiproxy.name != "NTS-FetchTransactionDetails") and (apiproxy.name != "CMM-FCPG") and (apiproxy.name != "WMS-MF-APIs") and (apiproxy.name != "Lombard_Ckyc")</Condition>
+    </Step>
+</SharedFlow>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-ExtractContentAndKey">
+    <DisplayName>EV-ExtractContentAndKey</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="encodedEncryptedContent" type="string">
+            <JSONPath>$.encryptedData</JSONPath>
+        </Variable>
+        <Variable name="encodedEncryptedKey" type="string">
+            <JSONPath>$.encryptedKey</JSONPath>
+        </Variable>
+        <Variable name="encodedIv" type="string">
+            <JSONPath>$.iv</JSONPath>
+        </Variable>
+        <Variable name="requestId" type="string">
+            <JSONPath>$.requestId</JSONPath>
+        </Variable>
+        <Variable name="service" type="string">
+            <JSONPath>$.service</JSONPath>
+        </Variable>
+        <Variable name="iv" type="string">
+            <JSONPath>$.iv</JSONPath>
+        </Variable>
+        <Variable name="clientInfo" type="string">
+            <JSONPath>$.clientInfo</JSONPath>
+        </Variable>
+        <Variable name="optionalParam" type="string">
+            <JSONPath>$.optionalParam</JSONPath>
+        </Variable>
+        <Variable name="oaepHashingAlgorithm" type="string">
+            <JSONPath>$.oaepHashingAlgorithm</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source>request</Source>
+</ExtractVariables>

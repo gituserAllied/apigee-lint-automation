@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JavaCallout async="false" continueOnError="false" enabled="true" name="JC-Decryption-AsymmetricGeneric">
+    <DisplayName>JC-Decryption-AsymmetricGeneric</DisplayName>
+    <ClassName>comfdrabrarazIwespabuwah.java.crypto.apigee.run.DecryptfrUfrobrlSPeKoqecHoj</ClassName>
+    <Properties>
+        <Property name="privateKey">{private.decPrivateKey}</Property>
+        <Property name="content">{message.content}</Property>
+        <Property name="mode">{verifyapikey.VA-VerifyApiKey.mode}</Property>
+    </Properties>
+    <ResourceURL>java://icici-utils-PreFlowProxy-Flow-1.jar</ResourceURL>
+</JavaCallout>

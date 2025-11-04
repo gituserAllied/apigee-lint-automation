@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JavaCallout async="false" continueOnError="false" enabled="true" name="JC-DecryptionOAEP">
+    <DisplayName>JC-DecryptionOAEP</DisplayName>
+    <ClassName>com.icici.java.crypto.apigee.run.DecryptOaepMGF1Padding</ClassName>
+    <Properties>
+        <Property name="privateKey">{private.decPrivateKey}</Property>
+        <Property name="content">{encodedEncryptedContent}</Property>
+        <Property name="iv">{encodedIv}</Property>
+        <Property name="key">{encodedEncryptedKey}</Property>
+        <Property name="mode">{verifyapikey.VA-VerifyApiKey.mode}</Property>
+        <Property name="decryptionAlgorithm">RSA/ECB/OAEPWithSHA-256AndMGF1Padding</Property>
+    </Properties>
+    <ResourceURL>java://icici-oaep-DEC.jar</ResourceURL>
+</JavaCallout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JavaCallout async="false" continueOnError="true" enabled="true" name="JC-Iputils">
+    <DisplayName>JC-Iputils</DisplayName>
+    <ClassName>com.ip_utils.run.Ipmask</ClassName>
+    <Properties>
+        <Property name="ips">{validIpList}</Property>
+        <Property name="setVariableName">validIpList</Property>
+    </Properties>
+    <ResourceURL>java://ip_utils_utils.jar</ResourceURL>
+</JavaCallout>

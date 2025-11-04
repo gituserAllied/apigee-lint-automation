@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-ICICIConfig" mapIdentifier="ICICI_CONFIG">
+    <DisplayName>KVM-ICICIConfig</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>300</ExpiryTimeInSecs>
+    <Get assignTo="private.decPrivateKey" index="1">
+        <Key>
+            <Parameter ref="verifyapikey.VA-VerifyApiKey.decryptionKey"/>
+        </Key>
+    </Get>
+    <Get assignTo="private.publicKeyChain" index="1">
+        <Key>
+            <Parameter ref="verifyapikey.VA-VerifyApiKey.jwtVerificationKey"/>
+        </Key>
+    </Get>
+    <Get assignTo="private.passphrase" index="1">
+        <Key>
+            <Parameter>ICICI_PASSPHRASE</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="private.symmetricKey" index="1">
+        <Key>
+            <Parameter>ICICI_PAYLATER_SYMMETRIC_KEY</Parameter>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

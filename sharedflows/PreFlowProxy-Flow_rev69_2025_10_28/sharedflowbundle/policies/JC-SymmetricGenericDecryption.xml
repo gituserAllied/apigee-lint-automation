@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JavaCallout async="false" continueOnError="false" enabled="true" name="JC-SymmetricGenericDecryption">
+    <DisplayName>JC-SymmetricGenericDecryption</DisplayName>
+    <ClassName>comfdrabrarazIwespabuwah.java.crypto.apigee.run.DecryptfrUfrobrlSPeKoqecHoj</ClassName>
+    <Properties>
+        <Property name="publicKey"/>
+        <Property name="content">{FieldToBeDecrypted}</Property>
+        <Property name="mode">{DecryptionMode}</Property>
+        <Property name="key">{private.symmetricKey}</Property>
+        <Property name="iv"/>
+    </Properties>
+    <ResourceURL>java://icici-utils-PreFlowProxy-Flow-1.jar</ResourceURL>
+</JavaCallout>

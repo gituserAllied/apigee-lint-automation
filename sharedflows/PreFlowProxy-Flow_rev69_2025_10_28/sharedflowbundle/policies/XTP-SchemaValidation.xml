@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XMLThreatProtection async="false" continueOnError="false" enabled="true" name="XTP-SchemaValidation">
+    <DisplayName>XTP-SchemaValidation</DisplayName>
+    <Properties/>
+    <NameLimits>
+        <Element>200</Element>
+        <Attribute>35</Attribute>
+        <NamespacePrefix>35</NamespacePrefix>
+        <ProcessingInstructionTarget>35</ProcessingInstructionTarget>
+    </NameLimits>
+    <Source>request</Source>
+    <StructureLimits>
+        <NodeDepth>15</NodeDepth>
+        <AttributeCountPerElement>12</AttributeCountPerElement>
+        <NamespaceCountPerElement>13</NamespaceCountPerElement>
+        <ChildCount includeComment="true" includeElement="true" includeProcessingInstruction="true" includeText="true">510</ChildCount>
+    </StructureLimits>
+    <ValueLimits>
+        <Text>5000</Text>
+        <Attribute>2000</Attribute>
+        <NamespaceURI>100</NamespaceURI>
+        <Comment>10</Comment>
+        <ProcessingInstructionData>20</ProcessingInstructionData>
+    </ValueLimits>
+</XMLThreatProtection>

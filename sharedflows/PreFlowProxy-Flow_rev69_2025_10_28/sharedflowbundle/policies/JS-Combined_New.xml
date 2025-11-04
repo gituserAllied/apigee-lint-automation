@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="1500" name="JS-Combined_New">
+    <DisplayName>JS-Combined_New</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://Combined.js</ResourceURL>
+</Javascript>

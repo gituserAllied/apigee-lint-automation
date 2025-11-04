@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Quota async="false" continueOnError="false" enabled="true" name="QA-Test" type="calendar">
+    <DisplayName>QA-Test</DisplayName>
+    <Properties/>
+    <Allow count="1" countRef="clientlevelperminute"/>
+    <Identifier ref="spikeidentifier"/>
+    <Interval>1</Interval>
+    <Distributed>true</Distributed>
+    <Synchronous>true</Synchronous>
+    <StartTime>2025-8-8 12:00:00</StartTime>
+    <TimeUnit>minute</TimeUnit>
+</Quota>

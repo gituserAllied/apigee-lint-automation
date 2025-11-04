@@ -1,16 +1,17 @@
-name: ApigeeLint Manual Bundle Scan
+name: ApigeeLint Automation (Dynamic)
 
 on:
   push:
     branches:
       - main
+    # Trigger when proxy or sharedflow folders change
     paths:
-      - ".github/workflows/apigeelint.yml"
-      - "sharedflows/**"
       - "apiproxy/**"
+      - "sharedflows/**"
+      - ".github/workflows/apigeelint.yml"
 
 permissions:
-  contents: write   # ✅ Allow workflow to push commits to the repo
+  contents: write   # ✅ allows GitHub Actions bot to push JSON files
 
 jobs:
   lint-and-report:
@@ -20,7 +21,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # ✅ ensure correct token used
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -33,21 +34,45 @@ jobs:
       - name: Prepare Output Folders
         run: mkdir -p JsonFile ExcelFile
 
-      - name: Run ApigeeLint on specific shared flow
+      - name: Detect Changed Bundles
+        id: detect
         run: |
-          echo "🔍 Running ApigeeLint on specific shared flow bundle..."
-          TARGET_PATH="${{ github.workspace }}/sharedflows/api_wise_spike_quota_rev23_2025_10_29/sharedflowbundle"
-          if [ -d "$TARGET_PATH" ]; then
-            echo "✅ Found sharedflowbundle folder at: $TARGET_PATH"
-            apigeelint -s "$TARGET_PATH" -f json.js -w "${{ github.workspace }}/JsonFile/api_wise_spike_quota_rev23_2025_10_29_report.json" || true
+          echo "🔍 Detecting changed apiproxy or sharedflow bundles..."
+          changed=$(git diff --name-only HEAD^ HEAD | grep -E '^(apiproxy|sharedflows)/' | cut -d/ -f1-2 | sort -u | uniq || true)
+          
+          if [ -z "$changed" ]; then
+            echo "⚠️ No changed bundles found, skipping lint."
+            echo "run_lint=false" >> $GITHUB_ENV
           else
-            echo "❌ Shared flow bundle not found at $TARGET_PATH"
-            exit 1
+            echo "✅ Bundles changed:"
+            echo "$changed"
+            echo "$changed" > changed.txt
+            echo "run_lint=true" >> $GITHUB_ENV
           fi
 
-      - name: Show JSON Output
+      - name: Run ApigeeLint
+        if: env.run_lint == 'true'
         run: |
-          echo "📄 Checking generated JSON files..."
+          echo "🚀 Running ApigeeLint on changed bundles..."
+          while read bundle; do
+            if [ -d "$bundle/apiproxy" ]; then
+              echo "🔍 Linting API Proxy: $bundle/apiproxy"
+              apigeelint -s "$bundle/apiproxy" -f json.js -w "JsonFile/${bundle//\//_}_proxy_report.json" || true
+            elif [ -d "$bundle/sharedflowbundle" ]; then
+              echo "🔍 Linting Shared Flow: $bundle/sharedflowbundle"
+              apigeelint -s "$bundle/sharedflowbundle" -f json.js -w "JsonFile/${bundle//\//_}_sf_report.json" || true
+            elif [ -d "$bundle" ]; then
+              echo "🔍 Fallback lint for: $bundle"
+              apigeelint -s "$bundle" -f json.js -w "JsonFile/${bundle//\//_}_fallback_report.json" || true
+            else
+              echo "⚠️ Skipping $bundle (no valid path found)"
+            fi
+          done < changed.txt
+
+      - name: Show JSON Output
+        if: env.run_lint == 'true'
+        run: |
+          echo "📦 JSON reports generated:"
           ls -lh JsonFile || true
           echo ""
           for f in JsonFile/*.json; do
@@ -57,13 +82,14 @@ jobs:
           done
 
       - name: Commit and Push JSON Output
+        if: env.run_lint == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add JsonFile/*.json || true
           if ! git diff --cached --quiet; then
-            git commit -m "Auto: Added ApigeeLint report for api_wise_spike_quota_rev23_2025_10_29"
+            git commit -m "Auto: Added ApigeeLint reports for changed bundles"
             git push origin main
           else
-            echo "ℹ️ No new JSON to commit."
+            echo "ℹ️ No new JSON files to commit."
           fi
